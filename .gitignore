@@ -1,0 +1,5 @@
+#ignore compiled files
+CIFF_parser/ciff
+
+#ignore vscode stuff
+.vscode/
