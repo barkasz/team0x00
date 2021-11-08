@@ -79,7 +79,7 @@ public:
 
 
             // header_size
-            header_size = readInt(ciffFile);
+            header_size = readData<int64_t>(ciffFile);
 #ifdef TESZT
             cout << "header: " << header_size << endl;
 #endif
@@ -97,7 +97,7 @@ public:
             int64_t header_end = header_start + header_size;
 
             // content_size
-            content_size = readInt(ciffFile);
+            content_size = readData<int64_t>(ciffFile);
 #ifdef TESZT
             cout << "content: " << content_size << endl;
 #endif
@@ -111,6 +111,7 @@ public:
                 readSize += 8;
             }
 
+            //if (content_size + header_size != file_length)
 
             // width
             width = readData<int64_t>(ciffFile);
@@ -123,7 +124,7 @@ public:
             }
 
 
-            height = readInt(ciffFile);
+            height = readData<int64_t>(ciffFile);
 #ifdef TESZT
             cout << "height: " << height << endl;
 #endif
@@ -140,6 +141,7 @@ public:
                 readSize += 16;
             }
 
+            //!!!
             getline(ciffFile, caption, '\n');
 #ifdef TESZT
             cout << "caption: " << caption << endl;
