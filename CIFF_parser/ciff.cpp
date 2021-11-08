@@ -56,8 +56,6 @@ public:
         cout << filename << endl;
         std::ifstream ciffFile(filename, std::ios::binary);
         if (ciffFile.is_open()) {
-            int64_t header_start = ciffFile.tellg();
-
             ciffFile.seekg(0, ciffFile.end);
             int64_t file_length = ciffFile.tellg();
             ciffFile.seekg(0, ciffFile.beg);
@@ -92,9 +90,6 @@ public:
             } else {
                 readSize += 8;
             }
-
-
-            int64_t header_end = header_start + header_size;
 
             // content_size
             content_size = readData<int64_t>(ciffFile);
