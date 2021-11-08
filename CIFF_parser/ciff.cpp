@@ -62,11 +62,11 @@ public:
             int64_t file_length = ciffFile.tellg();
             ciffFile.seekg(0, ciffFile.beg);
             int64_t readSize = 0;
+            cout << file_length << endl;
             // magic_chars
-            magic_chars.append(string(1, readData<char>(ciffFile)));
-            magic_chars.append(string(1, readData<char>(ciffFile)));
-            magic_chars.append(string(1, readData<char>(ciffFile)));
-            magic_chars.append(string(1, readData<char>(ciffFile)));
+            for (int i = 0; i < 4; ++i)
+                magic_chars.append(string(1, readData<char>(ciffFile)));
+
 #ifdef TESZT
             cout << "magic: " << magic_chars << endl;
 #endif
@@ -86,8 +86,8 @@ public:
             if (header_size > file_length) {
                 cout << "BAD FILE: Too big header size" << endl;
                 exit(1);
-            } else if (header_size < 0) {
-                cout << "BAD FILE: header size < 0" << endl;
+            } else if (header_size < 38) {
+                cout << "BAD FILE: header size < 38" << endl;
                 exit(1);
             } else {
                 readSize += 8;
@@ -111,7 +111,10 @@ public:
                 readSize += 8;
             }
 
-            //if (content_size + header_size != file_length)
+            if (content_size + header_size != file_length) {
+                cout << "Content size + header size != file size" << endl;
+                exit(1);
+            }
 
             // width
             width = readData<int64_t>(ciffFile);
@@ -142,16 +145,42 @@ public:
             }
 
             //!!!
-            getline(ciffFile, caption, '\n');
+
+            char header_left[header_size - readSize + 1];
+            bool line_break = false;
+            for (int64_t i = 0; i < header_size - readSize; ++i) {
+                header_left[i] = readData<char>(ciffFile);
+                if (header_left[i] == '\n') {
+                    if (line_break) {
+                        cout << "Invalid tag" << endl;
+                        exit(1);
+                    }
+                    line_break = true;
+                }
+                if (header_left[i] == '\0' && !line_break) {
+                    cout << "Invalid caption" << endl;
+                    exit(1);
+                }
+            }
+            header_left[header_size - readSize] = '\0';
+            string temp = string(header_left);
+            caption = temp.substr(0, temp.find('\n'));
+
+            readSize += caption.length() + 1;
+            ciffFile.seekg(readSize);
+//            getline(ciffFile, caption, '\n');
 #ifdef TESZT
             cout << "caption: " << caption << endl;
 #endif
-            //   TODO check?
-            readSize += caption.length() + 1;
-
+//               TODO check?
+//
             while (readSize < header_size) {
                 string line;
                 getline(ciffFile, line, '\0');
+                if (line.length() + readSize + 1 > header_size) {
+                    cout << "Too long tag." << endl;
+                    exit(1);
+                }
                 tags.push_back(line);
                 readSize += line.length() + 1;
             }
