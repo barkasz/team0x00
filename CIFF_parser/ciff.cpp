@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 #include <sstream>
 #include "ciff.hpp"
 
@@ -10,6 +11,13 @@
 
 
 using namespace std;
+
+struct pixel {
+    char r;
+    char g;
+    char b;
+};
+
 
 class CIFF {
     /*
@@ -53,9 +61,12 @@ public:
             ciffFile.seekg(0, ciffFile.end);
             int64_t file_length = ciffFile.tellg();
             ciffFile.seekg(0, ciffFile.beg);
-            long readSize = 0;
+            int64_t readSize = 0;
             // magic_chars
-            magic_chars = readString(ciffFile, 4);
+            magic_chars.append(string(1, readData<char>(ciffFile)));
+            magic_chars.append(string(1, readData<char>(ciffFile)));
+            magic_chars.append(string(1, readData<char>(ciffFile)));
+            magic_chars.append(string(1, readData<char>(ciffFile)));
 #ifdef TESZT
             cout << "magic: " << magic_chars << endl;
 #endif
@@ -102,7 +113,7 @@ public:
 
 
             // width
-            width = readInt(ciffFile);
+            width = readData<int64_t>(ciffFile);
 #ifdef TESZT
             cout << "width: " << width << endl;
 #endif
@@ -148,15 +159,22 @@ public:
             cout << endl;
 #endif
 
+            // pixelek
+
+            vector<pixel> pixels;
+            for (int i = 0; i < content_size; i += 3) {
+                //readData><char>();
+                struct pixel p = {readData<char>(ciffFile), readData<char>(ciffFile), readData<char>(ciffFile)};
+                pixels.push_back(p);
+            }
+
+            ciffFile.close();
         } else {
             cout << "Ciff open failed." << endl;
             exit(1);
         }
     }
-
-
 };
-
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
