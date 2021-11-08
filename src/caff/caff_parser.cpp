@@ -4,7 +4,6 @@
 
 
 #include "caff.hpp"
-#include "../aixlog.hpp"
 #include <stdint.h>
 #include <vector>
 #include <string>
@@ -49,22 +48,15 @@ class CaffParser {
 		
 		new_block.id = raw_file_content.at(block_index);	// extracting id
 		block_index++;
-		
-		std::cout << "raw file size: " << raw_file_content.size() << endl;
-		std::cout << "block id as hex: " << uint8_to_hex(new_block.id) << endl;
-		/////////////////////////////////
-		uint64_t length = 0;
-		vector<uint8_t> length_v(&raw_file_content[block_index], &raw_file_content[block_index + 8]);
-		memcpy(&length, length_v.data() + 0, sizeof(uint64_t));
+		memcpy(&new_block.length, raw_file_content.data() + block_index, sizeof(uint64_t));
 		block_index += 8;
-		
-		std::cout << "block length as hex: " << uint8_vector_to_hex_string(length_v) << endl;
-		std::cout << "length as uint32_t: " << length << endl;
-		/////////////////////////////////
-		vector<uint8_t> data(&raw_file_content[block_index], &raw_file_content[block_index + length]);
+		vector<uint8_t> data_v(&raw_file_content[block_index], &raw_file_content[block_index + length]);
+		new_block.data = data_v;
 		block_index += length;
-		std::cout << "data as hex: " << uint8_vector_to_hex_string(data) << std::endl;
-		std::cout << block_index << std::endl;
+		
+		std::cout << "block id as hex: " << uint8_to_hex(new_block.id) << endl;
+		std::cout << "length as uint32_t: " << new_block.length << endl;
+		std::cout << "data as hex: " << uint8_vector_to_hex_string(new_block.data) << std::endl;
 		
 		return new_block;
 	}
@@ -77,7 +69,6 @@ class CaffParser {
 			block_t block = parse_block(raw_file_content, block_index);
 			blocks.push_back(block);
 		}
-		
 		return blocks;
 	}
 	
@@ -86,35 +77,70 @@ class CaffParser {
 			switch (block.id) {
 				case uint8_t(0x01):
 				{
-					caff_header_t header = parse_caff_header(block.data);
+					caff.header = parse_caff_header(block.data);
 					break;
 				}
 				case uint8_t(0x02):
 				{
-					caff_credits_t credits = parse_caff_credits(block.data);
+					caff.credits.push_back(parse_caff_credits(block.data));
 					break;
 				}
 				case uint8_t(0x03):
 				{
-					caff_animation_t animation = parse_caff_animation(block.data);
+					caff.animation.push_back(parse_caff_animation(block.data));
 					break;
 				}
+				default: break;
 			}
 		}
 	}
 	
-	caff_header_t parse_caff_header(const std::vector<uint8_t>& data) {
+	caff_header_t parse_caff_header(const std::vector<uint8_t> data) {
 		caff_header_t header = {0};
+		
+		memcpy(&header.magic, data.data() + 0, sizeof(uint8_t) * 4);
+		memcpy(&header.header_size, data.data() + 4, sizeof(uint64_t));
+		memcpy(&header.num_anim, data.data() + 12, sizeof(uint64_t));
+		
+		std::cout << header.magic << std::endl;
+		std::cout << header.header_size << std::endl;
+		std::cout << header.num_anim << std::endl;
+		
 		return header;
 	}
 	
-	caff_credits_t parse_caff_credits(const std::vector<uint8_t>& data) {
+	caff_credits_t parse_caff_credits(const std::vector<uint8_t> data) {
 		caff_credits_t credits = {0};
+		
+		memcpy(&credits.year, data.data() + 0, sizeof(uint8_t) * 2);
+		memcpy(&credits.month, data.data() + 2, sizeof(uint8_t));
+		memcpy(&credits.day, data.data() + 3, sizeof(uint8_t));
+		memcpy(&credits.hour, data.data() + 4, sizeof(uint8_t));
+		memcpy(&credits.minute, data.data() + 5, sizeof(uint8_t));
+		memcpy(&credits.creator_len, data.data() + 6, sizeof(uint64_t));
+		
+		std::string l_creator(data.begin() + 14, data.end());
+		credits.creator = l_creator;
+		
+		std::cout << credits.year << std::endl;
+		std::cout << uint8_to_hex(credits.month) << std::endl;
+		std::cout << uint8_to_hex(credits.day) << std::endl;
+		std::cout << uint8_to_hex(credits.hour) << std::endl;
+		std::cout << uint8_to_hex(credits.minute) << std::endl;
+		std::cout << credits.creator_len << std::endl;
+		std::cout << credits.creator << std::endl;
+		
 		return credits;
 	}
 	
-	caff_animation_t parse_caff_animation(const std::vector<uint8_t>& data) {
+	caff_animation_t parse_caff_animation(const std::vector<uint8_t> data) {
 		caff_animation_t animation = {0};
+		
+		memcpy(&animation.duration, data.data() + 0, sizeof(uint64_t));
+		std::cout << animation.duration << std::endl;
+		
+		// TODO: implement CAFF
+		
 		return animation;
 	}
 	
@@ -124,13 +150,11 @@ public:
 		caff_t caff = {0};
 		
 		std::vector<uint8_t> file_content = read_file_to_uint8(path_to_file);
-		//std::cout << uint8_vector_to_hex_string(file_content);
 		std::vector<block_t> blocks = parse_blocks(file_content);
 		process_blocks_contents(caff, blocks);
 		
 		return caff;
 	}
-	
 	
 };
 

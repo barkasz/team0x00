@@ -9,7 +9,7 @@ CFLAGS = -std=c++11 -wall -g
 sources := src
 target := target
 caff_folder := caff
-depends := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(sources)/$(caff_folder)/caff.hpp $(sources)/aixlog.hpp
+depends := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(sources)/$(caff_folder)/caff.hpp
 output = parser
 
 caff: $(depends)

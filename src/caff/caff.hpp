@@ -7,6 +7,7 @@
 
 #include <stdint.h>
 #include <vector>
+#include <string>
 
 struct caff_header_t {
 	uint8_t magic[4];
@@ -21,7 +22,7 @@ struct caff_credits_t {
 	uint8_t hour;
 	uint8_t minute;
 	uint64_t creator_len;
-	std::vector<uint8_t> creator;
+	std::string creator;
 };
 
 struct caff_animation_t {
