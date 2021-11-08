@@ -3,3 +3,6 @@ CIFF_parser/ciff
 
 #ignore vscode stuff
 .vscode/
+
+#ignore clion stuff
+.idea/

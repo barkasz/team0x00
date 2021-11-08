@@ -11,6 +11,8 @@ ciff_folder := CIFF_parser
 depends := $(ciff_folder)/ciff.cpp $(ciff_folder)/ciff.hpp
 output = $(ciff_folder)/ciff
 
+all: ciff
+
 ciff: $(depends)
 	$(CC) -o $(output) $(depends)
 
