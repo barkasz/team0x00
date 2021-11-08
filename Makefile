@@ -7,10 +7,9 @@ CC = g++
 CFLAGS = -wall -g
 
 sources := src
-includes := include
 target := target
 caff_folder := caff
-depends := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(includes)/$(caff_folder)/caff_parser.h
+depends := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(sources)/$(caff_folder)/caff.hpp
 output = parser
 
 caff: $(depends)

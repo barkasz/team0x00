@@ -9,10 +9,10 @@
 #include <vector>
 
 struct caff_header {
-	uint8_t[4] magic;
+	uint8_t magic[4];
 	uint64_t header_size;
 	uint64_t num_anim;
-} caff_header;
+};
 
 struct caff_credits {
 	uint16_t year;
@@ -22,17 +22,17 @@ struct caff_credits {
 	uint8_t minute;
 	uint64_t creator_len;
 	std::vector<uint8_t> creator;
-} caff_credits_t;
+};
 
 struct caff_animation {
 	uint64_t duration;
 	uint8_t ciff; 		// TODO: replace with CIFF type
-} caff_animation_t;
+};
 
 struct block {
 	uint8_t id;
 	uint64_t length;
 	std::vector<uint8_t> data;
-} block_t;
+};
 
 #endif //TEAM0X00_INCLUDE_CAFF_CAFF_HPP
