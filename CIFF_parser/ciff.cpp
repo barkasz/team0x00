@@ -168,12 +168,9 @@ public:
 
             readSize += caption.length() + 1;
             ciffFile.seekg(readSize);
-//            getline(ciffFile, caption, '\n');
 #ifdef TESZT
             cout << "caption: " << caption << endl;
 #endif
-//               TODO check?
-//
             while (readSize < header_size) {
                 string line;
                 getline(ciffFile, line, '\0');
