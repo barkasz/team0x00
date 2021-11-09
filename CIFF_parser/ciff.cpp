@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-#include <sstream>
 #include "ciff.hpp"
 
 #define TESZT
@@ -53,14 +52,12 @@ public:
         https://www.cplusplus.com/reference/istream/istream/read/
     */
     void parseCiff(std::string const &filename) {
-        cout << filename << endl;
         std::ifstream ciffFile(filename, std::ios::binary);
         if (ciffFile.is_open()) {
             ciffFile.seekg(0, ciffFile.end);
             int64_t file_length = ciffFile.tellg();
             ciffFile.seekg(0, ciffFile.beg);
             int64_t readSize = 0;
-            cout << file_length << endl;
             // magic_chars
             for (int i = 0; i < 4; ++i)
                 magic_chars.append(string(1, readData<char>(ciffFile)));
@@ -82,10 +79,10 @@ public:
             cout << "header: " << header_size << endl;
 #endif
             if (header_size > file_length) {
-                cout << "BAD FILE: Too big header size" << endl;
+                cerr << "BAD FILE: Too big header size" << endl;
                 exit(1);
             } else if (header_size < 38) {
-                cout << "BAD FILE: header size < 38" << endl;
+                cerr << "BAD FILE: header size < 38" << endl;
                 exit(1);
             } else {
                 readSize += 8;
@@ -97,17 +94,17 @@ public:
             cout << "content: " << content_size << endl;
 #endif
             if (content_size > file_length) {
-                cout << "BAD FILE: Too big content size" << endl;
+                cerr << "BAD FILE: Too big content size" << endl;
                 exit(1);
             } else if (content_size < 0) {
-                cout << "BAD FILE: content size < 0" << endl;
+                cerr << "BAD FILE: content size < 0" << endl;
                 exit(1);
             } else {
                 readSize += 8;
             }
 
             if (content_size + header_size != file_length) {
-                cout << "Content size + header size != file size" << endl;
+                cerr << "Content size + header size != file size" << endl;
                 exit(1);
             }
 
@@ -117,7 +114,7 @@ public:
             cout << "width: " << width << endl;
 #endif
             if (width < 0) {
-                cout << "BAD FILE: image width < 0" << endl;
+                cerr << "BAD FILE: image width < 0" << endl;
                 exit(1);
             }
 
@@ -127,7 +124,7 @@ public:
             cout << "height: " << height << endl;
 #endif
             if (height < 0) {
-                cout << "BAD FILE: image height < 0" << endl;
+                cerr << "BAD FILE: image height < 0" << endl;
                 exit(1);
             }
 
@@ -141,7 +138,8 @@ public:
 
             //!!!
 
-            char header_left[header_size - readSize + 1];
+            int64_t valami = header_size;
+            char header_left[valami - readSize + 1];
             bool line_break = false;
             for (int64_t i = 0; i < header_size - readSize; ++i) {
                 header_left[i] = readData<char>(ciffFile);
@@ -157,8 +155,9 @@ public:
                     exit(1);
                 }
             }
+
             header_left[header_size - readSize] = '\0';
-            string temp = string(header_left);
+            auto temp = string(header_left);
             caption = temp.substr(0, temp.find('\n'));
 
             readSize += caption.length() + 1;
@@ -206,7 +205,6 @@ int main(int argc, char *argv[]) {
     }
     //check input
     std::string filename = argv[1];
-    std::cout << "Mukodik." << std::endl;
     CIFF test;
     test.parseCiff(filename);
 

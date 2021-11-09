@@ -9,8 +9,8 @@ inline T readData(std::istream &file) {
     T number;
     file.read(reinterpret_cast<char *>(&number), sizeof(T));
     if (file.fail()) {
-        std::cout << "BAD FILE: File is too short" << std::endl;
+        std::cerr << "BAD FILE: File is too short" << std::endl;
         exit(1);
     }
-    return (number);
+    return number;
 }
