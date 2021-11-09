@@ -66,7 +66,7 @@ public:
             cout << "magic: " << magic_chars << endl;
 #endif
             if (magic_chars != "CIFF") {
-                cout << "BAD FILE: Missing magic characters" << endl;
+                cerr << "BAD FILE: Missing magic characters" << endl;
                 exit(1);
             } else {
                 readSize += 4;
