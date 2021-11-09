@@ -130,7 +130,7 @@ public:
 
 
             if (width * height * 3 != content_size) {
-                cout << "BAD FILE: content size != width x height x 3" << endl;
+                cerr << "BAD FILE: content size != width x height x 3" << endl;
                 exit(1);
             } else {
                 readSize += 16;
@@ -145,13 +145,13 @@ public:
                 header_left[i] = readData<char>(ciffFile);
                 if (header_left[i] == '\n') {
                     if (line_break) {
-                        cout << "Invalid tag" << endl;
+                        cerr << "Invalid tag" << endl;
                         exit(1);
                     }
                     line_break = true;
                 }
                 if (header_left[i] == '\0' && !line_break) {
-                    cout << "Invalid caption" << endl;
+                    cerr << "Invalid caption" << endl;
                     exit(1);
                 }
             }
@@ -169,7 +169,7 @@ public:
                 string line;
                 getline(ciffFile, line, '\0');
                 if (line.length() + readSize + 1 > header_size) {
-                    cout << "Too long tag." << endl;
+                    cerr << "Too long tag." << endl;
                     exit(1);
                 }
                 tags.push_back(line);
@@ -192,7 +192,7 @@ public:
 
             ciffFile.close();
         } else {
-            cout << "Ciff open failed." << endl;
+            cerr << "Ciff open failed." << endl;
             exit(1);
         }
     }
