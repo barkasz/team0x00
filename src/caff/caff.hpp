@@ -63,5 +63,4 @@ struct caff_t {
 	std::vector<caff_animation_t> animation;
 };
 
-
 #endif //TEAM0X00_INCLUDE_CAFF_CAFF_HPP
