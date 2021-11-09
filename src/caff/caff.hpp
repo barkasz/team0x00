@@ -5,7 +5,7 @@
 #ifndef TEAM0X00_INCLUDE_CAFF_CAFF_HPP
 #define TEAM0X00_INCLUDE_CAFF_CAFF_HPP
 
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 #include <string>
 

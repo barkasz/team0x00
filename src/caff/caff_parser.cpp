@@ -4,13 +4,10 @@
 
 
 #include "caff.hpp"
-#include <stdint.h>
-#include <vector>
-#include <string>
 #include <cstdint>
+#include <vector>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <cstring>
 
 using namespace std;

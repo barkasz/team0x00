@@ -3,9 +3,7 @@
 //
 
 #include <iostream>
-#include <string>
 #include <vector>
-#include <stdint.h>
 #include "caff/caff_parser.cpp"
 #include "cpplog.hpp"
 
