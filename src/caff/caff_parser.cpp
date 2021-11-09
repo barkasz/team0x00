@@ -24,39 +24,19 @@ class CaffParser {
 		return data;
 	}
 	
-	std::string uint8_vector_to_hex_string(const vector<uint8_t>& v) const {
-		std::string result;
-		result.reserve(v.size() * 2);   // two digits per character
-		static constexpr char hex[] = "0123456789ABCDEF";
-		for (uint8_t c : v)
-		{
-			result.push_back(hex[c / 16]);
-			result.push_back(hex[c % 16]);
-		}
-		return result;
-	}
-	
-	std::string uint8_to_hex(const uint8_t& c) const{
-		std::string result;
-		static constexpr char hex[] = "0123456789ABCDEF";
-		result.push_back(hex[c / 16]);
-		result.push_back(hex[c % 16]);
-		return result;
-	}
-	
 	block_t parse_block(std::vector<uint8_t> raw_file_content, int& block_index) {
 		block_t new_block = {0};
 		
-		new_block.id = raw_file_content.at(block_index);	// extracting id
-		block_index++;
-		memcpy(&new_block.length, raw_file_content.data() + block_index, sizeof(uint64_t));
-		block_index += 8;
+		new_block.id = raw_file_content.at(block_index);
+		block_index += BLOCK_ID_LENGTH;
+		memcpy(&new_block.length, raw_file_content.data() + block_index, BLOCK_LENGTH_LENGTH);
+		block_index += BLOCK_LENGTH_LENGTH;
 		vector<uint8_t> data_v(&raw_file_content[block_index], &raw_file_content[block_index + new_block.length]);
 		new_block.data = data_v;
 		block_index += new_block.length;
 		
 		LOG_DEBUG(log) << "block parsing:" << std::endl;
-		LOG_DEBUG(log) << "\tblock id as hex: " << uint8_to_hex(new_block.id) << std::endl;
+		LOG_DEBUG(log) << "\tblock id as hex: " << (int)new_block.id << std::endl;
 		LOG_DEBUG(log) << "\tlength as uint32_t: " << new_block.length << std::endl;
 		
 		return new_block;
@@ -76,13 +56,13 @@ class CaffParser {
 	void process_blocks_contents(caff_t& caff, const std::vector<block_t>& blocks) {
 		for (const block_t& block : blocks) {
 			switch (block.id) {
-				case uint8_t(0x01):
+				case HEADER_BLOCK_ID:
 					caff.header = parse_caff_header(block.data);
 					break;
-				case uint8_t(0x02):
+				case CREDITS_BLOCK_ID:
 					caff.credits.push_back(parse_caff_credits(block.data));
 					break;
-				case uint8_t(0x03):
+				case ANIMATION_BLOCK_ID:
 					caff.animation.push_back(parse_caff_animation(block.data));
 					break;
 				default:
@@ -93,10 +73,13 @@ class CaffParser {
 	
 	caff_header_t parse_caff_header(const std::vector<uint8_t>& data) {
 		caff_header_t header = {0};
+		int pointer = 0;
 		
-		memcpy(&header.magic, data.data() + 0, sizeof(uint8_t) * 4);
-		memcpy(&header.header_size, data.data() + 4, sizeof(uint64_t));
-		memcpy(&header.num_anim, data.data() + 12, sizeof(uint64_t));
+		memcpy(&header.magic, data.data(), HEADER_MAGIC_LENGTH);
+		pointer += HEADER_MAGIC_LENGTH;
+		memcpy(&header.header_size, data.data() + pointer, HEADER_HEADER_SIZE_LENGTH);
+		pointer += HEADER_HEADER_SIZE_LENGTH;
+		memcpy(&header.num_anim, data.data() + pointer, HEADER_NUM_ANIM_LENGTH);
 		
 		LOG_DEBUG(log) << "caff header: " << std::endl;
 		LOG_DEBUG(log) << "\tmagic: " << header.magic << std::endl;
@@ -108,20 +91,26 @@ class CaffParser {
 	
 	caff_credits_t parse_caff_credits(const std::vector<uint8_t>& data) {
 		caff_credits_t credits = {0};
+		int pointer = 0;
 		
-		memcpy(&credits.year, data.data() + 0, sizeof(uint8_t) * 2);
-		memcpy(&credits.month, data.data() + 2, sizeof(uint8_t));
-		memcpy(&credits.day, data.data() + 3, sizeof(uint8_t));
-		memcpy(&credits.hour, data.data() + 4, sizeof(uint8_t));
-		memcpy(&credits.minute, data.data() + 5, sizeof(uint8_t));
-		memcpy(&credits.creator_len, data.data() + 6, sizeof(uint64_t));
-		
-		std::string l_creator(data.begin() + 14, data.end());
+		memcpy(&credits.year, data.data(), CREDITS_YEAR_LENGTH);
+		pointer += CREDITS_YEAR_LENGTH;
+		memcpy(&credits.month, data.data() + pointer, CREDITS_MONTH_LENGTH);
+		pointer += CREDITS_MONTH_LENGTH;
+		memcpy(&credits.day, data.data() + pointer, CREDITS_DAY_LENGTH);
+		pointer += CREDITS_DAY_LENGTH;
+		memcpy(&credits.hour, data.data() + pointer, CREDITS_HOUR_LENGTH);
+		pointer += CREDITS_HOUR_LENGTH;
+		memcpy(&credits.minute, data.data() + pointer, CREDITS_MINUTE_LENGTH);
+		pointer += CREDITS_MINUTE_LENGTH;
+		memcpy(&credits.creator_len, data.data() + pointer, CREDITS_CREATOR_LEN_LENGTH);
+		pointer += CREDITS_CREATOR_LEN_LENGTH;
+		std::string l_creator(data.begin() + pointer, data.end());
 		credits.creator = l_creator;
 		
 		LOG_DEBUG(log) << "credits header: " <<  std::endl;
-		LOG_DEBUG(log) << "\tyear: " << credits.year << std::endl;
-		LOG_DEBUG(log) << "\tmonth: " << uint8_to_hex(credits.month) << std::endl;
+		LOG_DEBUG(log) << "\tyear: " << (int)credits.year << std::endl;
+		LOG_DEBUG(log) << "\tmonth: " << (int)credits.month << std::endl;
 		LOG_DEBUG(log) << "\tday: " << (int)credits.day << std::endl;
 		LOG_DEBUG(log) << "\thour: " << (int)credits.hour << std::endl;
 		LOG_DEBUG(log) << "\tminute: " << (int)credits.minute << std::endl;
@@ -134,7 +123,7 @@ class CaffParser {
 		}
 		
 		if(!is_valid_time((int)credits.hour, (int)credits.minute)) {
-			LOG_ERROR(log) << "Invalid hour and minute!!" << std::endl;
+			LOG_ERROR(log) << "Invalid hour and minute!" << std::endl;
 			exit(1);
 		}
 		
@@ -143,8 +132,10 @@ class CaffParser {
 	
 	caff_animation_t parse_caff_animation(const std::vector<uint8_t>& data) {
 		caff_animation_t animation = {0};
+		int pointer = 0;
 		
-		memcpy(&animation.duration, data.data() + 0, sizeof(uint64_t));
+		memcpy(&animation.duration, data.data(), ANIMATION_DURATION_LENGTH);
+		pointer += ANIMATION_DURATION_LENGTH;
 		
 		LOG_DEBUG(log) << "animation header: " <<  std::endl;
 		LOG_DEBUG(log) << "\tduration: " << animation.duration << std::endl;
@@ -167,7 +158,6 @@ public:
 			LOG_ERROR(log) << "Caff parsing failed!" << std::endl;
 		}
 		
-
 		return caff;
 	}
 	
