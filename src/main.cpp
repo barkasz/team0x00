@@ -1,9 +1,9 @@
 //
 // Created by akos on 2021. 11. 08..
 //
+#define CPPLOG_FILTER_LEVEL 1
 
 #include <iostream>
-#include <vector>
 #include "caff/caff_parser.cpp"
 #include "cpplog.hpp"
 
