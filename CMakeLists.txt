@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.15.3)
 project(CAFF_parser)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -9,7 +9,8 @@ add_executable(CAFF_parser
         src/main.cpp
         src/caff/caff.hpp
         src/caff/caff_parser.cpp
-        src/cpplog.hpp)
+        src/cpplog.hpp
+        src/caff/date_validator.hpp)
 
 add_executable(CIFF_parser
         src/ciff/ciff.cpp

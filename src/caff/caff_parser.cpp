@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstring>
 #include "caff.hpp"
+#include "date_validator.hpp"
 #include "../cpplog.hpp"
 
 
@@ -121,11 +122,21 @@ class CaffParser {
 		LOG_DEBUG(log) << "credits header: " <<  std::endl;
 		LOG_DEBUG(log) << "\tyear: " << credits.year << std::endl;
 		LOG_DEBUG(log) << "\tmonth: " << uint8_to_hex(credits.month) << std::endl;
-		LOG_DEBUG(log) << "\tday: " << uint8_to_hex(credits.day) << std::endl;
-		LOG_DEBUG(log) << "\thour: " << uint8_to_hex(credits.hour) << std::endl;
-		LOG_DEBUG(log) << "\tminute: " << uint8_to_hex(credits.minute) << std::endl;
+		LOG_DEBUG(log) << "\tday: " << (int)credits.day << std::endl;
+		LOG_DEBUG(log) << "\thour: " << (int)credits.hour << std::endl;
+		LOG_DEBUG(log) << "\tminute: " << (int)credits.minute << std::endl;
 		LOG_DEBUG(log) << "\tcreator_len: " << credits.creator_len << std::endl;
 		LOG_DEBUG(log) << "\tcreator: " << credits.creator << std::endl;
+		
+		if(!is_valid_date((int)credits.day, (int)credits.month, (int)credits.year)) {
+			LOG_ERROR(log) << "Invalid date!" << std::endl;
+			exit(1);
+		}
+		
+		if(!is_valid_time((int)credits.hour, (int)credits.minute)) {
+			LOG_ERROR(log) << "Invalid hour and minute!!" << std::endl;
+			exit(1);
+		}
 		
 		return credits;
 	}
@@ -148,10 +159,15 @@ public:
 	caff_t parseCaff(std::string const &path_to_file) {
 		caff_t caff = {0};
 		
-		std::vector<uint8_t> file_content = read_file_to_uint8(path_to_file);
-		std::vector<block_t> blocks = parse_blocks(file_content);
-		process_blocks_contents(caff, blocks);
+		try {
+			std::vector<uint8_t> file_content = read_file_to_uint8(path_to_file);
+			std::vector<block_t> blocks = parse_blocks(file_content);
+			process_blocks_contents(caff, blocks);
+		} catch (const std::exception&) {
+			LOG_ERROR(log) << "Caff parsing failed!" << std::endl;
+		}
 		
+
 		return caff;
 	}
 	
