@@ -1,14 +1,24 @@
 #include <string>
 #include <cstdint>
 #include <vector>
-#include <fstream>
 #include <iostream>
-#include <filesystem>
-#include <sstream>
 #include "ciff.hpp"
 
-#define TESZT
+//#define  main
 
+// Severity levels:
+// Note: Giving a value for CPPLOG_FILTER_LEVEL will log all messages at
+//       or above that level.
+//  0 - Trace
+//  1 - Debug
+//  2 - Info
+//  3 - Warning
+//  4 - Error
+//  5 - Fatal (always logged)
+//Prevents all log messages with level less than <level> from being emitted.
+#define CPPLOG_FILTER_LEVEL 1
+
+#include "cpplog.hpp"
 
 using namespace std;
 
@@ -40,7 +50,7 @@ private:
     uint64_t height;
     std::string caption;
     std::vector<std::string> tags;
-
+    cpplog::StdErrLogger log;
 public:
     CIFF() {
 
@@ -200,7 +210,8 @@ int main(int argc, char *argv[]) {
     std::string filename = argv[1];
     auto file = read_file_to_uint8(filename);
     CIFF test;
-    test.parseCiff(filename);
+    test.parseCiff(file);
 
     return 0;
 }
+#endif
