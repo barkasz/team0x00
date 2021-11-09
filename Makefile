@@ -10,19 +10,18 @@ CFLAGS = -wall -g
 sources := src
 ciff_folder := ciff
 caff_folder := caff
+depends_main := $(sources)/main.cpp
 depends_ciff := $(sources)/$(ciff_folder)/ciff.cpp $(sources)/$(ciff_folder)/ciff.hpp $(sources)/cpplog.hpp
-depends_caff := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(sources)/$(caff_folder)/caff.hpp $(sources)/cpplog.hpp $(sources)/$(caff_folder)/date_validator.hpp
+depends_caff := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/$(caff_folder)/caff.hpp $(sources)/cpplog.hpp $(sources)/$(caff_folder)/date_validator.hpp
 output_ciff := ciff
 output_caff := caff
-output := $(output_caff) $(output_ciff)
+output_parser := parser
+output := $(output_parser) $(output_caff) $(output_ciff)
 
-all: ciff caff
+all: parser
 
-ciff: $(depends_ciff)
-	$(CC) -o $(output_ciff) $(depends_ciff)
+parser: $(depends_ciff) $(depends_caff) $(depends_main)
+	$(CC) -o $(output_parser) $(depends_main) $(depends_ciff) $(depends_caff)
 
-caff: $(depends_caff)
-	$(CC) -o $(output_caff) $(depends_caff)
-
-clean: 
+clean:
 	rm $(output)

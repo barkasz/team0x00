@@ -8,10 +8,11 @@
 #include <cstdint>
 #include <vector>
 #include <string>
+#include "../ciff/ciff.cpp"
 
-const int HEADER_BLOCK_ID = 0x01;
-const int CREDITS_BLOCK_ID = 0x02;
-const int ANIMATION_BLOCK_ID = 0x03;
+const uint8_t HEADER_BLOCK_ID = 0x01;
+const uint8_t CREDITS_BLOCK_ID = 0x02;
+const uint8_t ANIMATION_BLOCK_ID = 0x03;
 
 struct caff_header_t {
 	uint8_t magic[4];
@@ -43,7 +44,7 @@ const int CREDITS_CREATOR_LEN_LENGTH = sizeof(uint64_t);
 
 struct caff_animation_t {
 	uint64_t duration;
-	uint8_t ciff; 		// TODO: replace with CIFF type
+	CIFF ciff;
 };
 
 const int ANIMATION_DURATION_LENGTH = sizeof(uint64_t);

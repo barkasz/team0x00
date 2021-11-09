@@ -18,7 +18,7 @@
 //Prevents all log messages with level less than <level> from being emitted.
 #define CPPLOG_FILTER_LEVEL 1
 
-#include "cpplog.hpp"
+#include "../cpplog.hpp"
 
 using namespace std;
 
@@ -27,7 +27,6 @@ struct pixel {
     char g;
     char b;
 };
-
 
 class CIFF {
     /*
@@ -51,17 +50,9 @@ private:
     std::string caption;
     std::vector<std::string> tags;
     cpplog::StdErrLogger log;
+    
 public:
-    CIFF() {
-
-    }
-    /*
-        $ xxd -l 15 test1.ciff
-        00000000: 4349 4646 5100 0000 0000 0000 6888 1e    CIFFQ.......h..
-    */
-    /*
-        https://www.cplusplus.com/reference/istream/istream/read/
-    */
+   
     void parseCiff(std::vector<uint8_t> const &ciff) {
         uint64_t file_length = ciff.size();
         LOG_DEBUG(log) << "CIFF size: " << file_length << endl;
@@ -194,13 +185,15 @@ public:
     }
 };
 
+
+#ifdef main
+
 std::vector<uint8_t> read_file_to_uint8(std::string const &path_to_file) {
     std::ifstream instream(path_to_file, std::ios::in | std::ios::binary);
     std::vector<uint8_t> data((std::istreambuf_iterator<char>(instream)), std::istreambuf_iterator<char>());
     return data;
 }
 
-#ifdef main
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: ./ciff <filename>" << std::endl;

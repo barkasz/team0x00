@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEAM0X00_INCLUDE_CIFF_CIFF_HPP
+#define TEAM0X00_INCLUDE_CIFF_CIFF_HPP
 
 #include <iostream>
 #include <istream>
@@ -20,3 +21,5 @@ inline T readData(std::vector<uint8_t> const &input, uint64_t pos) {
 //    }
     return number;
 }
+
+#endif //TEAM0X00_INCLUDE_CIFF_CIFF_HPP

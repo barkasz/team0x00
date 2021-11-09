@@ -60,11 +60,9 @@ class CaffParser {
 	}
 	
 	void process_blocks_contents(caff_t& caff, const std::vector<block_t>& blocks) {
+	
 		for (const block_t& block : blocks) {
 			switch (block.id) {
-				case HEADER_BLOCK_ID:
-					caff.header = parse_caff_header(block.data);
-					break;
 				case CREDITS_BLOCK_ID:
 					caff.credits.push_back(parse_caff_credits(block.data));
 					break;
@@ -72,9 +70,11 @@ class CaffParser {
 					caff.animation.push_back(parse_caff_animation(block.data));
 					break;
 				default:
-					break;
+					LOG_ERROR(log) << "Caff header type doesn't exist!!" << std::endl;
+				break;
 			}
 		}
+		
 	}
 	
 	caff_header_t parse_caff_header(const std::vector<uint8_t>& data) {
@@ -177,9 +177,20 @@ class CaffParser {
 		LOG_DEBUG(log) << "animation header: " <<  std::endl;
 		LOG_DEBUG(log) << "\tduration: " << animation.duration << std::endl;
 		
-		// TODO: implement CAFF
+		std::vector<uint8_t> data_v(&data[pointer], &data[data.size()]);
+		animation.ciff.parseCiff(data_v);
 		
 		return animation;
+	}
+	
+	bool is_num_anim_valid(const std::vector<block_t>& blocks, uint64_t num_anim_expected) const {
+		int num_of_anim_blocks = 0;
+		for(const block_t& block : blocks) {
+			if(block.id == ANIMATION_BLOCK_ID)
+				num_of_anim_blocks++;
+		}
+		
+		return num_of_anim_blocks == num_anim_expected;
 	}
 	
 public:
@@ -187,13 +198,27 @@ public:
 	caff_t parseCaff(std::string const &path_to_file) {
 		caff_t caff = {0};
 		
-		try {
-			std::vector<uint8_t> file_content = read_file_to_uint8(path_to_file);
-			std::vector<block_t> blocks = parse_blocks(file_content);
-			process_blocks_contents(caff, blocks);
-		} catch (const std::exception&) {
-			LOG_ERROR(log) << "Caff parsing failed!" << std::endl;
+//		try {
+		std::vector<uint8_t> file_content = read_file_to_uint8(path_to_file);
+		std::vector<block_t> blocks = parse_blocks(file_content);
+		
+		if(blocks.at(0).id != HEADER_BLOCK_ID) {
+			LOG_ERROR(log) << "Missing header!" << std::endl;
+			exit(1);
 		}
+		
+		caff.header = parse_caff_header(blocks.at(0).data);
+		blocks.erase(blocks.begin()); // remove the first processed block.
+		
+		if(!is_num_anim_valid(blocks, caff.header.num_anim)) {
+			LOG_ERROR(log) << "Number of animation blocks doesn't match!" << std::endl;
+		}
+		
+		process_blocks_contents(caff, blocks);
+			
+//		} catch (const std::exception&) {
+//			LOG_ERROR(log) << "Caff parsing failed!" << std::endl;
+//		}
 		
 		return caff;
 	}
