@@ -1,5 +1,6 @@
 #ignore compiled files
-CIFF_parser/ciff
+ciff
+caff
 
 #ignore vscode stuff
 .vscode/

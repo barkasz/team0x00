@@ -7,14 +7,22 @@ CC = g++
 #  -Wall  - this flag is used to turn on most compiler warnings
 CFLAGS = -wall -g
 
-ciff_folder := CIFF_parser
-depends := $(ciff_folder)/ciff.cpp $(ciff_folder)/ciff.hpp
-output = $(ciff_folder)/ciff
+sources := src
+ciff_folder := ciff
+caff_folder := caff
+depends_ciff := $(sources)/$(ciff_folder)/ciff.cpp $(sources)/$(ciff_folder)/ciff.hpp
+depends_caff := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/main.cpp $(sources)/$(caff_folder)/caff.hpp
+output_ciff := ciff
+output_caff := caff
+output := $(output_caff) $(output_ciff)
 
-all: ciff
+all: ciff caff
 
-ciff: $(depends)
-	$(CC) -o $(output) $(depends)
+ciff: $(depends_ciff)
+	$(CC) -o $(output_ciff) $(depends_ciff)
+
+caff: $(depends_caff)
+	$(CC) -o $(output_caff) $(depends_caff)
 
 clean: 
 	rm $(output)
