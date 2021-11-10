@@ -1,8 +1,13 @@
 #ignore compiled files
-cmake-build-debug
+cmake-build-debug/
 
 #ignore vscode stuff
 .vscode/
 
 #ignore clion stuff
 .idea/
+
+#ignore compiled stuff
+caff
+ciff
+parser

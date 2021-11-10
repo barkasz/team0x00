@@ -19,10 +19,16 @@ class CaffParser {
 	std::vector<uint8_t> read_file_to_uint8(std::string const &path_to_file) const {
 		std::ifstream instream(path_to_file,
                                std::ios::in | std::ios::binary);
-		std::vector<uint8_t> data((std::istreambuf_iterator<char>(instream)),
-                                   std::istreambuf_iterator<char>());
-
-		return data;
+        if(instream.is_open()) {
+            std::vector<uint8_t> data((std::istreambuf_iterator<char>(instream)),
+                                      std::istreambuf_iterator<char>());
+            return data;
+        }
+        else{
+            //TODO!!!
+            std::cerr << "The CAFF file doesn't exist!" << std::endl;
+			exit(1);
+        }
 	}
 	
 	block_t parse_block(std::vector<uint8_t> raw_file_content, int& block_index) {
@@ -70,7 +76,8 @@ class CaffParser {
 					caff.animation.push_back(parse_caff_animation(block.data));
 					break;
 				default:
-					LOG_ERROR(log) << "Caff header type doesn't exist!!" << std::endl;
+					LOG_ERROR(log) << "Invalid block ID..." << std::endl;
+                    exit(1);
 				break;
 			}
 		}
@@ -212,6 +219,7 @@ public:
 		
 		if(!is_num_anim_valid(blocks, caff.header.num_anim)) {
 			LOG_ERROR(log) << "Number of animation blocks doesn't match!" << std::endl;
+            exit(1);
 		}
 		
 		process_blocks_contents(caff, blocks);

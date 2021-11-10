@@ -5,14 +5,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(./src)
 
-add_executable(CAFF_parser
+add_executable(parser
         src/main.cpp
         src/caff/caff.hpp
         src/caff/caff_parser.cpp
         src/cpplog.hpp
-        src/caff/date_validator.hpp)
-
-add_executable(CIFF_parser
+        src/caff/date_validator.hpp
         src/ciff/ciff.cpp
-        src/ciff/ciff.hpp
-        src/cpplog.hpp)
+        src/ciff/ciff.hpp)
