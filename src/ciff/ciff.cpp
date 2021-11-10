@@ -43,16 +43,45 @@ class CIFF {
 private:
     std::string magic_chars;
     uint64_t header_size;
-    //TODO: SIZE???
     uint64_t content_size;
+public:
+    const string &getMagicChars() const {
+        return magic_chars;
+    }
+
+    uint64_t getHeaderSize() const {
+        return header_size;
+    }
+
+    uint64_t getContentSize() const {
+        return content_size;
+    }
+
+    uint64_t getWidth() const {
+        return width;
+    }
+
+    uint64_t getHeight() const {
+        return height;
+    }
+
+    const string &getCaption() const {
+        return caption;
+    }
+
+    const vector<std::string> &getTags() const {
+        return tags;
+    }
+
+private:
     uint64_t width;
     uint64_t height;
     std::string caption;
     std::vector<std::string> tags;
     cpplog::StdErrLogger log;
-    
+
 public:
-   
+
     void parseCiff(std::vector<uint8_t> const &ciff) {
         uint64_t file_length = ciff.size();
         LOG_DEBUG(log) << "CIFF size: " << file_length << endl;
@@ -89,9 +118,6 @@ public:
         if (content_size > file_length) {
             LOG_ERROR(log) << "BAD FILE: Too big content size" << endl;
             exit(1);
-        } else if (content_size < 0) {
-            LOG_ERROR(log) << "BAD FILE: content size < 0" << endl;
-            exit(1);
         } else {
             readPos += 8;
         }
@@ -104,22 +130,12 @@ public:
         // width
         width = readData<int64_t>(ciff, readPos);
         LOG_DEBUG(log) << "width: " << width << endl;
-        if (width < 0) {
-            LOG_ERROR(log) << "BAD FILE: image width < 0" << endl;
-            exit(1);
-        } else {
-            readPos += 8;
-        }
+        readPos += 8;
 
 
         height = readData<int64_t>(ciff, readPos);
         LOG_DEBUG(log) << "height: " << height << endl;
-        if (height < 0) {
-            LOG_ERROR(log) << "BAD FILE: image height < 0" << endl;
-            exit(1);
-        } else {
-            readPos += 8;
-        }
+        readPos += 8;
 
 
         if (width * height * 3 != content_size) {
@@ -131,7 +147,7 @@ public:
 
         char header_left[header_size - readPos + 1];
         bool line_break = false;
-        for (int64_t i = 0; i < header_size - readPos; ++i) {
+        for (uint64_t i = 0; i < header_size - readPos; ++i) {
             header_left[i] = readData<char>(ciff, readPos + i);
             if (header_left[i] == '\n') {
                 if (line_break) {
@@ -148,14 +164,14 @@ public:
 
 
         header_left[header_size - readPos] = '\0';
-        string temp = string(header_left);
+        auto temp = string(header_left);
         caption = temp.substr(0, temp.find('\n'));
 
         readPos += caption.length() + 1;
         uint64_t tempPos = caption.length() + 1;
         LOG_DEBUG(log) << "caption: " << caption << endl;
         while (readPos < header_size) {
-            string line = string(&header_left[tempPos]);
+            auto line = string(&header_left[tempPos]);
             if (line.length() + readPos + 1 > header_size) {
                 LOG_ERROR(log) << "Too long tag." << endl;
                 exit(1);
@@ -171,8 +187,7 @@ public:
         // pixelek
 
         vector<pixel> pixels;
-        for (int i = 0; i < content_size; i += 3) {
-            //readData><char>();
+        for (uint64_t i = 0; i < content_size; i += 3) {
             struct pixel p = {
                     readData<char>(ciff, readPos),
                     readData<char>(ciff, readPos + 1),
