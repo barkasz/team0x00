@@ -1,6 +1,4 @@
 #ignore compiled files
-ciff
-caff
 cmake-build-debug
 
 #ignore vscode stuff
