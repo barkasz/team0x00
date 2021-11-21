@@ -11,6 +11,8 @@ cmake-build-debug/
 caff
 ciff
 parser
+converter
+*.gif
 
 #:python specific
 __pycache__/
