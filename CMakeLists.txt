@@ -13,4 +13,4 @@ add_executable(parser
         src/caff/date_validator.hpp
         src/ciff/ciff.cpp
         src/ciff/ciff.hpp
-        src/gif-h/gif.h)
+        src/gif-h/gif.h src/gif_converter.cpp src/gif_converter.h)
