@@ -11,3 +11,5 @@ cmake-build-debug/
 caff
 ciff
 parser
+converter
+*.gif
