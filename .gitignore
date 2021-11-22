@@ -11,3 +11,8 @@ cmake-build-debug/
 caff
 ciff
 parser
+
+#:python specific
+__pycache__/
+venv/
+.venv/
