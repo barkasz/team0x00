@@ -1,0 +1,102 @@
+div.sidebar {
+    position: relative;
+    min-width: 330px;
+    margin: 0;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 1440px){
+	div.sidebar {
+		position: fixed;
+		width: 100%;
+		z-index: 99;
+		display: none;
+	}
+
+	div.sidebar.open {
+		display: flex !important;
+	}
+
+	div.sidebar.open div.fix {
+		width: 100%;
+		z-index: 99;
+		background: #F5F5F5;
+	}
+}
+
+div.sidebar div.action-button {
+    display: none;
+}
+
+div.sidebar.open div.action-button {
+    display: flex;
+}
+
+
+div.action-button.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: white;
+}
+
+div.fix {
+    position: fixed;
+    min-width: 330px;
+    margin: 0;
+    padding: 40px;
+    height: 100%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+div.fix::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+div.sidebar .logo {
+    margin-bottom: 64px;
+    width: 165px;
+    object-fit: contain;
+    object-position: center;
+}
+
+
+div.logout {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+div.logout .menu-element {
+    margin: 0 auto;
+    justify-content: center;
+}
+
+div.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.user-info .profile {
+    margin-bottom: 10px;
+}
+
+div.user-info small {
+    margin-bottom: 0;
+}
+
+div.menu ul {
+    list-style: none;
+    padding: 0;
+}
+

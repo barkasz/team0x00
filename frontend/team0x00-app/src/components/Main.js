@@ -1,36 +1,29 @@
 import React, {Component} from 'react'
-import PhotoWall from './PhotoWall'
-import AddPhoto from './AddPhoto'
-import {Route, Link} from 'react-router-dom'
-import Single from './Single'
+import Sidebar from  './Sidebar/Sidebar'
+import Content from './Content/Content'
+import users from '../data/users'
 
 class Main extends Component {
     constructor() {
         super()
+        this.openMenu = this.openMenu.bind(this)
+        this.state = {
+            menuOpen: false
+        }
+    }
+
+    openMenu(){
+        this.setState({
+            menuOpen: !this.state.menuOpen
+          })
     }
 
     render() {
         return ( 
-        
-        <div>
-            <h1> 
-                <Link to="/"> CAFFgram </Link>    
-             </h1>
-            <Route exact path = "/" render={() => (
-                 <div>
-                      <PhotoWall {...this.props} />   
-                 </div>
-
-            )}/> 
-
-            <Route path= "/upload" render = {({history}) => (
-                <AddPhoto {...this.props} onHistory={history}/>
-            )}/>
-
-            <Route path="/single/:id" render = {(params) => (
-                <Single  {...this.props} {...params}/> 
-            )}/>
-         </div>
+            <div className="container">
+                <Sidebar isOpen={this.state.menuOpen} toggleMenu={this.openMenu} currentUser={users[0]}/>
+                <Content toggleMenu = {this.openMenu} currentUser={users[0]}/>
+            </div>
         )
     }
 
