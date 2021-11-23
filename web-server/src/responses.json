@@ -1,0 +1,36 @@
+{
+    "auth": {
+        "INVALID_CREDENTIALS": {
+            "statuscode": 1,
+            "status": "INVALID_CREDENTIALS",
+            "message": "Authentication failed due to invalid username or password."
+        },
+        "USERNAME_ALREADY_EXIST": {
+            "statuscode": 3,
+            "status": "USERNAME_ALREADY_EXIST",
+            "message": "This username is already taken"
+        },
+        "ALREADY_LOGGED_IN": {
+            "statuscode": 4,
+            "status": "ALREADY_LOGGED_IN",
+            "message": "Already logged in, session stored"
+        },
+        "SUCCESFULLY_LOGGED_OUT": {
+            "statuscode": 5,
+            "status": "SUCCESFULLY_LOGGED_OUT",
+            "message": "Logged out succesfully"
+        },
+        "SIGNED_UP_SUCCESFULLY": {
+            "statuscode": 6,
+            "status": "SIGNED_UP_SUCCESFULLY",
+            "message": "Succesfully signed up"
+        }
+    },
+    "common": {
+        "INFORMATION_MISSING": {
+            "statuscode": 7,
+            "status": "INFORMATION_MISSING",
+            "message": "Information missing form the request!"
+        }
+    }
+}

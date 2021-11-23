@@ -7,6 +7,14 @@ CORS(app)
 
 # app.config = []
 
+# init
+
+from init import init_authdb
+
+init_authdb.init('users.db')
+
+# register routes 
+
 from routes import hello_world_bp
 from auth.routes import auth_bp
 
