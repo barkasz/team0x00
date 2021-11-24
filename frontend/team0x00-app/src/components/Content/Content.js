@@ -35,6 +35,13 @@ class Content extends Component {
                                 
                             </>
                         )}/>
+
+                        <Route exact path = "/upload" render={() => (
+                            <>
+                                <h1 className='mb-4'>Upload</h1>
+                            </>
+                        )}/>
+
                     </div>
                 </div>
         )

@@ -55,7 +55,7 @@ class Post extends Component {
                     <div className="write w-100">
                         <div className="input-with-icon w-100">
                             <img src={commentIcon} alt="Comment icon" className="icon"/>
-                            <input type="text" className='w-100' placeholder="Input field with icon"/>
+                            <input type="text" className='w-100' placeholder="Write a comment here..."/>
                         </div>
                         <button className='btn btn-small'>Send</button>
                     </div>
