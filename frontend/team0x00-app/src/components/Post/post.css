@@ -64,6 +64,12 @@ div.comments {
     div.comments {
         max-height: 400px;
     }
+    div.author-bar {
+        flex-wrap: wrap;
+    }
+    div.author-bar div.actions {
+        margin-left: initial !important;
+    }
 }
 
 
