@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
 import Post from '../Post/Post'
+import Upload from '../Upload/Upload'
 
 import _posts from '../../data/posts'
 
@@ -39,6 +40,7 @@ class Content extends Component {
                         <Route exact path = "/upload" render={() => (
                             <>
                                 <h1 className='mb-4'>Upload</h1>
+                                <Upload/>
                             </>
                         )}/>
 
