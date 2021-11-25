@@ -8,6 +8,7 @@ import Upload from '../Upload/Upload'
 
 import _posts from '../../data/posts'
 import AddUser from '../AddUser/AddUser'
+import ChangePassword from '../ChangePassword/ChangePassword'
 
 class Content extends Component {
     render(){
@@ -49,6 +50,13 @@ class Content extends Component {
                             <>
                                 <h1 className='mb-4'>Add User</h1>
                                 <AddUser/>
+                            </>
+                        )}/>
+
+                        <Route exact path = "/change-password/:id" render={() => (
+                            <>
+                                <h1 className='mb-4'>Change Password</h1>
+                                <ChangePassword/>
                             </>
                         )}/>
 
