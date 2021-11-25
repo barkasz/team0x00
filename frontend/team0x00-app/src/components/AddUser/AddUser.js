@@ -3,7 +3,6 @@ import './adduser.css'
 
 class AddUser extends Component {
     render() {
-        const {title, text, handleClose} = this.props
         return (
             <form action="">
             <div className="add-user">

@@ -7,6 +7,7 @@ import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/trash.svg'
 import Popup from '../Popup/Popup'
 import _comments from '../../data/comments'
+import { Link } from 'react-router-dom'
 
 class Post extends Component {
 
@@ -93,9 +94,11 @@ class Post extends Component {
                     </div>
                     { currentUser?.admin && 
                     <div className="actions">
+                        <Link to={`/change-password/${post?.user?.id}`}>
                         <div className="action-button">
                             <img src={editIcon} alt="" className='icon' />
                         </div>
+                        </Link>
                         <div className="action-button" onClick={this.toggleDeleteUserPopup}>
                             <img src={deleteIcon} alt="" className='icon'/>
                         </div>
