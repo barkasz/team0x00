@@ -21,7 +21,6 @@ class Upload extends Component {
       };
 
     render(){
-        const { ...props } = this.props
         const file = React.createRef();
         function clickForwarder(){
             file.current.click();
