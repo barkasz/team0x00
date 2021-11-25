@@ -24,7 +24,8 @@ body {
 
 * {
     font-family: 'Poppins';
-    color: #333
+    color: #333;
+	box-sizing: border-box;
 }
 
 h1, .display {
