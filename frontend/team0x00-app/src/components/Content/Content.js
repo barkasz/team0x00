@@ -7,6 +7,7 @@ import Post from '../Post/Post'
 import Upload from '../Upload/Upload'
 
 import _posts from '../../data/posts'
+import AddUser from '../AddUser/AddUser'
 
 class Content extends Component {
     render(){
@@ -41,6 +42,13 @@ class Content extends Component {
                             <>
                                 <h1 className='mb-4'>Upload</h1>
                                 <Upload/>
+                            </>
+                        )}/>
+
+                        <Route exact path = "/add-user" render={() => (
+                            <>
+                                <h1 className='mb-4'>Add User</h1>
+                                <AddUser/>
                             </>
                         )}/>
 
