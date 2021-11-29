@@ -8,8 +8,8 @@ cmake-build-debug/
 .idea/
 
 #ignore compiled stuff
-caff
-ciff
+./caff
+./ciff
 parser
 converter
 *.gif
