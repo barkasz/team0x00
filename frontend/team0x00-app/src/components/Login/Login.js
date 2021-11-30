@@ -16,6 +16,7 @@ export default function Login({ setToken }) {
     }
 
     return (
+
         <form onSubmit={handleSubmit}>
         <div className="topbox">
             <img src={logo} alt="CAFFgram Logo" className="logo mb-2" />
@@ -23,6 +24,9 @@ export default function Login({ setToken }) {
         <div className="loginbox">
             <div className="loginbox-form-elements">
                     <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
+                    <div className="warning">
+                        <p>This is an example warning message.</p>
+                    </div>
                     <input type="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
                     <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     <button type='submit' className='btn btn-primary mt-1 w-100'>Sign in</button>
