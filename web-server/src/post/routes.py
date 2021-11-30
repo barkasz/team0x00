@@ -55,7 +55,7 @@ def create_post():
 
 @post_bp.route("/post/<post_id>", methods=["DELETE"])
 @auth_api.login_required
-@auth_api.authorize(role=[Role.ADMIN])
+@auth_api.authorize(roles=[Role.ADMIN])
 def delete_post(post_id):
     try:
         service.delete_post(post_id)
@@ -105,7 +105,7 @@ def create_comment(post_id):
 
 @post_bp.route("/post/<post_id>/<comment_id>", methods=["DELETE"])
 @auth_api.login_required
-@auth_api.authorize(role=[Role.ADMIN])
+@auth_api.authorize(roles=[Role.ADMIN])
 def delete_comment(post_id, comment_id):
     try:
         service.delete_comment(post_id, comment_id)
@@ -138,7 +138,7 @@ def create_reply(post_id, comment_id):
 
 @post_bp.route("/post/<post_id>/<comment_id>/<reply_id>", methods=["DELETE"])
 @auth_api.login_required
-@auth_api.authorize(role=[Role.ADMIN])
+@auth_api.authorize(roles=[Role.ADMIN])
 def delete_reply(post_id, comment_id, reply_id):
     try:
         service.delete_reply(post_id, comment_id, reply_id)
