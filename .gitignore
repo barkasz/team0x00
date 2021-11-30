@@ -11,7 +11,7 @@ cmake-build-debug/
 ./caff
 ./ciff
 parser
-converter
+web-server/src/third_party/converter
 *.gif
 
 #:python specific

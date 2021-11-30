@@ -1,36 +1,37 @@
 import sqlite3
 from contextlib import contextmanager
 from collections import namedtuple
-
 from caff import exceptions
 
 imagesdb_name = "images.db"
 
 Connection = namedtuple("Connection", "db, cursor")
 
-
-def select_images(id, type: str = "all"):
-    select_user_query = ("SELECT * FROM images WHERE id = ?")
-
+def select_image(id, type : str = "gif") -> str:
+    select_image_query = ("SELECT * FROM images WHERE id = ?")
     try:
         with connect_to_db() as connection:
-            connection.cursor.execute(select_images, id)
-            image = connection.cursor.fetchone()
+            connection.cursor.execute(select_image_query, id)
+            image_names = connection.cursor.fetchone()
     except sqlite3.Error:
-        raise exceptions.InvalidCredentialsException
+        raise exceptions.FileIdMissingException
 
-    image = dict(image) if image else None
+    if image_names:
+        image_names = dict(image_names)
+        if type == "caff":
+            image_names.pop("gif")
+            return image_names["caff"]
+        elif type == "gif":
+            image_names.pop("caff")
+            return image_names["gif"]
+        else:
+            raise exceptions.NoImageTypeException
+    else:
+        return None
 
-    if type == "caff":
-        image.pop("gif")
-        return image
-    elif type == "gif":
-        image.pop("caff")
-        return image
-    return image
 
 
-def insert_images(caff, gif):
+def insert_images(caff : str, gif: str):
     insert_image_query = ("INSERT INTO images (caff, gif) VALUES (?, ?)")
     try:
         with connect_to_db() as connection:
@@ -38,6 +39,7 @@ def insert_images(caff, gif):
             connection.db.commit()
     except sqlite3.Error:
         raise exceptions.InternalServerException
+    return connection.cursor.lastrowid
 
 
 @contextmanager

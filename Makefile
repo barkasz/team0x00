@@ -17,6 +17,7 @@ depends_caff := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/$(caff_fold
 depends_gif	:= $(sources)/$(gif_folder)/gif.h
 depends_converter:= $(sources)/gif_converter.cpp $(sources)/gif_converter.h $(depends_gif)
 output_parser := converter
+third_party_converter := web-server/third_party/$(output_parser)
 output := $(output_parser)
 
 all: parser
@@ -24,8 +25,10 @@ all: parser
 parser: $(depends_ciff) $(depends_caff) $(depends_main)
 	$(CC) $(CXXFLAGS) -o $(output_parser) $(depends_main) $(depends_ciff) $(depends_caff) $(depends_converter)
 
+webserver_converter: $(depends_ciff) $(depends_caff) $(depends_main)
+	$(CC) $(CXXFLAGS) -o $(third_party_converter) $(depends_main) $(depends_ciff) $(depends_caff) $(depends_converter)
+
 clean:
 	rm $(output)
 
-.PHONY: clean all
-
+.PHONY: clean all webserver_converter

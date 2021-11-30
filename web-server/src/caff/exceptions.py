@@ -2,17 +2,13 @@ class CaffException(Exception):
     pass
 
 
-class InvalidCredentialsException(CaffException):
-    pass
-
-
-class UsernameAlreadyExistsException(CaffException):
-    pass
-
-
-class AlreadyLoggedInException(CaffException):
+class FileIdMissingException(CaffException):
     pass
 
 
 class InternalServerException(CaffException):
+    pass
+
+
+class NoImageTypeException(CaffException):
     pass
