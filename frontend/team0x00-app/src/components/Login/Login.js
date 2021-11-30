@@ -21,7 +21,8 @@ export default function Login({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await API.login({"username": username, "password": password});
-        //setToken(token);
+        console.log(token);
+        setToken(token);
     }
 
     return (
@@ -32,7 +33,7 @@ export default function Login({ setToken }) {
         <div className="loginbox">
             <div className="loginbox-form-elements">
                     <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
-                    <input type="email" placeholder="E-mail" onChange={e => setEmail(e.target.value)} />
+                    <input type="text" placeholder="E-mail" onChange={e => setEmail(e.target.value)} />
                     <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     <button type='submit' className='btn btn-primary mt-1 w-100' >Sign in</button>
 

@@ -1,11 +1,14 @@
 const API_URL = "http://localhost:5000/"
 const TOKEN = "asdfasdfasdf1234";
 
+const headers = {'Content-Type': 'application/json'}
+
 export class API {
     static async login(credentials) {
-        console.log(credentials);
+        console.log(JSON.stringify(credentials));
         return fetch('http://localhost:5000/login', {
           method: 'POST',
+          //mode: 'cors', 
           headers: {
             'Content-Type': 'application/json'
           },
