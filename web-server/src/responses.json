@@ -24,6 +24,11 @@
             "statuscode": 6,
             "status": "SIGNED_UP_SUCCESFULLY",
             "message": "Succesfully signed up!"
+        },
+        "PERMISSION_DENIED": {
+            "statuscode": 7,
+            "status": "PERMISSION_DENIED",
+            "message": "Permission denied, you must log in!"
         }
     },
     "common": {

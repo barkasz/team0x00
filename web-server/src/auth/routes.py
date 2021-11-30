@@ -9,6 +9,7 @@ import json
 
 from auth import service
 from auth import exceptions
+from auth.internal_api import login_required
 from responses import get_response_codes
 
 
@@ -41,6 +42,7 @@ def login():
 
 
 @auth_bp.route("/logout", methods=["POST"])
+@login_required
 def logout():
     service.logout(session=session)
 
