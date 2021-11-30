@@ -4,7 +4,7 @@ import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import closeIcon from '../../assets/close.svg'
 import randomProfilePic from '../../data/profile_pic'
-
+import defaultProfilePic from '../../assets/default-user.png'
 
 function Sidebar(props) {
         const { isOpen, currentUser } = props
@@ -17,7 +17,7 @@ function Sidebar(props) {
 
                     <div className="user-info mt-2">
                         <div className="profile profile-large">
-                            <img src={randomProfilePic()} alt="Profile pic" />
+                            <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                         </div>
                         { currentUser?.admin && <small>Administrator</small> }
                         <h1 className='mb-0'>{currentUser?.username || 'Unknown' }</h1>
