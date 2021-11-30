@@ -79,6 +79,11 @@ private:
     std::string caption;
     std::vector<std::string> tags;
     cpplog::StdErrLogger log;
+    vector<pixel> pixels;
+public:
+    const vector<pixel> &getPixels() const {
+        return pixels;
+    }
 
 public:
 
@@ -184,9 +189,7 @@ public:
         for (const string &tag: tags)
             LOG_DEBUG(log) << tag << endl;
 
-        // pixelek
-
-        vector<pixel> pixels;
+        // pixele
         for (uint64_t i = 0; i < content_size; i += 3) {
             struct pixel p = {
                     readData<char>(ciff, readPos),

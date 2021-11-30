@@ -3,11 +3,13 @@ version: '3.8'
 services:
   web-server:
     build:
+
       context: web-server
-      dockerfile: deployment/prod.Dockerfile
-      # dockerfile: deployment/dev.Dockerfile
+      #dockerfile: deployment/prod.Dockerfile
+      dockerfile: deployment/dev.Dockerfile
     ports:
       - 5000:5000
+
     # volumes:
     # - ./web-server/src:/usr/src/app
 
@@ -21,3 +23,6 @@ services:
       - '27017-27019:27017-27019'
     volumes:
       - ./volumes/mongo:/data/db
+    volumes:
+       - ./web-server/src:/usr/src/app
+

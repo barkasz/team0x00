@@ -11,6 +11,9 @@
 #include "date_validator.hpp"
 #include "../cpplog.hpp"
 
+#ifndef TEAM0X00_INCLUDE_CAFF_CAFF_PARSER_CPP
+#define TEAM0X00_INCLUDE_CAFF_CAFF_PARSER_CPP
+
 
 class CaffParser {
 	
@@ -231,3 +234,4 @@ public:
 	
 };
 
+#endif

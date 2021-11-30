@@ -1,3 +1,6 @@
+# macos bullshit
+**/.DS_Store
+
 #ignore compiled files
 cmake-build-debug/
 
@@ -8,9 +11,11 @@ cmake-build-debug/
 .idea/
 
 #ignore compiled stuff
-caff
-ciff
+./caff
+./ciff
 parser
+web-server/src/third_party/converter
+*.gif
 
 #:python specific
 __pycache__/
@@ -25,3 +30,6 @@ volumes/
 
 #sqlite databases
 *.db
+caff
+ciff
+parser
