@@ -42,11 +42,6 @@
             "status": "POST_READING_FAILED",
             "message": "Post reading failed"
         },
-        "POST_UPDATING_FAILED": {
-            "statuscode": 10,
-            "status": "POST_UPDATING_FAILED",
-            "message": "Post updating failed"
-        },
         "POST_DELETION_FAILED": {
             "statuscode": 11,
             "status": "POST_DELETION_FAILED",

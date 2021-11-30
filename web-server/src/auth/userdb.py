@@ -1,3 +1,4 @@
+from app import app
 import sqlite3
 from contextlib import contextmanager
 from collections import namedtuple
@@ -5,7 +6,7 @@ from collections import namedtuple
 from auth import exceptions
 
 
-userdb_name = "users.db"
+userdb_name = app.config["USER_DB"]
 
 
 Connection = namedtuple("Connection", "db, cursor")

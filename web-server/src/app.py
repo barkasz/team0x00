@@ -12,6 +12,9 @@ CORS(app)
 config = configparser.ConfigParser()
 config.read('/usr/config/config.ini')
 
+# user database
+app.config["USER_DB"] = config["USER"]["USER_DB"]
+
 # Session
 app.config["SECRET_KEY"] = config["SESSION"]["SECRET_KEY"]
 app.config["SESSION_PERMANENT"] = config["SESSION"]["SESSION_PERMANENT"]
