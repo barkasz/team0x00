@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import './sidebar.css'
 import logo from '../../assets/logo.png'
 import defaultProfile from '../../assets/default-user.png'
@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 import closeIcon from '../../assets/close.svg'
 
 
-class Sidebar extends Component {
-    render(){
-        const { isOpen, currentUser } = this.props
+function Sidebar(props) {
+        const { isOpen, currentUser } = props
         return  ( <div className={`sidebar bg-accent ${isOpen ? "open" : ""}`}> 
                     <div className="fix">
                     
@@ -55,7 +54,7 @@ class Sidebar extends Component {
 
                     <div className="logout w-100 text-center">
                         <hr className='mb-2'/>
-                        <div className="menu-element">
+                        <div className="menu-element" onClick={() => localStorage.clear()}> 
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 5L12.59 6.41L14.17 8H6V10H14.17L12.59 11.58L14 13L18 9L14 5ZM2 2H9V0H2C0.9 0 0 0.9 0 2V16C0 17.1 0.9 18 2 18H9V16H2V2Z" fill="#333"/>
                             </svg>
@@ -66,7 +65,7 @@ class Sidebar extends Component {
                 </div>
                 </div>
         )
-    }
+    
 }
 
 export default Sidebar

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import './content.css'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
 import Post from '../Post/Post'
@@ -9,6 +9,8 @@ import Upload from '../Upload/Upload'
 import _posts from '../../data/posts'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'
+
+import Login from '../Login/Login'
 
 class Content extends Component {
     render(){
@@ -59,6 +61,10 @@ class Content extends Component {
                                 <ChangePassword/>
                             </>
                         )}/>
+
+                        <Switch>
+                            <Route exact path="/login" component={Login} />
+                        </Switch>
 
                     </div>
                 </div>
