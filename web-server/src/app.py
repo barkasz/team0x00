@@ -19,6 +19,11 @@ app.config["SESSION_TYPE"] = config["SESSION"]["SESSION_TYPE"]
 app.config["SESSION_FILE_THRESHOLD"] = int(config["SESSION"]["SESSION_FILE_THRESHOLD"])
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=int(config["SESSION"]["PERMANENT_SESSION_LIFETIME"]))
 
+# MongoDB
+app.config["MONGODB_URI"] = config["MONGO"]["MONGODB_URI"]
+app.config["APP_DATABASE"] = config["MONGO"]["APP_DATABASE"]
+app.config["POSTS_COLLECTION"] = config["MONGO"]["POSTS_COLLECTION"]
+
 # Session
 session = Session()
 session.init_app(app)
@@ -32,6 +37,9 @@ init_authdb.init('users.db')
 
 from routes import hello_world_bp
 from auth.routes import auth_bp
+from post.routes import post_bp
 
 app.register_blueprint(hello_world_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(post_bp)
+

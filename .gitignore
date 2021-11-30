@@ -19,3 +19,9 @@ venv/
 
 #flask session
 flask_session/
+
+# docker volumes
+volumes/
+
+#sqlite databases
+*.db
