@@ -23,7 +23,7 @@ def insert_user(user):
             connection.cursor.execute(insert_user_query, (username, password))
             connection.db.commit()
     except sqlite3.Error:
-        raise exceptions.InternalServerException
+        raise exceptions.AuthException
 
 
 def select_user_by_username(username):
@@ -51,7 +51,7 @@ def select_user(username, password):
             connection.cursor.execute(select_user_query, (username, password))
             user = connection.cursor.fetchone()
     except sqlite3.Error:
-        raise exceptions.InternalServerException
+        raise exceptions.AuthException
 
     user = dict(user) if user else None
     if user is not None:

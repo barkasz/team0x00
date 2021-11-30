@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import Response
+from flask import session
 import json
 
 
@@ -22,8 +23,13 @@ def login():
 
     username = request.json["username"]
     password = request.json["password"]
+
     try:
-        user = service.login(username=username, password=password)
+        user = service.login(username=username,
+                             password=password,
+                             session=session)
+    except exceptions.AlreadyLoggedInException:
+        return jsonify(responses["ALREADY_LOGGED_IN"]), 400
     except exceptions.InvalidCredentialsException:
         return jsonify(responses["INVALID_CREDENTIALS"]), 400
     except exceptions.AuthException:
@@ -36,10 +42,9 @@ def login():
 
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
-    result = service.logout()
-    return Response(response=json.dumps(result),
-                    status=200,
-                    mimetype="application/json")
+    service.logout(session=session)
+
+    return jsonify(responses["SUCCESFULLY_LOGGED_OUT"]), 200
 
 
 @auth_bp.route("/signup", methods=["POST"])

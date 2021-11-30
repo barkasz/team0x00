@@ -1,14 +1,29 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_session import Session
+import configparser
+from datetime import timedelta
 
 
 app = Flask(__name__)
 CORS(app)
 
-# app.config = []
+# parse config file
+config = configparser.ConfigParser()
+config.read('/usr/config/config.ini')
+
+# Session
+app.config["SECRET_KEY"] = config["SESSION"]["SECRET_KEY"]
+app.config["SESSION_PERMANENT"] = config["SESSION"]["SESSION_PERMANENT"]
+app.config["SESSION_TYPE"] = config["SESSION"]["SESSION_TYPE"]
+app.config["SESSION_FILE_THRESHOLD"] = int(config["SESSION"]["SESSION_FILE_THRESHOLD"])
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=int(config["SESSION"]["PERMANENT_SESSION_LIFETIME"]))
+
+# Session
+session = Session()
+session.init_app(app)
 
 # init
-
 from init import init_authdb
 
 init_authdb.init('users.db')

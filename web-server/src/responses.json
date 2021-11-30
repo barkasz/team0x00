@@ -13,7 +13,7 @@
         "ALREADY_LOGGED_IN": {
             "statuscode": 4,
             "status": "ALREADY_LOGGED_IN",
-            "message": "Already logged in, session stored"
+            "message": "Already logged in, session stored!"
         },
         "SUCCESFULLY_LOGGED_OUT": {
             "statuscode": 5,

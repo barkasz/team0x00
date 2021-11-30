@@ -13,6 +13,3 @@ class UsernameAlreadyExistsException(AuthException):
 class AlreadyLoggedInException(AuthException):
     pass
 
-
-class InternalServerException(AuthException):
-    pass
