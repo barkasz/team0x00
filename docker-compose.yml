@@ -3,10 +3,11 @@ version: '3.8'
 services:
   web-server:
     build:
+
       context: web-server
-      dockerfile: deployment/prod.Dockerfile
-      # dockerfile: deployment/dev.Dockerfile
+      #dockerfile: deployment/prod.Dockerfile
+      dockerfile: deployment/dev.Dockerfile
     ports:
       - 5000:5000
-    # volumes:
-    # - ./web-server/src:/usr/src/app
+    volumes:
+       - ./web-server/src:/usr/src/app
