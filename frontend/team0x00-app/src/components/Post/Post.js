@@ -9,6 +9,7 @@ import Popup from '../Popup/Popup'
 import _comments from '../../data/comments'
 import { Link } from 'react-router-dom'
 import { API } from '../../api-service'
+import randomProfilePic from '../../data/profile_pic'
 
 class Post extends Component {
     constructor(){
@@ -74,7 +75,6 @@ class Post extends Component {
 
     render() {
         const { post, currentUser } = this.props 
-        //this.state.comment_list = this.getComments(post.comment_ids)
         
         return ( <>
         {this.state.deleteUserPopup && 
@@ -106,11 +106,10 @@ class Post extends Component {
                 <h2>{post?.title || 'No title'}</h2>
                 <div className="author-bar mb-3">
                     <div className="profile profile-medium">
-                        <img src={post?.user?.profile || pic} alt="Poster's profile pic"/> 
+                        <img src={randomProfilePic()} alt="Poster's profile pic"/> 
                     </div>
                     <div className="info">
                         <p>{post?.user?.username || 'Unknown'}</p>
-                        <p className="subtle">{post?.user?.email || 'Unknonw email'}</p>
                     </div>
                     { currentUser?.admin && 
                     <div className="actions">

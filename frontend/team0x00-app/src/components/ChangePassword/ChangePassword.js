@@ -24,7 +24,6 @@ class ChangePassword extends Component {
                             </div>
                             <div className="info">
                                 <p>{user?.username || 'Unknown'}</p>
-                                <p className="subtle">{user?.email || 'Unknown email'}</p>
                             </div>
                         </div>
                         <input type="password" placeholder="New password" />
