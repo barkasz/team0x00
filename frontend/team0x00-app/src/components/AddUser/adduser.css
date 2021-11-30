@@ -1,0 +1,29 @@
+div.add-user {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    background: #F5F5F5;
+    border-radius: 15px;
+    width: -webkit-min-content;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 460px) {
+    div.add-user {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    div.add-user-form-elements {
+        max-width: 100%;
+    }
+}
+
+div.add-user-form-elements input {
+    max-width: 100%;
+    background: white;
+    margin-bottom: 10px;
+}

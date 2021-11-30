@@ -1,3 +1,6 @@
+# macos bullshit
+**/.DS_Store
+
 #ignore compiled files
 cmake-build-debug/
 
@@ -18,3 +21,6 @@ web-server/src/third_party/converter
 __pycache__/
 venv/
 .venv/
+caff
+ciff
+parser

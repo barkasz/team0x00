@@ -1,0 +1,237 @@
+/* ---- COLORS --- */
+
+/* Text color */
+.primary {
+    color: #AE956B
+}
+
+.text {
+    color: #333333
+}
+
+.subtle {
+    color: #9A9A9A
+}
+
+.border {
+    color: #E9E9E9
+}
+
+.accent {
+    color: #F5F5F5
+}
+
+/* Background color */
+
+.bg-white {
+    background-color: #fff
+}
+
+.bg-primary {
+   background-color: #AE956B
+}
+
+.bg-text {
+    background-color: #333333
+}
+
+.bg-subtle {
+    background-color: #9A9A9A
+}
+
+.bg-border {
+    background-color: #E9E9E9
+}
+
+.bg-accent {
+    background-color: #F5F5F5
+}
+
+.bg-white {
+    background-color: #fff
+}
+
+
+/* --- TYPOGRAPHY --- */
+
+* {
+    font-family: 'Poppins';
+    color: #333
+}
+
+h1, .display {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+h2, .title {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+h3, .menu-element {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+p, .body{
+    font-size: 16px;
+}
+
+small {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #AE956B;
+}
+
+.text-center {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* Form */
+
+input {
+    font-size: 16px;
+    color: #333;
+    border: none;
+    background-color: #F5F5F5;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+input::placeholder {
+    color:  #9A9A9A;
+}
+
+div.input-with-icon{
+    position: relative;
+}
+
+div.input-with-icon > img.icon {
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+div.input-with-icon > input {
+    padding-left: 50px;
+}
+
+.btn {
+    font-size: 16px;
+    text-align: center;
+    background: none;
+    border-radius: 10px;
+    padding: 6px 15px;
+    border: none;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #AE956B;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #b4a07d;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-outline {
+    border: 1px solid #AE956B;
+    color: #AE956B;
+}
+
+.btn-outline:hover {
+    border: 1px solid #cfbfa2;
+    color: #cfbfa2;
+    cursor: pointer;
+}
+
+.btn-small {
+    color: #AE956B;
+    font-weight: 00;
+}
+
+.btn-small:hover {
+    color: #b4a07d;
+    cursor: pointer;
+}
+
+/* UI Elements */
+hr {
+    border: 1px solid #E9E9E9;
+}
+
+
+img.post-img {
+    border-radius: 15px;
+    object-fit: cover;
+    object-position: center;
+    width: 360px;
+    height: 360px;
+}
+
+.profile {
+    border-radius: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #AE956B;
+}
+
+.profile > img {
+    width: 85%;
+    height: 85%;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile-large{
+    height: 90px;
+    width: 90px;
+}
+
+.profile-medium {
+    height: 48px;
+    width: 48px;
+}
+
+img.profile-small {
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 32px;
+    height: 32px;
+}
+
+svg.icon {
+    width: 24px;
+    height: 24px;
+}
+
+svg.icon * {
+    stroke: #333;
+}
