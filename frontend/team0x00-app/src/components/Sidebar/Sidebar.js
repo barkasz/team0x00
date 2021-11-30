@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react'
+import React from 'react'
 import './sidebar.css'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'

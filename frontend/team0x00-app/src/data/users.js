@@ -1,8 +1,3 @@
-import kelly from '../assets/profile.webp'
-import tina from '../assets/tina.webp'
-import david from '../assets/david.webp'
-import adam from '../assets/adam.webp'
-
 const users = [
     {
         id: 0,

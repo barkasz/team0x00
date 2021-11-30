@@ -5,7 +5,6 @@ import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
 import Post from '../Post/Post'
 import Upload from '../Upload/Upload'
-
 import _posts from '../../data/posts'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'

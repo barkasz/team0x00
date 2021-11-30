@@ -58,9 +58,9 @@ class Post extends Component {
 
     requestData = async () => {
         await API.getComments().then(data => {
-            console.log(data);
+            // console.log(data);
             const data2 = data.filter(comment => this.props.post.comment_ids.includes(comment.id))
-            console.log(data2);
+            // console.log(data2);
             this.setState({comment_list : data2})
         })
         .catch(error => {
