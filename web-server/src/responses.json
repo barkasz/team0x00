@@ -31,11 +31,93 @@
             "message": "Permission denied, you must log in!"
         }
     },
+    "post": {
+        "POST_CREATION_FAILED": {
+            "statuscode": 8,
+            "status": "POST_CREATION_FAILED",
+            "message": "Post creation failed"
+        },
+        "POST_READING_FAILED": {
+            "statuscode": 9,
+            "status": "POST_READING_FAILED",
+            "message": "Post reading failed"
+        },
+        "POST_UPDATING_FAILED": {
+            "statuscode": 10,
+            "status": "POST_UPDATING_FAILED",
+            "message": "Post updating failed"
+        },
+        "POST_DELETION_FAILED": {
+            "statuscode": 11,
+            "status": "POST_DELETION_FAILED",
+            "message": "Post deletion failed"
+        },
+        "INFORMATION_MISSING": {
+            "statuscode": 12,
+            "status": "INFORMATION_MISSING",
+            "message": "Information missing from request"
+        },
+        "REQUIRED_FIELD_MISSING": {
+            "statuscode": 13,
+            "status": "REQUIRED_FIELD_MISSING",
+            "message": "Required field missing from post"
+        },
+        "POST_SUCCESFULLY_DELETED": {
+            "statuscode": 14,
+            "status": "POST_SUCCESFULLY_DELETED",
+            "message": "Post succesfully deleted"
+        },
+        "COMMENT_CREATION_FAILED": {
+            "statuscode": 15,
+            "status": "COMMENT_CREATION_FAILED",
+            "message": "Comment creation failed"
+        },
+        "COMMENT_READING_FAILED": {
+            "statuscode": 16,
+            "status": "COMMENT_READING_FAILED",
+            "message": "Comment reading failed"
+        },
+        "COMMENT_DELETION_FAILED": {
+            "statuscode": 17,
+            "status": "COMMENT_DELETION_FAILED",
+            "message": "Comment deletion failed"
+        },
+        "COMMENT_SUCCESFULLY_DELETED": {
+            "statuscode": 18,
+            "status": "COMMENT_SUCCESFULLY_DELETED",
+            "message": "Comment successfully deleted"
+        },
+        "REPLY_CREATION_FAILED": {
+            "statuscode": 19,
+            "status": "REPLY_CREATION_FAILED",
+            "message": "Reply creation failed"
+        },
+        "REPLY_READING_FAILED": {
+            "statuscode": 20,
+            "status": "REPLY_READING_FAILED",
+            "message": "Reply reading failed"
+        },
+        "REPLY_DELETION_FAILED": {
+            "statuscode": 21,
+            "status": "REPLY_DELETION_FAILED",
+            "message": "Reply deletion failed"
+        },
+        "REPLY_SUCCESFULLY_DELETED": {
+            "statuscode": 22,
+            "status": "REPLY_SUCCESFULLY_DELETED",
+            "message": "Reply succesfully deleted"
+        },
+        "NO_MATCHING_RESULTS": {
+            "statuscode": 23,
+            "status": "NO_MATCHING_RESULTS",
+            "message": "No matching results"
+        }
+    },
     "common": {
         "INFORMATION_MISSING": {
             "statuscode": 7,
             "status": "INFORMATION_MISSING",
-            "message": "Information missing form the request!"
+            "message": "Information missing from request!"
         },
         "INTERNAL_SERVER_ERROR": {
             "statuscode": 8,

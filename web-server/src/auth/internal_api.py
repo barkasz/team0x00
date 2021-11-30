@@ -3,7 +3,9 @@ from flask import session
 from flask import jsonify
 import functools
 
+
 from responses import get_response_codes
+
 
 responses = get_response_codes("auth")
 
@@ -18,3 +20,7 @@ def login_required(func):
         return func(*args, **kwargs)
 
     return wrapper_login_required
+
+
+def get_username():
+    return session.get("username")
