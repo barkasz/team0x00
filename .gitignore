@@ -21,6 +21,15 @@ web-server/src/third_party/converter
 __pycache__/
 venv/
 .venv/
+
+#flask session
+flask_session/
+
+# docker volumes
+volumes/
+
+#sqlite databases
+*.db
 caff
 ciff
 parser

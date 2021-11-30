@@ -8,7 +8,8 @@ def init(db_name):
         db.execute(("CREATE TABLE users "
                     "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     "username TEXT NOT NULL UNIQUE, "
-                    "password TEXT NOT NULL)"))
+                    "password TEXT NOT NULL, "
+                    "role INTEGER NOT NULL)"))
     except sqlite3.OperationalError:
         # This exception happens when the table is already created
         pass

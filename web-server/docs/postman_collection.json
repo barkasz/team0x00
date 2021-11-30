@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "25e7d2d5-d1be-4f85-a784-616bb0d62ce1",
+		"name": "team 0x00 - backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"akos\",\n    \"password\": \"akos\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"akos\",\n    \"password\": \"akos\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "create_post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Title\",\n    \"content\": \"content3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/post",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\" : \"this is just a random comment\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a659035c5901319277d8e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a659035c5901319277d8e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_reply",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"This is just a random reply\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a65477c3e88bbdf4f04964",
+								"61a6552fc3e88bbdf4f04965"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a659035c5901319277d8e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a65477c3e88bbdf4f04964",
+								"61a6552fc3e88bbdf4f04965"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_reply",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965/61a655d0c3e88bbdf4f04966",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a65477c3e88bbdf4f04964",
+								"61a6552fc3e88bbdf4f04965",
+								"61a655d0c3e88bbdf4f04966"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_post_ids_by_date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/all",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

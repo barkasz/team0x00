@@ -14,5 +14,6 @@ class AlreadyLoggedInException(AuthException):
     pass
 
 
-class InternalServerException(AuthException):
+class UserNotExistsException(AuthException):
     pass
+

@@ -10,10 +10,15 @@
             "status": "USERNAME_ALREADY_EXIST",
             "message": "This username is already taken"
         },
+        "USER_NOT_EXISTS":{
+            "statuscode": 7,
+            "status": "USER_NOT_EXISTS",
+            "message": "User not exists!"
+        },
         "ALREADY_LOGGED_IN": {
             "statuscode": 4,
             "status": "ALREADY_LOGGED_IN",
-            "message": "Already logged in, session stored"
+            "message": "Already logged in, session stored!"
         },
         "SUCCESFULLY_LOGGED_OUT": {
             "statuscode": 5,
@@ -23,14 +28,116 @@
         "SIGNED_UP_SUCCESFULLY": {
             "statuscode": 6,
             "status": "SIGNED_UP_SUCCESFULLY",
-            "message": "Succesfully signed up"
+            "message": "Succesfully signed up!"
+        },
+        "PERMISSION_DENIED": {
+            "statuscode": 7,
+            "status": "PERMISSION_DENIED",
+            "message": "Permission denied!"
+        },
+        "LOGIN_REQUIRED": {
+            "statuscode": 7,
+            "status": "LOGIN_REQUIRED",
+            "message": "Login required, you must log in!"
+        },
+        "PERMISSION_GRANT_FAILED":{
+            "statuscode": 7,
+            "status": "PERMISSION_GRANT_FAILED",
+            "message": "Permission granting process failed!"
+        },
+        "PERMISSION_GRANTED":{
+            "statuscode": 7,
+            "status": "PERMISSION_GRANTED",
+            "message": "Permission granted!"
+        }
+    },
+    "post": {
+        "POST_CREATION_FAILED": {
+            "statuscode": 8,
+            "status": "POST_CREATION_FAILED",
+            "message": "Post creation failed"
+        },
+        "POST_READING_FAILED": {
+            "statuscode": 9,
+            "status": "POST_READING_FAILED",
+            "message": "Post reading failed"
+        },
+        "POST_DELETION_FAILED": {
+            "statuscode": 11,
+            "status": "POST_DELETION_FAILED",
+            "message": "Post deletion failed"
+        },
+        "INFORMATION_MISSING": {
+            "statuscode": 12,
+            "status": "INFORMATION_MISSING",
+            "message": "Information missing from request"
+        },
+        "REQUIRED_FIELD_MISSING": {
+            "statuscode": 13,
+            "status": "REQUIRED_FIELD_MISSING",
+            "message": "Required field missing from post"
+        },
+        "POST_SUCCESFULLY_DELETED": {
+            "statuscode": 14,
+            "status": "POST_SUCCESFULLY_DELETED",
+            "message": "Post succesfully deleted"
+        },
+        "COMMENT_CREATION_FAILED": {
+            "statuscode": 15,
+            "status": "COMMENT_CREATION_FAILED",
+            "message": "Comment creation failed"
+        },
+        "COMMENT_READING_FAILED": {
+            "statuscode": 16,
+            "status": "COMMENT_READING_FAILED",
+            "message": "Comment reading failed"
+        },
+        "COMMENT_DELETION_FAILED": {
+            "statuscode": 17,
+            "status": "COMMENT_DELETION_FAILED",
+            "message": "Comment deletion failed"
+        },
+        "COMMENT_SUCCESFULLY_DELETED": {
+            "statuscode": 18,
+            "status": "COMMENT_SUCCESFULLY_DELETED",
+            "message": "Comment successfully deleted"
+        },
+        "REPLY_CREATION_FAILED": {
+            "statuscode": 19,
+            "status": "REPLY_CREATION_FAILED",
+            "message": "Reply creation failed"
+        },
+        "REPLY_READING_FAILED": {
+            "statuscode": 20,
+            "status": "REPLY_READING_FAILED",
+            "message": "Reply reading failed"
+        },
+        "REPLY_DELETION_FAILED": {
+            "statuscode": 21,
+            "status": "REPLY_DELETION_FAILED",
+            "message": "Reply deletion failed"
+        },
+        "REPLY_SUCCESFULLY_DELETED": {
+            "statuscode": 22,
+            "status": "REPLY_SUCCESFULLY_DELETED",
+            "message": "Reply succesfully deleted"
+        },
+        "NO_MATCHING_RESULTS": {
+            "statuscode": 23,
+            "status": "NO_MATCHING_RESULTS",
+            "message": "No matching results"
         }
     },
     "common": {
         "INFORMATION_MISSING": {
             "statuscode": 7,
             "status": "INFORMATION_MISSING",
-            "message": "Information missing form the request!"
+            "message": "Information missing from request!"
+        },
+        "INTERNAL_SERVER_ERROR": {
+            "statuscode": 8,
+            "status": "INTERNAL_SERVER_ERROR",
+            "message": "Something went wrong during request execution!"
         }
     }
 }
