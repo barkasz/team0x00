@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import '../AddUser/adduser.css'
-import pic from '../../assets/tea.webp'
-import { useParams } from 'react-router'
 import { withRouter } from "react-router";
 import _users from '../../data/users'
+import randomProfilePic from '../../data/profile_pic'
+import defaultProfilePic from '../../assets/default-user.png'
 
 class ChangePassword extends Component {
 
     findUser(id) {
-        return _users.find(user => user.id == id)
+        return _users.find(user => user.id === id)
     }
 
     render() {
@@ -20,7 +20,7 @@ class ChangePassword extends Component {
                     <div className="add-user-form-elements">
                         <div className="author-bar mb-3">
                             <div className="profile profile-medium">
-                                <img src={user?.profile || pic} alt="Poster's profile pic"/> 
+                            <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                             </div>
                             <div className="info">
                                 <p>{user?.username || 'Unknown'}</p>

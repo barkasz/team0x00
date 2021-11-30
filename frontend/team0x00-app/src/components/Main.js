@@ -1,9 +1,7 @@
-import React, {Component, useState } from 'react'
+import React, {Component } from 'react'
 import Sidebar from  './Sidebar/Sidebar'
 import Content from './Content/Content'
 import users from '../data/users'
-import Login from './Login/Login'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 class Main extends Component {
