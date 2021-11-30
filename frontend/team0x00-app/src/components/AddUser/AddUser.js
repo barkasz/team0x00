@@ -9,7 +9,6 @@ class AddUser extends Component {
                     <div className="add-user-form-elements">
                         <h3 className='mt-0 mb-2'>Register User</h3>
                         <input type="text" placeholder="Username" />
-                        <input type="email" placeholder="E-mail" />
                         <input type="password" placeholder="Password" />
                         <div className="form-group checkbox">
                             <input type="checkbox" id="admin" name="admin"/>
