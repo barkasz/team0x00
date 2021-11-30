@@ -20,7 +20,7 @@
 
 // export default App
 
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Main from './Main';
 import Login from './Login/Login';

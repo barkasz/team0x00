@@ -19,11 +19,8 @@ body {
 	}
 }
 /* --- TYPOGRAPHY --- */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
 * {
-    font-family: 'Poppins';
+	font-family: 'Poppins', 'Helvetica', sans-serif;
     color: #333;
 	box-sizing: border-box;
 }
@@ -85,6 +82,19 @@ small {
 
 a {
     text-decoration: none;
+}
+
+div.warning {
+	padding: 20px;
+	color: white;
+	background: #ec695a;
+	border-radius: 10px;
+	text-align: center;
+	margin: 20px 0px
+}
+
+div.warning p {
+	color: white;
 }
 
 /* ---- COLORS --- */

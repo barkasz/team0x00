@@ -1,28 +1,27 @@
-import React, {Component, useState} from 'react'
+import React from 'react'
 import './sidebar.css'
 import logo from '../../assets/logo.png'
-import defaultProfile from '../../assets/default-user.png'
 import { Link } from 'react-router-dom'
 import closeIcon from '../../assets/close.svg'
-
+import randomProfilePic from '../../data/profile_pic'
+import defaultProfilePic from '../../assets/default-user.png'
 
 function Sidebar(props) {
-        const { isOpen, currentUser } = props
+        const { isOpen, currentUser, toggleMenu } = props
         return  ( <div className={`sidebar bg-accent ${isOpen ? "open" : ""}`}> 
                     <div className="fix">
-                    
-                    <div className="action-button close"  onClick={() => this.props.toggleMenu()} >
+                    <div className="action-button close"  onClick={() => toggleMenu()} >
                         <img src={closeIcon} className='icon' alt="Close Button" />
                     </div>
-                    <img src={logo} alt="CAFFgram Logo" className="logo mb-2" />
+                    <Link to='/'><img src={logo} alt="CAFFgram Logo" className="logo mb-2" /></Link>
+                    
 
                     <div className="user-info mt-2">
                         <div className="profile profile-large">
-                            <img src={currentUser?.profile || defaultProfile} alt="Profile pic" />
+                            <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                         </div>
                         { currentUser?.admin && <small>Administrator</small> }
                         <h1 className='mb-0'>{currentUser?.username || 'Unknown' }</h1>
-                        <p className="subtle">{currentUser?.email || 'Unknown email'}</p>
                     </div>
 
                     <div className="menu">

@@ -5,10 +5,13 @@ import pic from '../../assets/tea.webp'
 import commentIcon from '../../assets/comment.svg'
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/trash.svg'
+import downloadIcon from '../../assets/download.svg'
 import Popup from '../Popup/Popup'
 import _comments from '../../data/comments'
 import { Link } from 'react-router-dom'
 import { API } from '../../api-service'
+import randomProfilePic from '../../data/profile_pic'
+import defaultProfilePic from '../../assets/default-user.png'
 
 class Post extends Component {
     constructor(){
@@ -55,9 +58,9 @@ class Post extends Component {
 
     requestData = async () => {
         await API.getComments().then(data => {
-            console.log(data);
+            // console.log(data);
             const data2 = data.filter(comment => this.props.post.comment_ids.includes(comment.id))
-            console.log(data2);
+            // console.log(data2);
             this.setState({comment_list : data2})
         })
         .catch(error => {
@@ -74,7 +77,6 @@ class Post extends Component {
 
     render() {
         const { post, currentUser } = this.props 
-        //this.state.comment_list = this.getComments(post.comment_ids)
         
         return ( <>
         {this.state.deleteUserPopup && 
@@ -94,11 +96,19 @@ class Post extends Component {
         }
 
         <div className='post'>
+            <div className="post-actions">
+
+                <div className="action-button" onClick={() => {}}>
+                    <img src={downloadIcon} className='icon' alt="Download icon" />
+                </div>
+            
             {currentUser?.admin &&
-                <div className="action-button delete-post" onClick={this.toggleDeletePostPopup}>
-                    <img src={deleteIcon} className='icon' alt="" />
+                <div className="action-button" onClick={this.toggleDeletePostPopup}>
+                    <img src={deleteIcon} className='icon' alt="Delete icon" />
                 </div>
             }
+
+            </div>
 
             <img src={post?.image || pic} className="post-img" alt={post?.title || 'Posted pic'}/>
             <div className="post-info">
@@ -106,11 +116,10 @@ class Post extends Component {
                 <h2>{post?.title || 'No title'}</h2>
                 <div className="author-bar mb-3">
                     <div className="profile profile-medium">
-                        <img src={post?.user?.profile || pic} alt="Poster's profile pic"/> 
+                        <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Poster's profile pic"/> 
                     </div>
                     <div className="info">
                         <p>{post?.user?.username || 'Unknown'}</p>
-                        <p className="subtle">{post?.user?.email || 'Unknonw email'}</p>
                     </div>
                     { currentUser?.admin && 
                     <div className="actions">
