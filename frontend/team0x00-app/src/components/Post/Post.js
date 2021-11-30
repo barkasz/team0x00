@@ -5,6 +5,7 @@ import pic from '../../assets/tea.webp'
 import commentIcon from '../../assets/comment.svg'
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/trash.svg'
+import downloadIcon from '../../assets/download.svg'
 import Popup from '../Popup/Popup'
 import _comments from '../../data/comments'
 import { Link } from 'react-router-dom'
@@ -95,11 +96,19 @@ class Post extends Component {
         }
 
         <div className='post'>
+            <div className="post-actions">
+
+                <div className="action-button" onClick={() => {}}>
+                    <img src={downloadIcon} className='icon' alt="Download icon" />
+                </div>
+            
             {currentUser?.admin &&
-                <div className="action-button delete-post" onClick={this.toggleDeletePostPopup}>
-                    <img src={deleteIcon} className='icon' alt="" />
+                <div className="action-button" onClick={this.toggleDeletePostPopup}>
+                    <img src={deleteIcon} className='icon' alt="Delete icon" />
                 </div>
             }
+
+            </div>
 
             <img src={post?.image || pic} className="post-img" alt={post?.title || 'Posted pic'}/>
             <div className="post-info">
