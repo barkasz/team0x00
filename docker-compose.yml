@@ -10,3 +10,14 @@ services:
       - 5000:5000
     # volumes:
     # - ./web-server/src:/usr/src/app
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_DATABASE: admin
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./volumes/mongo:/data/db
