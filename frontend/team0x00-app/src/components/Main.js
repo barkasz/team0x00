@@ -1,15 +1,33 @@
-import React, {Component } from 'react'
+import React, { useState } from 'react'
 import Sidebar from  './Sidebar/Sidebar'
 import Content from './Content/Content'
 import users from '../data/users'
+import useToken from '../hooks/useToken';
 
 
-class Main extends Component {
+function Main() {
+    const [menuOpen, setMenuOpen] = useState(true)
+    const { token, setToken } = useToken()
+    const user = token
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen)
+    }
+    return (
+         <div className="container">
+                <Sidebar isOpen={menuOpen} toggleMenu={toggleMenu} currentUser={user}/>
+                <Content toggleMenu = {toggleMenu} currentUser={user}/>
+        </div>
+    )
+}
+
+/*class Main extends Component {
     constructor() {
         super()
         this.openMenu = this.openMenu.bind(this)
+        const { currentUser } = useToken() 
         this.state = {
-            menuOpen: false
+            menuOpen: false,
+            currentUser: currentUser
         }
     }
 
@@ -29,6 +47,7 @@ class Main extends Component {
     }
 
 }
+*/
 
 
 export default Main
