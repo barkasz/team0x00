@@ -9,7 +9,8 @@ import json
 
 from auth import service
 from auth import exceptions
-from auth.internal_api import login_required
+from auth.roles import Role
+from auth.internal_api import login_required, authorize
 from responses import get_response_codes
 
 
@@ -67,4 +68,18 @@ def signup():
         return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
     return jsonify(responses["SIGNED_UP_SUCCESFULLY"]), 200
+
+
+@auth_bp.route("/<user_id>/role/admin", methods=["PUT"])
+@login_required
+@authorize(roles=[Role.ADMIN])
+def grant_admin_permission(user_id):
+    try:
+        service.grant_admin_permission(user_id)
+    except exceptions.UserNotExistsException:
+        return jsonify(responses["USER_NOT_EXISTS"]), 400
+    except exceptions.AuthException:
+        return jsonify(responses["PERMISSION_GRANT_FAILED"]), 400
+
+    return jsonify(responses["PERMISSION_GRANTED"]), 200
 

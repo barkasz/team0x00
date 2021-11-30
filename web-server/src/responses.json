@@ -10,6 +10,11 @@
             "status": "USERNAME_ALREADY_EXIST",
             "message": "This username is already taken"
         },
+        "USER_NOT_EXISTS":{
+            "statuscode": 7,
+            "status": "USER_NOT_EXISTS",
+            "message": "User not exists!"
+        },
         "ALREADY_LOGGED_IN": {
             "statuscode": 4,
             "status": "ALREADY_LOGGED_IN",
@@ -28,7 +33,22 @@
         "PERMISSION_DENIED": {
             "statuscode": 7,
             "status": "PERMISSION_DENIED",
-            "message": "Permission denied, you must log in!"
+            "message": "Permission denied!"
+        },
+        "LOGIN_REQUIRED": {
+            "statuscode": 7,
+            "status": "LOGIN_REQUIRED",
+            "message": "Login required, you must log in!"
+        },
+        "PERMISSION_GRANT_FAILED":{
+            "statuscode": 7,
+            "status": "PERMISSION_GRANT_FAILED",
+            "message": "Permission granting process failed!"
+        },
+        "PERMISSION_GRANTED":{
+            "statuscode": 7,
+            "status": "PERMISSION_GRANTED",
+            "message": "Permission granted!"
         }
     },
     "post": {
