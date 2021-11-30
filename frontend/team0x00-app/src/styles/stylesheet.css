@@ -90,7 +90,8 @@ div.warning {
 	background: #ec695a;
 	border-radius: 10px;
 	text-align: center;
-	margin: 20px 0px
+	margin: 20px 0px;
+	width: 80%;
 }
 
 div.warning p {

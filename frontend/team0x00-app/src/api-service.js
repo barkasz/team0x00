@@ -6,16 +6,18 @@ const headers = {'Content-Type': 'application/json'}
 export class API {
     static async login(credentials) {
         console.log(JSON.stringify(credentials));
-        return fetch('http://localhost:5000/login', {
-
+        return fetch('/login', {
           method: 'POST',
-          //mode: 'cors', 
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'same-origin',
           body: JSON.stringify(credentials)
         })
           .then(data => data.json())
+          .catch((error) => {
+            console.log('error: ' + error)
+          })
     }
 
     static async signup(credentials) {
@@ -30,11 +32,12 @@ export class API {
     }
 
     static async logout() {
-      return fetch(API_URL+'logout', {
+      return fetch('/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        credentials: 'same-origin'
       })
         .then(data => data.json())
     }

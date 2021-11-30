@@ -26,6 +26,14 @@ div.sidebar {
 		z-index: 99;
 		background: #F5F5F5;
 	}
+
+    div.action-button.close {
+        display: flex !important;
+    }
+
+    div.sidebar.open div.action-button {
+        display: flex !important;
+    }
 }
 
 div.sidebar div.action-button {
@@ -33,7 +41,7 @@ div.sidebar div.action-button {
 }
 
 div.sidebar.open div.action-button {
-    display: flex;
+    display: none;
 }
 
 
@@ -42,6 +50,7 @@ div.action-button.close {
     right: 10px;
     top: 10px;
     background: white;
+    display: none;
 }
 
 div.fix {

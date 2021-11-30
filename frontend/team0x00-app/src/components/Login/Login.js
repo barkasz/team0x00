@@ -8,11 +8,20 @@ import { API } from "../../api-service";
 export default function Login({ setToken }) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [warningText, setWarningText] = useState('');
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await API.login({"username": username, "password": password});
-        setToken(token);
+        const response = await API.login({"username": username, "password": password});
+        
+        if(!response) {
+            setWarningText("The servers are unavailable!")
+        } else if (response.username) {
+            setToken({token: response});
+        } else {
+            setWarningText(response.message);
+        }
+        
     }
 
     return (
@@ -22,12 +31,14 @@ export default function Login({ setToken }) {
             <img src={logo} alt="CAFFgram Logo" className="logo mb-2" />
         </div>
         <div className="loginbox">
+            <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
+        { warningText && <div className="warning">
+                        <p>{warningText}</p>
+                    </div> }
             <div className="loginbox-form-elements">
-                    <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
+                    
 
-                    <div className="warning">
-                        <p>This is an example warning message.</p>
-                    </div>
+
                     <input type="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
 
                     <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
