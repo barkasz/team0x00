@@ -3,8 +3,7 @@ const TOKEN = "asdfasdfasdf1234";
 
 export class API {
     static async login(credentials) {
-        console.log(credentials);
-        return fetch('http://localhost:5000/login', {
+        return fetch(API_URL+'login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
