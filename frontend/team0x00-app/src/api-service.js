@@ -1,9 +1,9 @@
-const API_URL = "http://localhost:8000/"
+const API_URL = "http://localhost:5000/"
 const TOKEN = "asdfasdfasdf1234";
 
 export class API {
-    static async loginUser(credentials) {
-        return fetch('http://localhost:8000/login', {
+    static async login(credentials) {
+        return fetch(API_URL+'login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -11,7 +11,39 @@ export class API {
           body: JSON.stringify(credentials)
         })
           .then(data => data.json())
-       }
+    }
+
+    static async signup(credentials) {
+      return fetch(API_URL+'signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      })
+        .then(data => data.json())
+    }
+
+    static async logout() {
+      return fetch(API_URL+'logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(data => data.json())
+    }
+
+    static async getComments(credentials) {
+        return fetch('http://localhost:8000/getcomments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        })
+          .then(data => data.json())
+    }
 
     // static loginUser(body) {
     //   return fetch(`http://127.0.0.1:8000/auth/`, {

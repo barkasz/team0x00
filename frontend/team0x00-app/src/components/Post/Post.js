@@ -8,54 +8,74 @@ import deleteIcon from '../../assets/trash.svg'
 import Popup from '../Popup/Popup'
 import _comments from '../../data/comments'
 import { Link } from 'react-router-dom'
+import { API } from '../../api-service'
 
 class Post extends Component {
-
     constructor(){
         super()
-        this.handleDeletePostPopup = this.handleDeletePostPopup.bind(this)
-        this.handleDeleteUserPopup = this.handleDeleteUserPopup.bind(this)
-        this.toggleDeleteUserPopup = this.toggleDeleteUserPopup.bind(this)
-        this.toggleDeletePostPopup = this.toggleDeletePostPopup.bind(this)
+        
         this.state = {
             deletePostPopup: false,
-            deleteUserPopup: false
+            deleteUserPopup: false,
+            comment: '',
+            comment_list : [],
+            _comments : []
         }
     }
 
-    handleDeletePostPopup(resp){
+    handleDeletePostPopup = (resp) => {
         if(resp) {
             // TODO delete user
         }
         this.toggleDeletePostPopup()
     }
 
-    handleDeleteUserPopup(resp){
+    handleDeleteUserPopup = (resp) =>{
         if(resp) {
             // TODO delete user
         }
         this.toggleDeleteUserPopup()
     }
 
-    toggleDeletePostPopup(){
+    toggleDeletePostPopup = () => {
         this.setState({
             deletePostPopup: !this.state.deletePostPopup
         })
     }
 
-    toggleDeleteUserPopup(){
+    toggleDeleteUserPopup = ()  => {
         this.setState({
             deleteUserPopup: !this.state.deleteUserPopup
         })
     }
 
-    getComments(idList){
+    getComments = (idList)  => {
         return _comments.filter(comment => idList.includes(comment.id))
     }
 
+    requestData = async () => {
+        await API.getComments().then(data => {
+            console.log(data);
+            const data2 = data.filter(comment => this.props.post.comment_ids.includes(comment.id))
+            console.log(data2);
+            this.setState({comment_list : data2})
+        })
+        .catch(error => {
+            console.error('There was an error in requestData!', error);
+        });        
+    }
+
+    componentDidMount(){
+        this.requestData()
+
+    }
+
+
+
     render() {
         const { post, currentUser } = this.props 
-        const comments = this.getComments(post.comment_ids)
+        //this.state.comment_list = this.getComments(post.comment_ids)
+        
         return ( <>
         {this.state.deleteUserPopup && 
         
@@ -108,16 +128,16 @@ class Post extends Component {
                 <div className="comment-section">
                     <div className="comments">
                         {
-                            comments?.map(comment => (<Comment key={comment.id} comment={comment}/>))
+                            this.state.comment_list?.map(comment => (<Comment key={comment.id} comment={comment}/>))
                         }
                     </div>
                     
                     <div className="write w-100">
                         <div className="input-with-icon w-100">
                             <img src={commentIcon} alt="Comment icon" className="icon"/>
-                            <input type="text" className='w-100' placeholder="Write a comment here..."/>
+                            <input type="text" className='w-100' placeholder="Write a comment here..." value={this.state.comment} onChange={ (event) => this.setState({comment: event.target.value})} />
                         </div>
-                        <button className='btn btn-small'>Send</button>
+                        <button className='btn btn-small' onClick={() => alert(this.state.comment)}>Send</button>
                     </div>
                 </div>
             </div>
