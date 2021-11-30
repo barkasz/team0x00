@@ -23,7 +23,7 @@
         "SIGNED_UP_SUCCESFULLY": {
             "statuscode": 6,
             "status": "SIGNED_UP_SUCCESFULLY",
-            "message": "Succesfully signed up"
+            "message": "Succesfully signed up!"
         }
     },
     "common": {
@@ -31,6 +31,11 @@
             "statuscode": 7,
             "status": "INFORMATION_MISSING",
             "message": "Information missing form the request!"
+        },
+        "INTERNAL_SERVER_ERROR": {
+            "statuscode": 8,
+            "status": "INTERNAL_SERVER_ERROR",
+            "message": "Something went wrong during request execution!"
         }
     }
 }

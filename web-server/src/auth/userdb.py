@@ -51,11 +51,13 @@ def select_user(username, password):
             connection.cursor.execute(select_user_query, (username, password))
             user = connection.cursor.fetchone()
     except sqlite3.Error:
-        raise exceptions.InvalidCredentialsException
+        raise exceptions.InternalServerException
 
     user = dict(user) if user else None
     if user is not None:
         user.pop("password")
+    else:
+        raise exceptions.InvalidCredentialsException
 
     return user
 

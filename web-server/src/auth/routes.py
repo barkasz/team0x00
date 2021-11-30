@@ -7,6 +7,7 @@ import json
 
 
 from auth import service
+from auth import exceptions
 from responses import get_response_codes
 
 
@@ -21,8 +22,12 @@ def login():
 
     username = request.json["username"]
     password = request.json["password"]
-    user = service.login(username=username,
-                         password=password)
+    try:
+        user = service.login(username=username, password=password)
+    except exceptions.InvalidCredentialsException:
+        return jsonify(responses["INVALID_CREDENTIALS"]), 400
+    except exceptions.AuthException:
+        return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
     return Response(response=json.dumps(user),
                     status=200,
@@ -42,12 +47,17 @@ def signup():
     if request.json is None:
         return jsonify(responses["INFORMATION_MISSING"]), 400
 
-    if request.json is None:
-        # TODO hadle exception
-        pass
+    signup_data = {
+        "username": str(request.json['username']),
+        "password": str(request.json['password'])
+    }
 
-    result = service.signup(request.json)
-    return Response(response=json.dumps(result),
-                    status=200,
-                    mimetype="application/json")
+    try:
+        result = service.signup(signup_data)
+    except exceptions.UsernameAlreadyExistsException:
+        return jsonify(responses["ALREADY_LOGGED_IN"]), 400
+    except exceptions.AuthException:
+        return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
+
+    return jsonify(responses["SIGNED_UP_SUCCESFULLY"]), 200
 

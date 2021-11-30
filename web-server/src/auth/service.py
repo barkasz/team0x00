@@ -12,29 +12,18 @@ def logout():
     }
 
 
-def signup(signup_form):
-    signup_data = {
-        "username": str(signup_form['username']),
-        "password": str(signup_form['password'])
-    }
+def signup(userdata):
 
     try:
-        user = userdb.select_user_by_username(signup_data["username"])
+        user = userdb.select_user_by_username(userdata["username"])
     except exceptions.InternalServerException:
         raise
 
+    if user:
+        raise exceptions.UsernameAlreadyExistsException
+
     try:
-        if not user:
-            userdb.insert_user(signup_data)
-        else:
-            return None
+        user = userdb.insert_user(userdata)
     except exceptions.InternalServerException:
         raise
-
-    try:
-        user = userdb.select_user_by_username(signup_data["username"])
-    except exceptions.AuthException:
-        raise
-
-    return user
 
