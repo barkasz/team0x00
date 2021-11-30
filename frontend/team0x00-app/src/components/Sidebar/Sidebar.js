@@ -7,13 +7,14 @@ import randomProfilePic from '../../data/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 
 function Sidebar(props) {
-        const { isOpen, currentUser } = props
+        const { isOpen, currentUser, toggleMenu } = props
         return  ( <div className={`sidebar bg-accent ${isOpen ? "open" : ""}`}> 
                     <div className="fix">
-                    <div className="action-button close"  onClick={() => this.props.toggleMenu()} >
+                    <div className="action-button close"  onClick={() => toggleMenu()} >
                         <img src={closeIcon} className='icon' alt="Close Button" />
                     </div>
-                    <img src={logo} alt="CAFFgram Logo" className="logo mb-2" />
+                    <Link to='/'><img src={logo} alt="CAFFgram Logo" className="logo mb-2" /></Link>
+                    
 
                     <div className="user-info mt-2">
                         <div className="profile profile-large">
