@@ -1,0 +1,72 @@
+import sqlite3
+from contextlib import contextmanager
+from collections import namedtuple
+
+from auth import exceptions
+
+
+userdb_name = "users.db"
+
+
+Connection = namedtuple("Connection", "db, cursor")
+
+
+def insert_user(user):
+    insert_user_query = ("INSERT INTO users "
+                         "(username, password) VALUES (?, ?)")
+
+    username = user['username']
+    password = user['password']
+
+    try:
+        with connect_to_db() as connection:
+            connection.cursor.execute(insert_user_query, (username, password))
+            connection.db.commit()
+    except sqlite3.Error:
+        raise exceptions.InternalServerException
+
+
+def select_user_by_username(username):
+    select_user_query = ("SELECT * FROM users WHERE username=?")
+
+    try:
+        with connect_to_db() as connection:
+            connection.cursor.execute(select_user_query, (username, ))
+            user = connection.cursor.fetchone()
+    except sqlite3.Error:
+        raise exceptions.AuthException
+
+    user = dict(user) if user else None
+    if user is not None:
+        user.pop("password")
+
+    return user
+
+
+def select_user(username, password):
+    select_user_query = ("SELECT * FROM users WHERE username=? and password=?")
+
+    try:
+        with connect_to_db() as connection:
+            connection.cursor.execute(select_user_query, (username, password))
+            user = connection.cursor.fetchone()
+    except sqlite3.Error:
+        raise exceptions.InvalidCredentialsException
+
+    user = dict(user) if user else None
+    if user is not None:
+        user.pop("password")
+
+    return user
+
+
+@contextmanager
+def connect_to_db():
+    try:
+        db = sqlite3.connect(userdb_name, detect_types=sqlite3.PARSE_COLNAMES)
+        db.row_factory = sqlite3.Row
+        cursor = db.cursor()
+        yield Connection(db, cursor)
+    finally:
+        cursor.close()
+        db.close()

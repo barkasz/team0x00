@@ -11,6 +11,16 @@ cmake-build-debug/
 .idea/
 
 #ignore compiled stuff
+./caff
+./ciff
+parser
+web-server/src/third_party/converter
+*.gif
+
+#:python specific
+__pycache__/
+venv/
+.venv/
 caff
 ciff
 parser
