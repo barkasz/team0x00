@@ -10,6 +10,7 @@ import _comments from '../../data/comments'
 import { Link } from 'react-router-dom'
 import { API } from '../../api-service'
 import randomProfilePic from '../../data/profile_pic'
+import defaultProfilePic from '../../assets/default-user.png'
 
 class Post extends Component {
     constructor(){
@@ -106,7 +107,7 @@ class Post extends Component {
                 <h2>{post?.title || 'No title'}</h2>
                 <div className="author-bar mb-3">
                     <div className="profile profile-medium">
-                        <img src={randomProfilePic()} alt="Poster's profile pic"/> 
+                        <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Poster's profile pic"/> 
                     </div>
                     <div className="info">
                         <p>{post?.user?.username || 'Unknown'}</p>

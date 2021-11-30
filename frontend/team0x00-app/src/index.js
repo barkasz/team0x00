@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import App from './components/App';
 import './styles/stylesheet.css'
+import './fonts.css'
 
 import {Provider} from 'react-redux'
 import { createStore } from 'redux';
