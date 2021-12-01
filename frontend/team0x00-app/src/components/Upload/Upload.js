@@ -38,7 +38,7 @@ function Upload({triggerRefresh}){
             if (caffResp.id) {
                 const postResp = await(API.post({ "title": title, "caff_id": caffResp.id }))
                 if(postResp._id) {
-                    triggerRefresh([])
+                    triggerRefresh(['1'])
                     history.push('/')
                 }
             }

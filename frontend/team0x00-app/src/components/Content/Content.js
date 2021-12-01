@@ -19,8 +19,9 @@ function Content({ currentUser, ...props }){
         useEffect(() => {
             async function fetchPosts(){
                 const res = await API.getPosts()
-                if (res.length > 0) {
-                    setPosts(res)
+                setPosts(res)
+                if (res instanceof Array) {
+                    setFetchError(false)
                 } else {
                     setFetchError(true)
                 }
@@ -55,7 +56,7 @@ function Content({ currentUser, ...props }){
 
                                 }
                                 
-                                { !fetchError && posts?.map(post => (
+                                { !fetchError && posts.map !== undefined &&posts?.map(post => (
                                     <Post key={post._id} post={post} triggerRefresh={triggerRefresh}/>
                                 ))
                                 }
