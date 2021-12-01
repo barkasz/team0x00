@@ -128,6 +128,33 @@
             "message": "No matching results"
         }
     },
+    "caff": {
+        "FILE_ACCESS_ERROR": {
+            "statuscode": 9,
+            "status": "FILE_ACCESS_ERROR",
+            "message": "Error while accessing the file"
+        },
+        "FILE_MISSING_REQUEST": {
+            "statuscode": 10,
+            "status": "FILE_MISSING_REQUEST",
+            "message": "File is missing from the request"
+        },
+        "GIF_ERROR": {
+            "statuscode": 10,
+            "status": "GIF_ERROR",
+            "message": "Error while creating dif"
+        },
+        "FILE_MISSING": {
+            "statuscode": 11,
+            "status": "FILE_MISSING",
+            "message": "File is missing from the server"
+        },
+        "FILE_DELETE_ERROR": {
+            "statuscode": 12,
+            "status": "FILE_DELETE_ERROR",
+            "message": "Error while deleting the file"
+        }
+    },
     "common": {
         "INFORMATION_MISSING": {
             "statuscode": 7,
@@ -138,6 +165,11 @@
             "statuscode": 8,
             "status": "INTERNAL_SERVER_ERROR",
             "message": "Something went wrong during request execution!"
+        },
+        "INVALID_ENDPOINT": {
+            "statuscode": 8,
+            "status": "INVALID_ENDPOINT",
+            "message": "Invalid endpoint name!"
         }
     }
 }

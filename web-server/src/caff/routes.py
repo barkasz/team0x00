@@ -1,3 +1,6 @@
+import os
+
+import werkzeug
 from flask import Blueprint
 from flask import request
 from flask import jsonify
@@ -15,7 +18,8 @@ from responses import get_response_codes
 import app
 
 caff_bp = Blueprint("caff_bp", __name__)
-responses = get_response_codes("caff_bp")
+responses = get_response_codes("caff")
+responses_com = get_response_codes("common")
 
 Connection = namedtuple("Connection", "db, cursor")
 ALLOWED_EXTENSIONS = {'caff'}
@@ -32,22 +36,28 @@ def download_file(file_type, file_id):
     if file_type in ALLOWED_FILE:
         filename = service.download_file(file_id, file_type)
         if filename is not None:
-            return send_from_directory(app.app.config['UPLOAD_FOLDER'], filename)
+            if filename in os.listdir(app.app.config['UPLOAD_FOLDER']):
+                #safely send the file
+                resp = send_from_directory(app.app.config['UPLOAD_FOLDER'], filename)
+                if resp.status_code != 200:
+                    return jsonify(responses["FILE_MISSING"]), 400
+                return resp
+            else:
+                return jsonify(responses["FILE_MISSING"]), 400
         else:
-            abort(400)
+            return jsonify(responses["FILE_MISSING"]), 400
     else:
-        abort(400)
-
+        return jsonify(responses_com["INVALID_ENDPOINT"]), 400
 
 
 
 @caff_bp.route("/upload", methods=["POST"])
 def upload():
     if 'file' not in request.files:
-        return jsonify(["FILE_MISSING"]), 400
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
     file = request.files['file']
     if file.filename == '':
-        return jsonify(["FILE_MISSING"]), 400
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
     if file and allowed_file(file.filename):
         result = service.upload(file)
         if result is not None:
@@ -55,4 +65,19 @@ def upload():
                         status=200,
                         mimetype="application/json")
         else:
-            return abort(400)
+            return jsonify(responses["GIF_ERROR"]), 400
+
+@caff_bp.route("/delete/<id>", methods=["DELETE"])
+def remove(id):
+    result = service.remove_file(id)
+    if result is None:
+        return jsonify(responses["FILE_DELETE_ERROR"]), 400
+    return Response(response=json.dumps(result),
+                        status=200,
+                        mimetype="application/json")
+
+
+
+
+def handle_bad_request(e):
+    return jsonify(responses_com["INVALID_ENDPOINT"]), 400
