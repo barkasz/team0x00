@@ -12,7 +12,7 @@ import randomProfilePic from '../../data/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 import useToken from '../../hooks/useToken'
 
-function Post ({post}) {
+function Post ({post, triggerRefresh }) {
     const [deletePopup, setDeletePopup] = useState(false)
     const [comments, setComments] = useState(post.comments)
     const [profilePic] = useState(randomProfilePic())
@@ -23,6 +23,7 @@ function Post ({post}) {
         if(resp) {
             try {
                 API.deletePost(post)
+                triggerRefresh([])
             } catch (e) {
                 alert(e.message)
             }
@@ -63,7 +64,7 @@ function Post ({post}) {
                     <img src={downloadIcon} className='icon' alt="Download icon" />
                 </div>
             
-            {!token?.admin &&
+            {token?.admin &&
                 <div className="action-button" onClick={() => toggleDeletePopup() }>
                     <img src={deleteIcon} className='icon' alt="Delete icon" />
                 </div>

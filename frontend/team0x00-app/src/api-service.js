@@ -154,31 +154,15 @@ export class API {
     }
 
     static async getPosts(){
-      const postids = await fetch('/post/all', {
+      return fetch('/post/posts', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'same-origin'
-      }).then(res => res.json())
-
-        const postQueries = []
-        //console.log(typeof(postids))
-        console.log(postids)
-        if (typeof(postids) ==="object"){
-          postids.forEach(postid => {
-              postQueries.push(fetch('/post/'+postid))
-          });
-        }
-        console.log(postQueries)
-
-        return Promise.all(postQueries)
-        .then(resp => {
-            return Promise.all(resp.map(function (response) {
-                return response.json();
-            }));
-        }).then(data => {
-          return data
+        credentials: 'same-origin',
+      }).then(data => data.json())
+        .catch((error) => {
+          throw error;
         })
     }
 

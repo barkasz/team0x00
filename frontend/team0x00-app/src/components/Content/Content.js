@@ -13,15 +13,26 @@ import { API } from '../../api-service'
 
 function Content({ currentUser, ...props }){
         const [posts, setPosts] = useState([])
+        const [refresh, triggerRefresh] = useState([])
+        const [fetchError, setFetchError] = useState(false) 
 
         useEffect(() => {
-            /*async function fetchPosts(){
+            async function fetchPosts(){
                 const res = await API.getPosts()
-                setPosts(res)
+                if (res.length > 0) {
+                    setPosts(res)
+                } else {
+                    setFetchError(true)
+                }
                 console.log(res)
             }
-            fetchPosts()*/
-        }, [])
+            try {
+                fetchPosts()
+            } catch (e) {
+                setFetchError(true)
+            }
+            
+        }, [refresh])
         
         return (
                 <div className="content">
@@ -37,8 +48,15 @@ function Content({ currentUser, ...props }){
 
                         <Route exact path = "/" render={() => (<>
                                 <h1 className='mb-4'>Explore</h1>
-                                { posts?.map(post => (
-                                    <Post key={post._id} post={post}/>
+                                { fetchError && 
+
+                                    <p>There are no posts to show currently.</p>
+
+
+                                }
+                                
+                                { !fetchError && posts?.map(post => (
+                                    <Post key={post._id} post={post} triggerRefresh={triggerRefresh}/>
                                 ))
                                 }
                             </>
@@ -47,7 +65,7 @@ function Content({ currentUser, ...props }){
                         <Route exact path = "/upload" render={() => (
                             <>
                                 <h1 className='mb-4'>Upload</h1>
-                                <Upload/>
+                                <Upload triggerRefresh={triggerRefresh}/>
                             </>
                         )}/>
 

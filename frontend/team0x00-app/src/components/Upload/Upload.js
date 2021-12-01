@@ -3,7 +3,7 @@ import { API } from '../../api-service';
 import { useHistory } from "react-router-dom";
 import './upload.css'
 
-function Upload(){
+function Upload({triggerRefresh}){
 
     const [image, setImage] = useState()
     const [title, setTitle] = useState('')
@@ -35,7 +35,13 @@ function Upload(){
         data.append('file', image, "asdas.caff")
         try {
             const caffResp = await API.uploadCaff(data)
-            console.log(caffResp)
+            if (caffResp.id) {
+                const postResp = await(API.post({ "title": title, "caff_id": caffResp.id }))
+                if(postResp._id) {
+                    triggerRefresh([])
+                    history.push('/')
+                }
+            }
         } catch (e){
             setWarning("Server side error: " + e.message)
         }
