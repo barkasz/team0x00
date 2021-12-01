@@ -56,9 +56,9 @@ export default function Login({ setToken }) {
                         <p>{loginWarning}</p>
                     </div> }
             <div className="loginbox-form-elements">
-                    <input type="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+                    <input required type="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
 
-                    <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                    <input required type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     <button type='submit' className='btn btn-primary mt-1 w-100'>Sign in</button>
                     </div>
             </form>
@@ -80,9 +80,9 @@ export default function Login({ setToken }) {
                         </div> 
                     }
 
-
-                    <input type="text" name="regUsername" placeholder="Username" onChange={e => setRegUsername(e.target.value)} />
-                    <input type="password" name="regPassword" placeholder="Password" onChange={e => setRegPassword(e.target.value)} />
+                    <input type="text" required minlength="3" name="regUsername" placeholder="Username" onChange={e => setRegUsername(e.target.value)} />
+                    <input type="password" required minlength="8" pattern='(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' name="regPassword" placeholder="Password" onChange={e => setRegPassword(e.target.value)} />
+                    <small className='password-disclaimer'>At least 8 characters, containing uppercase and lowercase letters, numbers/special characters</small>
                     <button type='submit' className='btn btn-outline mt-1 w-100'>Register</button>
             </div>
             </form>
