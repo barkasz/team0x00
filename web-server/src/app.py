@@ -15,6 +15,9 @@ config.read('/usr/config/config.ini')
 # user database
 app.config["USER_DB"] = config["USER"]["USER_DB"]
 
+# user database ini
+app.config["USERDB_INIT"] = config["USERDB_INIT"]
+
 # Session
 app.config["SECRET_KEY"] = config["SESSION"]["SECRET_KEY"]
 app.config["SESSION_PERMANENT"] = config["SESSION"]["SESSION_PERMANENT"]
@@ -36,7 +39,7 @@ from init import init_authdb
 from init import init_authdb, init_imagesdb
 from caff import caffdb
 
-init_authdb.init('users.db')
+init_authdb.init(app.config["USER_DB"], app.config["USERDB_INIT"])
 init_imagesdb.init(caffdb.imagesdb_name)
 
 # register routes
