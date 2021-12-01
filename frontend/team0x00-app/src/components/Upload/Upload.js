@@ -33,11 +33,9 @@ function Upload(){
         e.preventDefault();
         const data = new FormData()
         data.append('file', image, "asdas.caff")
-        console.log(...data)
         try {
             const caffResp = await API.uploadCaff(data)
             console.log(caffResp)
-
         } catch (e){
             setWarning("Server side error: " + e.message)
         }

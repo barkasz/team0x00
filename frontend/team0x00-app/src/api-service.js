@@ -200,9 +200,6 @@ export class API {
   static async uploadCaff(data) {
     return fetch('/upload', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'multipart/form-data',
-      },
       body: data
     }).then(data => data.json())
     .catch((error) => {
