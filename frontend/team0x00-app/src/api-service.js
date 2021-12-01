@@ -1,3 +1,5 @@
+import users from "./data/users";
+
 const API_URL = "http://localhost:8000/"
 const TOKEN = "asdfasdfasdf1234";
 
@@ -127,4 +129,22 @@ export class API {
         }
       })
     }
+
+    static deletePost(post) {
+      alert("API call to delete " + post.title + ".")
+    }
+
+    static getAllUsers(){
+      return users;
+    }
+
+    static setAsAdmin(user){
+      // TODO
+      alert("API call to make" + user.username + " admin.")
+    }
+
+    static deleteUser(user) {
+      alert("API call to delete " + user.username +".")
+    }
+
 }

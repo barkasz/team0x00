@@ -20,7 +20,7 @@ class ChangePassword extends Component {
                     <div className="add-user-form-elements">
                         <div className="author-bar mb-3">
                             <div className="profile profile-medium">
-                            <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
+                                <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                             </div>
                             <div className="info">
                                 <p>{user?.username || 'Unknown'}</p>

@@ -6,10 +6,9 @@ import menuIcon from '../../assets/menu.svg'
 import Post from '../Post/Post'
 import Upload from '../Upload/Upload'
 import _posts from '../../data/posts'
+import Users from '../Users/Users'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'
-
-import Login from '../Login/Login'
 
 class Content extends Component {
     render(){
@@ -47,9 +46,16 @@ class Content extends Component {
                             </>
                         )}/>
 
+                        <Route exact path = "/users" render={() => (
+                            <>
+                                <h1 className='mb-4'>Users</h1>
+                                <Users/>
+                            </>
+                        )}/>
+
                         <Route exact path = "/add-user" render={() => (
                             <>
-                                <h1 className='mb-4'>Add User</h1>
+                                <h1 className='mb-4'>Create User</h1>
                                 <AddUser/>
                             </>
                         )}/>
@@ -60,11 +66,6 @@ class Content extends Component {
                                 <ChangePassword/>
                             </>
                         )}/>
-
-                        <Switch>
-                            <Route exact path="/login" component={Login} />
-                        </Switch>
-
                     </div>
                 </div>
         )

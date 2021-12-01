@@ -14,12 +14,13 @@ import randomProfilePic from '../../data/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 
 class Post extends Component {
-    constructor(){
-        super()
-        
+    constructor(props){
+        super(props)
+
         this.state = {
             deletePostPopup: false,
-            deleteUserPopup: false,
+            post: props.post,
+            profilePic: randomProfilePic(),
             comment: '',
             comment_list : [],
             _comments : []
@@ -28,27 +29,14 @@ class Post extends Component {
 
     handleDeletePostPopup = (resp) => {
         if(resp) {
-            // TODO delete user
+            API.deletePost(this.state.post)
         }
         this.toggleDeletePostPopup()
-    }
-
-    handleDeleteUserPopup = (resp) =>{
-        if(resp) {
-            // TODO delete user
-        }
-        this.toggleDeleteUserPopup()
     }
 
     toggleDeletePostPopup = () => {
         this.setState({
             deletePostPopup: !this.state.deletePostPopup
-        })
-    }
-
-    toggleDeleteUserPopup = ()  => {
-        this.setState({
-            deleteUserPopup: !this.state.deleteUserPopup
         })
     }
 
@@ -79,14 +67,6 @@ class Post extends Component {
         const { post, currentUser } = this.props 
         
         return ( <>
-        {this.state.deleteUserPopup && 
-        
-        <Popup title={"Deleting User"} 
-               text={"Are you sure you want to delete the account of " + (post?.user.username || "unknown") + "?"} 
-               handleClose={this.handleDeleteUserPopup}
-        /> 
-        }
-
         {this.state.deletePostPopup && 
         
         <Popup title={"Deleting Post"} 
@@ -102,8 +82,8 @@ class Post extends Component {
                     <img src={downloadIcon} className='icon' alt="Download icon" />
                 </div>
             
-            {currentUser?.admin &&
-                <div className="action-button" onClick={this.toggleDeletePostPopup}>
+            {!currentUser?.admin &&
+                <div className="action-button" onClick={() => this.toggleDeletePostPopup() }>
                     <img src={deleteIcon} className='icon' alt="Delete icon" />
                 </div>
             }
@@ -116,23 +96,11 @@ class Post extends Component {
                 <h2>{post?.title || 'No title'}</h2>
                 <div className="author-bar mb-3">
                     <div className="profile profile-medium">
-                        <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Poster's profile pic"/> 
+                        <img src={this.state.profilePic} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Poster's profile pic"/> 
                     </div>
                     <div className="info">
                         <p>{post?.user?.username || 'Unknown'}</p>
                     </div>
-                    { currentUser?.admin && 
-                    <div className="actions">
-                        <Link to={`/change-password/${post?.user?.id}`}>
-                        <div className="action-button">
-                            <img src={editIcon} alt="" className='icon' />
-                        </div>
-                        </Link>
-                        <div className="action-button" onClick={this.toggleDeleteUserPopup}>
-                            <img src={deleteIcon} alt="" className='icon'/>
-                        </div>
-                    </div>
-                    }
                 </div>
                 <div className="comment-section">
                     <div className="comments">
