@@ -261,14 +261,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/post/all",
+							"raw": "localhost:5000/post/posts/id",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"all"
+								"posts",
+								"id"
 							]
 						}
 					},
@@ -279,7 +280,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/post/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"posts"
+							]
+						}
 					},
 					"response": []
 				}
