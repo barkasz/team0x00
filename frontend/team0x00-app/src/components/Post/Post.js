@@ -34,6 +34,19 @@ function Post ({post}) {
        setDeletePopup(!deletePopup)
     }
 
+    const handlePostComment = async () => {
+        const postComment_res = await API.postComment(post["_id"], {"content" : newComment})
+        if (postComment_res.hasOwnProperty('content')) { 
+            setNewComment('')
+            const getComment_res = await API.getPostById(post["_id"])
+            setComments(getComment_res.comments)
+        }
+        else {
+            console.log("ERROR: " + postComment_res)
+        }
+    }
+
+    
         return ( <>
         {deletePopup && 
         
@@ -82,7 +95,7 @@ function Post ({post}) {
                             <img src={commentIcon} alt="Comment icon" className="icon"/>
                             <input type="text" className='w-100' placeholder="Write a comment here..." value={newComment} onChange={ (event) => setNewComment(event.target.value)} />
                         </div>
-                        <button className='btn btn-small' onClick={() => setComments([...comments, newComment])}>Send</button>
+                        <button className='btn btn-small' onClick={handlePostComment}>Send</button>
                     </div>
                 </div>
             </div>
