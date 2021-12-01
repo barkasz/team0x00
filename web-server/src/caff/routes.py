@@ -61,16 +61,15 @@ def download_file(file_type, file_id):
 @caff_bp.route("/upload", methods=["POST"])
 @auth_api.login_required
 def upload():
-    # TODO: define response values
     if 'file' not in request.files:
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 401
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
 
     file = request.files['file']
     if file.filename == '':
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 402
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
 
     if not file or not allowed_file(file.filename):
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 403
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
 
     try:
         result = service.upload(file)
@@ -81,8 +80,8 @@ def upload():
         return jsonify(responses["GIF_ERROR"]), 400
 
     return Response(response=json.dumps(result),
-                status=200,
-                mimetype="application/json")
+                    status=200,
+                    mimetype="application/json")
 
 
 @caff_bp.route("/delete/<id>", methods=["DELETE"])
@@ -98,8 +97,8 @@ def remove(id):
         return jsonify(responses["FILE_DELETE_ERROR"]), 400
 
     return Response(response=json.dumps(result),
-                        status=200,
-                        mimetype="application/json")
+                    status=200,
+                    mimetype="application/json")
 
 
 def handle_bad_request(e):
