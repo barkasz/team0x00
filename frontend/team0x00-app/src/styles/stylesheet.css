@@ -91,11 +91,26 @@ div.warning {
 	border-radius: 10px;
 	text-align: center;
 	margin: 20px 0px;
-	width: 80%;
+	width: 100%;
 }
 
 div.warning p {
 	color: white;
+}
+
+div.success {
+	padding: 20px;
+	color: black;
+	background: rgb(105, 218, 105);
+	border-radius: 10px;
+	text-align: center;
+	margin: 20px 0px;
+	max-width: 100%;
+	width: 100%;
+}
+
+div.success p {
+	color: black;
 }
 
 /* ---- COLORS --- */

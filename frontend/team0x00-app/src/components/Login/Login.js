@@ -8,55 +8,87 @@ import { API } from "../../api-service";
 export default function Login({ setToken }) {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
-    const [warningText, setWarningText] = useState('');
+    const [regUsername, setRegUsername] = useState();
+    const [regPassword, setRegPassword] = useState();
 
-    const handleSubmit = async e => {
+    const [loginWarning, setLoginWarning] = useState('');
+    const [regWarning, setRegWarning] = useState('');
+    const [regSuccess, setRegSuccess] = useState('');
+
+    const loginSubmit = async e => {
         e.preventDefault();
         const response = await API.login({"username": username, "password": password});
         
-        setToken({token: {id: 1, username: 'Haley Bennett'}})
-        /*
         if(!response) {
-            setWarningText("The servers are unavailable!")
+            setLoginWarning("The servers are unavailable!")
         } else if (response.username) {
             setToken({token: response});
         } else {
-            setWarningText(response.message);
+            setLoginWarning(response.message);
         }
-        */
-        
+    }
+
+    const registerSubmit = async e => {
+        e.preventDefault();
+        const response = await API.registerUser({"username": regUsername, "password": regPassword});
+
+        if (!response) {
+            setRegWarning("The servers are unavailable!")
+        } else if (response.status === 'SIGNED_UP_SUCCESFULLY') {
+            setRegSuccess(response.message)
+            setRegWarning('')
+        } else {
+            setRegWarning(response.message);
+            setRegSuccess('')
+        }
     }
 
     return (
 
-        <form onSubmit={handleSubmit}>
+       <>
         <div className="topbox">
             <img src={logo} alt="CAFFgram Logo" className="logo mb-2" />
         </div>
         <div className="loginbox">
             <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
-        { warningText && <div className="warning">
-                        <p>{warningText}</p>
+            <form onSubmit={loginSubmit}>
+                    { loginWarning && <div className="warning">
+                        <p>{loginWarning}</p>
                     </div> }
             <div className="loginbox-form-elements">
-                    
-
-
                     <input type="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
 
                     <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                     <button type='submit' className='btn btn-primary mt-1 w-100'>Sign in</button>
-
+                    </div>
+            </form>
+            <form onSubmit={registerSubmit}>
+            <div className="loginbox-form-elements">   
                     <hr style={{width:'100%', marginTop: 20, marginBottom: 20}}/>
 
                     <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Register</h2>
-                    <input type="text" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
+
+                    { regWarning && 
+                        <div className="warning">
+                            <p>{regWarning}</p>
+                        </div> 
+                    }
+
+                    { regSuccess && 
+                        <div className="success">
+                            <p>{regSuccess}</p>
+                        </div> 
+                    }
+
+
+                    <input type="text" name="regUsername" placeholder="Username" onChange={e => setRegUsername(e.target.value)} />
+                    <input type="password" name="regPassword" placeholder="Password" onChange={e => setRegPassword(e.target.value)} />
                     <button type='submit' className='btn btn-outline mt-1 w-100'>Register</button>
             </div>
+            </form>
             
         </div>
-        </form>
+        </>
     );
 }
 

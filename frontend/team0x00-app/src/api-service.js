@@ -65,13 +65,13 @@ export class API {
     //   }).then( resp => resp.json())
     // }
 
-    static registerUser(body) {
-      return fetch(`http://127.0.0.1:8000/api/users/`, {
+    static registerUser(credentials) {
+      return fetch('/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify( body )
+        body: JSON.stringify( credentials )
       }).then( resp => resp.json())
     }
 

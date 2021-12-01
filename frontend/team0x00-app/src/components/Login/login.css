@@ -14,6 +14,13 @@ div.loginbox {
     padding: 20px 0;
 }
 
+div.loginbox-form-elements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 div.loginbox-form-elements input {
     max-width: 100%;
     margin-bottom: 10px;
