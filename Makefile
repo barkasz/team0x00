@@ -5,7 +5,7 @@ CC = g++
 # compiler flags:
 #  -g     - this flag adds debugging information to the executable file
 #  -Wall  - this flag is used to turn on most compiler warnings
-CXXFLAGS = -Wall -g -std=c++11
+CXXFLAGS = -Wall -g -std=c++11 -static -static-libstdc++ -static-libgcc
 
 sources := src
 ciff_folder := ciff
@@ -17,7 +17,7 @@ depends_caff := $(sources)/$(caff_folder)/caff_parser.cpp $(sources)/$(caff_fold
 depends_gif	:= $(sources)/$(gif_folder)/gif.h
 depends_converter:= $(sources)/gif_converter.cpp $(sources)/gif_converter.h $(depends_gif)
 output_parser := converter
-third_party_converter := web-server/third_party/$(output_parser)
+third_party_converter := web-server/src/third_party/$(output_parser)
 output := $(output_parser)
 
 all: parser

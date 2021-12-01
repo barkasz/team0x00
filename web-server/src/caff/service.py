@@ -41,7 +41,7 @@ def upload(caff_image):
     args = filesysname_caff + " " + filesysname_gif
     cmd = program + " " + args
     try:
-        result = subprocess.run([cmd], check=True, shell=True, capture_output=True)
+        result = subprocess.run([cmd], check=True, shell=True)
     except subprocess.CalledProcessError:
         print("Error while converting caff to gif...")
         print("returncode: {}".format(result.returncode))

@@ -42,6 +42,7 @@ def delete_image(id):
     try:
         with connect_to_db() as connection:
             connection.cursor.execute(delete_image_query, (id,))
+            connection.db.commit()
     except sqlite3.Error:
         raise exceptions.DeleteIDExxeption
 
@@ -54,6 +55,7 @@ def insert_images(caff: str, gif: str):
     try:
         with connect_to_db() as connection:
             connection.cursor.execute(insert_image_query, (caff, gif))
+            connection.db.commit()
     except sqlite3.Error:
         raise exceptions.InternalServerException
     return connection.cursor.lastrowid

@@ -9,8 +9,8 @@ services:
       dockerfile: deployment/dev.Dockerfile
     ports:
       - 5000:5000
-    # volumes:
-    # - ./web-server/src:/usr/src/app
+    volumes:
+      - ./web-server/src:/usr/src/app
 
   mongo:
     image: mongo
@@ -22,5 +22,3 @@ services:
       - '27017-27019:27017-27019'
     volumes:
       - ./volumes/mongo:/data/db
-    volumes:
-       - ./web-server/src:/usr/src/app
