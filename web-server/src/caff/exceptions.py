@@ -13,5 +13,6 @@ class InternalServerException(CaffException):
 class NoImageTypeException(CaffException):
     pass
 
-class DeleteIDExxeption(CaffException):
+
+class DeleteIDException(CaffException):
     pass
