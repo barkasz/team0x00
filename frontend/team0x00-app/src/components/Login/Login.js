@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import './login.css'
 import logo from '../../assets/logo.png'
 import PropTypes from 'prop-types';
 import { API } from "../../api-service";
+import useToken from "../../hooks/useToken";
 
 
-export default function Login({ setToken }) {
+export default function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [regUsername, setRegUsername] = useState();
@@ -15,17 +17,33 @@ export default function Login({ setToken }) {
     const [regWarning, setRegWarning] = useState('');
     const [regSuccess, setRegSuccess] = useState('');
 
+    const history = useHistory();
+    const { token, setToken } = useToken()
+
+    // If the token is present, don't show the login screen
+    if (token) {
+        history.push('/')
+    }
+
     const loginSubmit = async e => {
         e.preventDefault();
-        const response = await API.login({"username": username, "password": password});
+
+        try{
+            const response = await API.login({"username": username, "password": password});
         
-        if(!response) {
-            setLoginWarning("The servers are unavailable!")
-        } else if (response.username) {
-            setToken({token: response});
-        } else {
-            setLoginWarning(response.message);
+            if(!response) {
+                setLoginWarning("The servers are unavailable!")
+            } else if (response.username) {
+                setToken({token: response});
+                console.log('token set');
+                history.push("/");
+            } else {
+                setLoginWarning(response.message);
+            }
+        } catch (e) {
+            setLoginWarning()
         }
+        
     }
 
     const registerSubmit = async e => {
@@ -80,8 +98,8 @@ export default function Login({ setToken }) {
                         </div> 
                     }
 
-                    <input type="text" required minlength="3" name="regUsername" placeholder="Username" onChange={e => setRegUsername(e.target.value)} />
-                    <input type="password" required minlength="8" pattern='(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' name="regPassword" placeholder="Password" onChange={e => setRegPassword(e.target.value)} />
+                    <input type="text" required minLength="3" name="regUsername" placeholder="Username" onChange={e => setRegUsername(e.target.value)} />
+                    <input type="password" required minLength="8" pattern='(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$' name="regPassword" placeholder="Password" onChange={e => setRegPassword(e.target.value)} />
                     <small className='password-disclaimer'>At least 8 characters, containing uppercase and lowercase letters, numbers/special characters</small>
                     <button type='submit' className='btn btn-outline mt-1 w-100'>Register</button>
             </div>
@@ -91,11 +109,6 @@ export default function Login({ setToken }) {
         </>
     );
 }
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-  }
-
   
 
 // class Login extends Component {
