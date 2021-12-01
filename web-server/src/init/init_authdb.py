@@ -1,4 +1,5 @@
 import sqlite3
+import bcrypt
 
 from user.roles import Role
 
@@ -25,7 +26,7 @@ def init(db_name, admin_credentials):
 
     admin = {
         "username": admin_credentials["ADMIN_USERNAME"],
-        "password": admin_credentials["ADMIN_PASSWORD"],
+        "password": hash_password(admin_credentials["ADMIN_PASSWORD"]),
         "role": int(Role.ADMIN)
     }
     insert_user(db_name, admin)
@@ -51,4 +52,9 @@ def insert_user(db_name, user):
         cursor.close()
         db.close()
 
+
+def hash_password(password: str):
+    password = password.encode()
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password, salt)
 
