@@ -11,6 +11,7 @@ services:
       - 5000:5000
     volumes:
       - ./web-server/src:/usr/src/app
+      - ./volumes:/opt
 
   mongo:
     image: mongo

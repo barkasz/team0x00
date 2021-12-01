@@ -8,7 +8,7 @@ COPY config/config.ini /usr/config/config.ini
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-VOLUME [ "/usr/src/app" ]
+VOLUME [ "/usr/src/app", "/opt" ]
 
 ENTRYPOINT [ "python3" ]
 CMD [ "server.py" ]

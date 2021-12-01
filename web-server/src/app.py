@@ -21,6 +21,7 @@ app.config["USERDB_INIT"] = config["USERDB_INIT"]
 # Session
 app.config["SECRET_KEY"] = config["SESSION"]["SECRET_KEY"]
 app.config["SESSION_PERMANENT"] = config["SESSION"]["SESSION_PERMANENT"]
+app.config["SESSION_FILE_DIR"] = config["SESSION"]["SESSION_FILE_DIR"]
 app.config["SESSION_TYPE"] = config["SESSION"]["SESSION_TYPE"]
 app.config["SESSION_FILE_THRESHOLD"] = int(config["SESSION"]["SESSION_FILE_THRESHOLD"])
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=int(config["SESSION"]["PERMANENT_SESSION_LIFETIME"]))
@@ -32,6 +33,7 @@ app.config["POSTS_COLLECTION"] = config["MONGO"]["POSTS_COLLECTION"]
 
 # Caff database and file system
 app.config["UPLOAD_FOLDER"] = config["CAFF"]["UPLOAD_FOLDER"]
+app.config["IMAGES_DB"] = config["CAFF"]["IMAGES_DB"]
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1000 * 1000
 
 # Session

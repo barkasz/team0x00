@@ -1,9 +1,10 @@
 import sqlite3
+from app import app
 from contextlib import contextmanager
 from collections import namedtuple
 from caff import exceptions
 
-imagesdb_name = "images.db"
+imagesdb_name = app.config["IMAGES_DB"]
 
 Connection = namedtuple("Connection", "db, cursor")
 
