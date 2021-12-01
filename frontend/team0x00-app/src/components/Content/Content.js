@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './content.css'
 import { Route, Link } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
@@ -9,15 +9,23 @@ import _posts from '../../data/posts'
 import Users from '../Users/Users'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import { API } from '../../api-service'
 
 function Content({ currentUser, ...props }){
-    
-        const posts = _posts
+        const [posts, setPosts] = useState([])
+
+        useEffect(() => {
+            async function fetchPosts(){
+                const res = await API.getPosts()
+                setPosts(res)
+                console.log(res)
+            }
+            fetchPosts()
+        }, [])
         
         return (
                 <div className="content">
                     <div className="wrapper">
-
                             <div className="header">
                                 <img className='menuBtn' src={menuIcon} alt="" onClick={() => props.toggleMenu()}/>
                                 <div className="input-with-icon">
@@ -27,14 +35,12 @@ function Content({ currentUser, ...props }){
                                 <Link to='/upload' className='btn btn-primary mb-0'>Upload</Link>
                             </div>
 
-                        <Route exact path = "/" render={() => (
-                            <>
+                        <Route exact path = "/" render={() => (<>
                                 <h1 className='mb-4'>Explore</h1>
-                                { posts.map(post => (
-                                    <Post key={post.id} post={post} currentUser={currentUser}/>
+                                { posts?.map(post => (
+                                    <Post key={post.id} post={post}/>
                                 ))
                                 }
-                                
                             </>
                         )}/>
 

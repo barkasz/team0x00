@@ -99,7 +99,7 @@ class Post extends Component {
                         <img src={this.state.profilePic} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Poster's profile pic"/> 
                     </div>
                     <div className="info">
-                        <p>{post?.user?.username || 'Unknown'}</p>
+                        <p>{post?.author || 'Unknown'}</p>
                     </div>
                 </div>
                 <div className="comment-section">

@@ -147,6 +147,30 @@ export class API {
       alert("API call to delete " + user.username +".")
     }
 
+    static async getPosts(){
+      const postids = await fetch('/post/all', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+      }).then(res => res.json())
+
+        const postQueries = []
+        postids.forEach(postid => {
+            postQueries.push(fetch('/post/'+postid))
+        });
+
+        return Promise.all(postQueries)
+        .then(resp => {
+            return Promise.all(resp.map(function (response) {
+                return response.json();
+            }));
+        }).then(data => {
+          return data
+        })
+    }
+
     static async post(post) {
       return fetch('/post', {
         method: 'POST',
