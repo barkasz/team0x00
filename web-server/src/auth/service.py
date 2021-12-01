@@ -1,6 +1,6 @@
 from auth import userdb
 from auth import exceptions
-from auth.roles import Role
+from user.roles import Role
 
 
 def login(username, password, session):
@@ -35,11 +35,3 @@ def signup(userdata):
     userdata["role"] = int(Role.USER)
     user = userdb.insert_user(userdata)
 
-
-def grant_admin_permission(user_id):
-    try:
-        userdb.select_user_by_id(user_id)
-    except exceptions.UserNotExistsException:
-        raise
-
-    userdb.update_role(user_id=user_id, role=int(Role.ADMIN))

@@ -10,11 +10,6 @@
             "status": "USERNAME_ALREADY_EXIST",
             "message": "This username is already taken"
         },
-        "USER_NOT_EXISTS":{
-            "statuscode": 7,
-            "status": "USER_NOT_EXISTS",
-            "message": "User not exists!"
-        },
         "ALREADY_LOGGED_IN": {
             "statuscode": 4,
             "status": "ALREADY_LOGGED_IN",
@@ -39,6 +34,28 @@
             "statuscode": 7,
             "status": "LOGIN_REQUIRED",
             "message": "Login required, you must log in!"
+        }
+    },
+    "user": {
+        "USER_DELETION_FAILED":{
+            "statuscode": 7,
+            "status": "USER_DELETION_FAILED",
+            "message": "User deletion failed!"
+        },
+        "PASSWORD_CHANGE_FAILED":{
+            "statuscode": 7,
+            "status": "PASSWORD_CHANGE_FAILED",
+            "message": "Password change request failed!"
+        },
+        "PASSWORD_SUCCESSFULLY_CHANGED":{
+            "statuscode": 7,
+            "status": "PASSWORD_SUCCESSFULLY_CHANGED",
+            "message": "Password change was successfull!"
+        },
+        "USER_SUCCESSFULLY_DELETED":{
+            "statuscode": 7,
+            "status": "USER_SUCCESSFULLY_DELETED",
+            "message": "User succesfully deleted!"
         },
         "PERMISSION_GRANT_FAILED":{
             "statuscode": 7,
@@ -170,6 +187,11 @@
             "statuscode": 8,
             "status": "INVALID_ENDPOINT",
             "message": "Invalid endpoint name!"
+        },
+        "USER_NOT_EXISTS":{
+            "statuscode": 7,
+            "status": "USER_NOT_EXISTS",
+            "message": "User not exists!"
         }
     }
 }

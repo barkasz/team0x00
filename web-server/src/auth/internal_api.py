@@ -23,7 +23,7 @@ def login_required(func):
 
 
 def authorize(roles):
-    """Make sure user that has the right permission"""
+    """Make sure that user has the right permission"""
 
     def real_authorize(func):
         @functools.wraps(func)

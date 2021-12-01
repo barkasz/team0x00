@@ -45,10 +45,12 @@ UPLOAD_FOLDER = 'media/'
 from caff.routes import caff_bp, handle_bad_request
 from auth.routes import auth_bp
 from post.routes import post_bp
+from user.routes import user_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(post_bp)
 app.register_blueprint(caff_bp)
+app.register_blueprint(user_bp)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

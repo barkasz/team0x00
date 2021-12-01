@@ -3,7 +3,6 @@ import sqlite3
 from contextlib import contextmanager
 from collections import namedtuple
 
-from auth.roles import Role
 from auth import exceptions
 
 
@@ -84,17 +83,6 @@ def select_user(username, password):
         raise exceptions.InvalidCredentialsException
 
     return user
-
-
-def update_role(user_id, role):
-    update_query = ("UPDATE users SET role=? WHERE id=?")
-
-    try:
-        with connect_to_db() as connection:
-            connection.cursor.execute(update_query, (role, user_id))
-            connection.db.commit()
-    except sqlite3.Error:
-        raise exceptions.AuthException
 
 
 @contextmanager

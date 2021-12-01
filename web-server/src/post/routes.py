@@ -8,7 +8,7 @@ import json
 
 from responses import get_response_codes
 from auth import internal_api as auth_api
-from auth.roles import Role
+from user.roles import Role
 from post.json_encoder import JSONEncoder
 from post import service
 from post import exceptions
