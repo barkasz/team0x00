@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"akos\",\n    \"password\": \"akos\"\n}",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -134,14 +134,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"raw": "localhost:5000/post/61a76890c075da025a937a03",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a659035c5901319277d8e3"
+								"61a76890c075da025a937a03"
 							]
 						}
 					},
@@ -153,14 +153,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"raw": "localhost:5000/post/61a76890c075da025a937a03",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a659035c5901319277d8e3"
+								"61a76890c075da025a937a03"
 							]
 						}
 					},
@@ -173,7 +173,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"This is just a random reply\"\n}",
+							"raw": "{\n    \"content\": \"This is just a random reply\",\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -181,15 +181,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965",
+							"raw": "localhost:5000/post/61a6a39e67f4a30ab701921d/61a6a3ab67f4a30ab701921e",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a65477c3e88bbdf4f04964",
-								"61a6552fc3e88bbdf4f04965"
+								"61a6a39e67f4a30ab701921d",
+								"61a6a3ab67f4a30ab701921e"
 							]
 						}
 					},
@@ -201,14 +201,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"raw": "localhost:5000/post/61a6a5da67f4a30ab7019221",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a659035c5901319277d8e3"
+								"61a6a5da67f4a30ab7019221"
 							]
 						}
 					},
@@ -269,6 +269,132 @@
 							"path": [
 								"post",
 								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"pwd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/user/4/password",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"4",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grant admin permission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/1/role/admin",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"1",
+								"role",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "caff",
+			"item": [
+				{
+					"name": "upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/akos/GIT/team0x00/web-server/res/1.caff"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/upload",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"upload"
 							]
 						}
 					},
