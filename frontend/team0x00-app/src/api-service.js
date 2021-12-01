@@ -163,9 +163,14 @@ export class API {
       }).then(res => res.json())
 
         const postQueries = []
-        postids.forEach(postid => {
-            postQueries.push(fetch('/post/'+postid))
-        });
+        //console.log(typeof(postids))
+        console.log(postids)
+        if (typeof(postids) ==="object"){
+          postids.forEach(postid => {
+              postQueries.push(fetch('/post/'+postid))
+          });
+        }
+        console.log(postQueries)
 
         return Promise.all(postQueries)
         .then(resp => {
@@ -200,6 +205,31 @@ export class API {
       },
       body: data
     }).then(data => data.json())
+    .catch((error) => {
+      throw error;
+    })
+}
+
+  static async postComment(caff_id, content) {
+    return fetch(`/post/${caff_id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify(content)
+    })
+      .then(data => data.json())
+      .catch((error) => {
+        throw error;
+      })
+  }
+
+  static async getPostById(caff_id) {
+    return fetch(`/post/${caff_id}`, {
+      method: 'GET'
+    })
+      .then(data => data.json())
       .catch((error) => {
         throw error;
       })
