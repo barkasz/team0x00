@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 
 def init(db_name):
@@ -15,3 +16,8 @@ def init(db_name):
     finally:
         if db:
             db.close()
+
+
+def create_dir_if_not_exists(path_to_dir):
+    if not os.path.exists(path_to_dir):
+        os.mkdir(path_to_dir)

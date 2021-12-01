@@ -61,15 +61,16 @@ def download_file(file_type, file_id):
 @caff_bp.route("/upload", methods=["POST"])
 @auth_api.login_required
 def upload():
+    # TODO: define response values
     if 'file' not in request.files:
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 401
 
     file = request.files['file']
     if file.filename == '':
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 402
 
     if not file or not allowed_file(file.filename):
-        return jsonify(responses["FILE_MISSING_REQUEST"]), 400
+        return jsonify(responses["FILE_MISSING_REQUEST"]), 403
 
     try:
         result = service.upload(file)
