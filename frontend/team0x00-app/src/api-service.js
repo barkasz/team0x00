@@ -131,7 +131,13 @@ export class API {
     }
 
     static deletePost(post) {
-      alert("API call to delete " + post.title + ".")
+      return fetch(`/post/${post._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin'
+      })
     }
 
     static getAllUsers(){

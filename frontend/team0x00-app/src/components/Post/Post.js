@@ -21,7 +21,11 @@ function Post ({post}) {
 
     const handleDeletePopup = (resp) => {
         if(resp) {
-            API.deletePost(post)
+            try {
+                API.deletePost(post)
+            } catch (e) {
+                alert(e.message)
+            }
         }
         toggleDeletePopup()
     }

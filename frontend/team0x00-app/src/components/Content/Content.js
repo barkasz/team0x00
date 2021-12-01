@@ -38,7 +38,7 @@ function Content({ currentUser, ...props }){
                         <Route exact path = "/" render={() => (<>
                                 <h1 className='mb-4'>Explore</h1>
                                 { posts?.map(post => (
-                                    <Post key={post.id} post={post}/>
+                                    <Post key={post._id} post={post}/>
                                 ))
                                 }
                             </>
