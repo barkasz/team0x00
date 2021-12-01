@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { API } from '../../api-service';
+import { useHistory } from "react-router-dom";
 import './upload.css'
 
 function Upload(){
@@ -7,7 +8,7 @@ function Upload(){
     const [image, setImage] = useState()
     const [title, setTitle] = useState('')
     const [warning, setWarning] = useState()
-
+    const history = useHistory();
     
     const onImageChange = event => {
         if (event.target.files && event.target.files[0]) {
@@ -30,15 +31,20 @@ function Upload(){
 
     const upload = async e => {
         e.preventDefault();
+        const data = new FormData()
+        data.append('file', image, "asdas.caff")
+        console.log(...data)
         try {
-            const resp = await API.post({"title": title})
+            const caffResp = await API.uploadCaff(data)
+            console.log(caffResp)
+
         } catch (e){
             setWarning("Server side error: " + e.message)
         }
     }
 
     return  (
-            <form onSubmit={upload}>
+            <form onSubmit={upload} encType="multipart/form-data">
             <div className="upload">
                     { warning &&
                         <div className="warning">
@@ -46,7 +52,7 @@ function Upload(){
                         </div>
                     }
                     <div onClick={clickForwarder} className='selector bordered'>
-                        <input type="file" id='file' onChange={onImageChange} ref={file} style={{display: 'none'}}/>
+                        <input type="file" name='file' onChange={onImageChange} ref={file} style={{display: 'none'}}/>
                         <h3 className='subtle'>Click to select caff file</h3>
                         {image &&
                             <div className="file">

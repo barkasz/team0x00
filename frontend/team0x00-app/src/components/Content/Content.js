@@ -15,12 +15,12 @@ function Content({ currentUser, ...props }){
         const [posts, setPosts] = useState([])
 
         useEffect(() => {
-            async function fetchPosts(){
+            /*async function fetchPosts(){
                 const res = await API.getPosts()
                 setPosts(res)
                 console.log(res)
             }
-            fetchPosts()
+            fetchPosts()*/
         }, [])
         
         return (
