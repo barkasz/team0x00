@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './content.css'
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
 import Post from '../Post/Post'
@@ -10,9 +10,8 @@ import Users from '../Users/Users'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'
 
-class Content extends Component {
-    render(){
-        const {currentUser, ...props} = this.props
+function Content({ currentUser, ...props }){
+    
         const posts = _posts
         
         return (
@@ -69,7 +68,6 @@ class Content extends Component {
                     </div>
                 </div>
         )
-    }
 }
 
 export default Content

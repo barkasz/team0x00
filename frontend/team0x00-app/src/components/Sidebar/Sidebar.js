@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './sidebar.css'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
@@ -11,6 +11,7 @@ import { API } from '../../api-service'
 function Sidebar(props) {
         const { isOpen, currentUser, toggleMenu } = props
         const { token } = useToken()
+        const [profilePic, setProfilePic] = useState(randomProfilePic())
 
         const handleLogout = () => {
             sessionStorage.removeItem('token');
@@ -27,7 +28,7 @@ function Sidebar(props) {
 
                     <div className="user-info mt-2">
                         <div className="profile profile-large">
-                            <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
+                            <img src={profilePic} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                         </div>
                         { currentUser?.admin && <small>Administrator</small> }
                         <h1 className='mb-0'>{currentUser?.username || 'Unknown' }</h1>

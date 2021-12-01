@@ -147,4 +147,19 @@ export class API {
       alert("API call to delete " + user.username +".")
     }
 
+    static async post(post) {
+      return fetch('/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(post)
+      })
+        .then(data => data.json())
+        .catch((error) => {
+          throw error;
+        })
+  }
+
 }
