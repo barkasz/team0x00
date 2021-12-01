@@ -48,6 +48,19 @@ def read_post_ids_by_date():
     return post_ids
 
 
+def read_posts_by_date():
+    try:
+        posts_ = posts.find().sort("date", -1)
+        result = [post for post in posts_]
+    except PyMongoError:
+        raise exceptions.ReadPostException
+
+    if not result:
+        raise exceptions.NoMatchingResultsException
+
+    return result
+
+
 def delete_post(post_id):
     try:
         filter_ = {"_id": ObjectId(post_id)}

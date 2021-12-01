@@ -18,11 +18,24 @@ post_bp = Blueprint("post_bp", __name__)
 responses = get_response_codes("post")
 
 
-@post_bp.route("/post/all", methods=["GET"])
+@post_bp.route("/post/posts/id", methods=["GET"])
+@auth_api.login_required
+def read_posts_ids():
+    try:
+        post_ids = service.read_post_ids_by_date()
+    except exceptions.NoMatchingResultsException:
+        return jsonify(responses['NO_MATCHING_RESULTS']), 400
+
+    return Response(response=JSONEncoder().encode(post_ids),
+                    status=200,
+                    mimetype='application/json')
+
+
+@post_bp.route("/post/posts", methods=["GET"])
 @auth_api.login_required
 def read_posts():
     try:
-        post_ids = service.read_post_ids_by_date()
+        post_ids = service.read_posts_by_date()
     except exceptions.NoMatchingResultsException:
         return jsonify(responses['NO_MATCHING_RESULTS']), 400
 

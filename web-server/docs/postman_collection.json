@@ -93,7 +93,7 @@
 			"name": "post",
 			"item": [
 				{
-					"name": "create_post",
+					"name": "create post",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -120,7 +120,7 @@
 					"response": []
 				},
 				{
-					"name": "create_comment",
+					"name": "create comment",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -148,7 +148,7 @@
 					"response": []
 				},
 				{
-					"name": "read_post",
+					"name": "read post",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -167,7 +167,7 @@
 					"response": []
 				},
 				{
-					"name": "create_reply",
+					"name": "create reply",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -196,7 +196,7 @@
 					"response": []
 				},
 				{
-					"name": "delete_post",
+					"name": "delete post",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -215,7 +215,7 @@
 					"response": []
 				},
 				{
-					"name": "delete_comment",
+					"name": "delete comment",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -235,7 +235,7 @@
 					"response": []
 				},
 				{
-					"name": "delete_reply",
+					"name": "delete reply",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -256,7 +256,7 @@
 					"response": []
 				},
 				{
-					"name": "read_post_ids_by_date",
+					"name": "read post ids by date",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -271,6 +271,15 @@
 								"all"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "read posts by date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
@@ -299,7 +308,7 @@
 					"response": []
 				},
 				{
-					"name": "delete_user",
+					"name": "delete user",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -405,7 +414,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "localhost:5000/download/gif/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"download",
+								"gif",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
