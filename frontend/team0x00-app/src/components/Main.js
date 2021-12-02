@@ -6,7 +6,7 @@ import useToken from '../hooks/useToken';
 
 
 function Main() {
-    const [menuOpen, setMenuOpen] = useState(true)
+    const [menuOpen, setMenuOpen] = useState(false)
     const { token, setToken } = useToken()
     const user = token
     const toggleMenu = () => {

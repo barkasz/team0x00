@@ -1,7 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './post.css'
 import Comment from '../Comment/Comment'
-import pic from '../../assets/tea.webp'
 import commentIcon from '../../assets/comment.svg'
 import deleteIcon from '../../assets/trash.svg'
 import downloadIcon from '../../assets/download.svg'
@@ -16,10 +15,34 @@ import { useHistory } from "react-router-dom";
 function Post ({post, triggerRefresh }) {
     const [deletePopup, setDeletePopup] = useState(false)
     const [comments, setComments] = useState(post.comments)
+    const [gif, setGif] = useState()
+    const [caff, setCaff] = useState()
     const [profilePic] = useState(randomProfilePic())
     const [newComment, setNewComment] = useState()
     const { token } = useToken()
     const history = useHistory();
+
+    
+    async function getGif(){
+        const res = await API.downloadGif(post.caff_id)
+        setGif(res) 
+        console.log(res)
+    }
+
+    async function getCaff(){
+        const res = await API.downloadCaff(post.caff_id)
+        setCaff(res) 
+        console.log(res)
+    }
+
+    useEffect(() => {
+        try {
+            getGif()
+            getCaff()
+        } catch (e) {
+            console.log(e.message)
+        }
+    }, [])
 
     const handleDeletePopup = async (resp) => {
         if(resp) {
@@ -61,10 +84,12 @@ function Post ({post, triggerRefresh }) {
 
         <div className='post'>
             <div className="post-actions">
-
-                <div className="action-button" onClick={() => {}}>
+                <a href={caff + ''} download={ post?.title + '.caff'}>
+                <div className="action-button">
+                    
                    <img src={downloadIcon} className='icon' alt="Download icon" />
                 </div>
+                </a>
             
             {token?.admin &&
                 <div className="action-button" onClick={() => toggleDeletePopup() }>
@@ -74,7 +99,7 @@ function Post ({post, triggerRefresh }) {
 
             </div>
 
-            <img src={post?.image || pic} className="post-img" alt={post?.title || 'Posted pic'}/>
+            <img src={post?.image || gif} className="post-img" alt={post?.title || 'Posted pic'}/>
             <div className="post-info">
                 
                 <h2>{post?.title || 'No title'}</h2>

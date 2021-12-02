@@ -274,4 +274,28 @@ export class API {
       })
   }
 
+  static async downloadGif(caff_id) {
+    console.log(caff_id)
+      return fetch(`/download/gif/${caff_id}`, {
+        method: 'GET'
+      })
+      .then(res => res.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .catch((error) => {
+        throw error;
+      })
+  }
+
+  static async downloadCaff(caff_id) {
+    console.log(caff_id)
+      return fetch(`/download/caff/${caff_id}`, {
+        method: 'GET'
+      })
+      .then(res => res.blob())
+      .then(blob => URL.createObjectURL(blob))
+      .catch((error) => {
+        throw error;
+      })
+  }
+
 }
