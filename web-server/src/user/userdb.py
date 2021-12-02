@@ -1,8 +1,9 @@
-
 from app import app
 import sqlite3
 from contextlib import contextmanager
 from collections import namedtuple
+import bcrypt
+
 
 from user import exceptions
 
@@ -68,6 +69,8 @@ def delete_user(user_id):
 def update_password(user_id, password):
     update_query = ("UPDATE users SET password=? WHERE id=?")
 
+    password = hash_password(password)
+
     try:
         with connect_to_db() as connection:
             connection.cursor.execute(update_query, (password, user_id))
@@ -97,4 +100,10 @@ def connect_to_db():
     finally:
         cursor.close()
         db.close()
+
+
+def hash_password(password: str):
+    password = password.encode()
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password, salt)
 
