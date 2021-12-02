@@ -293,6 +293,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "search by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/search?title=T",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "T"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -394,9 +419,25 @@
 			"item": [
 				{
 					"name": "upload",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
