@@ -298,4 +298,14 @@ export class API {
       })
   }
 
+  static async searchPosts(title) {
+    return fetch(`/post/search?title=${title}`, {
+      method: 'GET'
+    })
+      .then(data => data.json())
+      .catch((error) => {
+        throw error;
+      })
+  }
+
 }

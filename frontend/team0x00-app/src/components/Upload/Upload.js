@@ -56,7 +56,7 @@ function Upload({triggerRefresh}){
                         </div>
                     }
                     <div onClick={clickForwarder} className='selector bordered'>
-                        <input type="file" name='file' onChange={onImageChange} ref={file} style={{display: 'none'}}/>
+                        <input type="file" name='file' accept='.caff' onChange={onImageChange} ref={file} style={{display: 'none'}}/>
                         <h3 className='subtle'>Click to select caff file</h3>
                         {image &&
                             <div className="file">
