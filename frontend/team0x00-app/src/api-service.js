@@ -140,13 +140,31 @@ export class API {
       })
     }
 
-    static getAllUsers(){
-      return users;
+    static async getAllUsers(){
+      return fetch(`/user/users`, {
+        method: 'GET'
+      })
+        .then(data => data.json())
+        .catch((error) => {
+          throw error;
+        })
     }
 
-    static setAsAdmin(user){
+    static async setAsAdmin(user){
       // TODO
-      alert("API call to make" + user.username + " admin.")
+      alert("API call to make" + user.username + " admin. userID:"  + user.id )
+      return fetch(`/user/${user.id}/role/admin`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+      })
+        .then(data => data.json())
+        .catch((error) => {
+          throw error;
+        })
+
     }
 
     static deleteUser(user) {

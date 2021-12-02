@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { API } from '../../api-service'
 import randomProfilePic from "../../data/profile_pic";
 import defaultProfilePic from "../../assets/default-user.png"
@@ -12,7 +12,8 @@ function Users(){
     const [deletePopup, setDeletePopup] = useState(false)
     const [adminPopup, setAdminPopup] = useState(false)
     const [userToEdit, setUserToEdit] = useState(null)
-    const users = API.getAllUsers()
+    const [users, setUsers] = useState([])
+    const [fetchError, setFetchError] = useState(false) 
 
     const handleDeleteUserPopup = (resp) =>{
         if(resp) {
@@ -27,6 +28,25 @@ function Users(){
         }
         setAdminPopup(false)
     }
+
+    useEffect(() => {
+        async function fetchUsers(){
+            const res = await API.getAllUsers() 
+            setUsers(res)
+            if (res instanceof Array) {
+                setFetchError(false)
+            } else {
+                setFetchError(true)
+            }
+            console.log(res)
+        }
+        try {
+            fetchUsers()
+        } catch (e) {
+            setFetchError(true)
+        }
+        
+    }, [])
 
     return (
         <>

@@ -61,12 +61,12 @@ function Post ({post, triggerRefresh }) {
             <div className="post-actions">
 
                 <div className="action-button" onClick={() => {}}>
-                    <img src={downloadIcon} className='icon' alt="Download icon" />
+                   <img src={downloadIcon} className='icon' alt="Download icon" />
                 </div>
             
             {token?.admin &&
                 <div className="action-button" onClick={() => toggleDeletePopup() }>
-                    <img src={deleteIcon} className='icon' alt="Delete icon" />
+                     <img src={deleteIcon} className='icon' alt="Delete icon" />
                 </div>
             }
 
