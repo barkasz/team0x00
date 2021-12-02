@@ -1,40 +1,15 @@
-import React, { useState, useEffect } from 'react'
 import './content.css'
 import { Route, Link } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
-import Post from '../Post/Post'
 import Upload from '../Upload/Upload'
 import _posts from '../../data/posts'
 import Users from '../Users/Users'
 import AddUser from '../AddUser/AddUser'
 import ChangePassword from '../ChangePassword/ChangePassword'
-import { API } from '../../api-service'
+import Explore from '../Explore/Explore'
 
 function Content({ currentUser, ...props }){
-        const [posts, setPosts] = useState([])
-        const [refresh, triggerRefresh] = useState([])
-        const [fetchError, setFetchError] = useState(false) 
-
-        useEffect(() => {
-            async function fetchPosts(){
-                const res = await API.getPosts()
-                setPosts(res)
-                if (res instanceof Array) {
-                    setFetchError(false)
-                } else {
-                    setFetchError(true)
-                }
-                console.log(res)
-            }
-            try {
-                fetchPosts()
-            } catch (e) {
-                setFetchError(true)
-            }
-            
-        }, [refresh])
-        
         return (
                 <div className="content">
                     <div className="wrapper">
@@ -49,24 +24,14 @@ function Content({ currentUser, ...props }){
 
                         <Route exact path = "/" render={() => (<>
                                 <h1 className='mb-4'>Explore</h1>
-                                { fetchError && 
-
-                                    <p>There are no posts to show currently.</p>
-
-
-                                }
-                                
-                                { !fetchError && posts.map !== undefined &&posts?.map(post => (
-                                    <Post key={post._id} post={post} triggerRefresh={triggerRefresh}/>
-                                ))
-                                }
+                                <Explore/>
                             </>
                         )}/>
 
                         <Route exact path = "/upload" render={() => (
                             <>
                                 <h1 className='mb-4'>Upload</h1>
-                                <Upload triggerRefresh={triggerRefresh}/>
+                                <Upload triggerRefresh={()=>{}}/>
                             </>
                         )}/>
 

@@ -29,6 +29,10 @@ div.popup {
     box-sizing: border-box;
 }
 
+div.popup * {
+    max-width: 100%;
+}
+
 div.popup .btn {
     display: inline-block;
 }

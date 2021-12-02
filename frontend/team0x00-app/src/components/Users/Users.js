@@ -49,8 +49,8 @@ function Users(){
 
     const handleCreateUserPopup = async (resp, user_credentials) =>{
         if(resp) {
-            const create_user_response = await API.createUser(user_credentials)
-            console.log(create_user_response)
+            const create_user_response = await API.registerUser(user_credentials)
+            fetchUsers()
         }
         setCreateUserPopup(false)
     }

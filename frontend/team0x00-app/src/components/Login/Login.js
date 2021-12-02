@@ -69,7 +69,7 @@ export default function Login() {
         </div>
         <div className="loginbox">
             <h2 className="title" style={{display:'flex', justifyContent:'center'}}>Sign in</h2>
-            <form onSubmit={loginSubmit}>
+            <form onSubmit={loginSubmit} style={{width: '100%'}}>
                     { loginWarning && <div className="warning">
                         <p>{loginWarning}</p>
                     </div> }
@@ -80,7 +80,7 @@ export default function Login() {
                     <button type='submit' className='btn btn-primary mt-1 w-100'>Sign in</button>
                     </div>
             </form>
-            <form onSubmit={registerSubmit}>
+            <form onSubmit={registerSubmit} style={{width: '100%'}}>
             <div className="loginbox-form-elements">   
                     <hr style={{width:'100%', marginTop: 20, marginBottom: 20}}/>
 

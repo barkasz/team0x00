@@ -7,7 +7,6 @@ class Popup_CreateUser extends Component {
         this.state = {
             username : '',
             password : '',
-            admin_checked: false,
         }
     }
     render() {
@@ -19,15 +18,11 @@ class Popup_CreateUser extends Component {
                     <p className="mb-3">{text}</p>
                         <input type="text" value={this.state.username} placeholder="Username" onChange={e => this.setState({username:e.target.value})} />
                         <input type="password" value={this.state.password}  placeholder="Password" onChange={e => this.setState({password:e.target.value})}/>
-                        <div className="form-group checkbox">
-                            <input type="checkbox" id="admin" name="admin" defaultChecked={this.state.admin_checked} onChange={() => this.setState({admin_checked : !this.state.admin_checked})}/>
-                            <label for="admin"> Register as admin</label>
-                        </div>
                     <button className="btn btn-outline" onClick={() => {
                         handleClose(false)
                     }}>No</button>
                     <button className="btn btn-primary"  onClick={() => {
-                        handleClose(true, {"username":this.state.username, "password":this.state.password, "isadmin":this.state.admin_checked})
+                        handleClose(true, {"username":this.state.username, "password":this.state.password})
                     }}>Yes</button>
                 </div>
             </div>

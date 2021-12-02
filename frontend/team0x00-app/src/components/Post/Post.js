@@ -11,6 +11,7 @@ import { API } from '../../api-service'
 import randomProfilePic from '../../data/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 import useToken from '../../hooks/useToken'
+import { useHistory } from "react-router-dom";
 
 function Post ({post, triggerRefresh }) {
     const [deletePopup, setDeletePopup] = useState(false)
@@ -18,12 +19,13 @@ function Post ({post, triggerRefresh }) {
     const [profilePic] = useState(randomProfilePic())
     const [newComment, setNewComment] = useState()
     const { token } = useToken()
+    const history = useHistory();
 
-    const handleDeletePopup = (resp) => {
+    const handleDeletePopup = async (resp) => {
         if(resp) {
             try {
-                API.deletePost(post)
-                triggerRefresh([])
+                const delResp = await API.deletePost(post)
+                history.push('/login')
             } catch (e) {
                 alert(e.message)
             }
