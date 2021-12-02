@@ -178,7 +178,6 @@ export class API {
     }
 
     static async changePassword(user, newpassword){
-      console.log({"password":newpassword})
       //alert("API call to change " + user.username + " password")
       return fetch(`/user/${user.id}/password`, {
         method: 'PUT',
@@ -192,6 +191,24 @@ export class API {
         .catch((error) => {
           throw error;
         })
+    }
+
+    static async createUser(credentials){
+      alert("API call to create user ")
+      console.log(credentials)
+      //TODO: change fetch endpoint
+      // return fetch(`/<CREATE_USER_ENDPOINT>`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   credentials: 'same-origin',
+      //   body: JSON.stringify(credentials)
+      // })
+      //   .then(data => data.json())
+      //   .catch((error) => {
+      //     throw error;
+      //   })
     }
 
     static async getPosts(){

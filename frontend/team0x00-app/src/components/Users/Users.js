@@ -8,11 +8,13 @@ import deleteIcon from '../../assets/trash.svg'
 import adminIcon from '../../assets/admin.svg'
 import Popup from '../Popup/Popup';
 import Popup_ChangePassword from '../Popup/Popup_ChangePassword';
+import Popup_CreateUser from '../Popup/Popup_CreateUser';
 
 function Users(){
     const [deletePopup, setDeletePopup] = useState(false)
     const [adminPopup, setAdminPopup] = useState(false)
     const [changePasswordPopup, setChangePasswordPopup] = useState(false)
+    const [createUserPopup, setCreateUserPopup] = useState(false)
     const [userToEdit, setUserToEdit] = useState(null)
     const [users, setUsers] = useState([])
     const [fetchError, setFetchError] = useState(false) 
@@ -43,6 +45,14 @@ function Users(){
             console.log(changepassword_response)
         }
         setChangePasswordPopup(false)
+    }
+
+    const handleCreateUserPopup = async (resp, user_credentials) =>{
+        if(resp) {
+            const create_user_response = await API.createUser(user_credentials)
+            console.log(create_user_response)
+        }
+        setCreateUserPopup(false)
     }
 
     async function fetchUsers(){
@@ -84,8 +94,15 @@ function Users(){
                 handleClose={handleChangePasswordPopup}
             /> 
         }
+        {createUserPopup && 
+            <Popup_CreateUser title={"Create user"} 
+                text={"Enter new user info:"} 
+                handleClose={handleCreateUserPopup}
+            /> 
+        }
 
-        <Link to='/add-user' className='btn btn-primary mb-3' style={{ width: 'fit-content'}}>Create User</Link>
+        {/* <Link to='/add-user' className='btn btn-primary mb-3' style={{ width: 'fit-content'}}>Create User</Link> */}
+        <div className='btn btn-primary mb-3' style={{ width: 'fit-content'}}  onClick={() => {setCreateUserPopup(true);}}>Create User</div>
 
          {
            users?.map(user => (

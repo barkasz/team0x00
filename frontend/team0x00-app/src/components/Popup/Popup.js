@@ -21,4 +21,4 @@ class Popup extends Component {
     }
 }
 
-export default Popup
+export default Popup;
