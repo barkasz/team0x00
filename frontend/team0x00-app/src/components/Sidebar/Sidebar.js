@@ -3,15 +3,13 @@ import './sidebar.css'
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import closeIcon from '../../assets/close.svg'
-import randomProfilePic from '../../data/profile_pic'
+import randomProfilePic from '../../services/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
-import useToken from '../../hooks/useToken'
-import { API } from '../../api-service'
+import { API } from '../../services/api-service'
 
 function Sidebar(props) {
         const { isOpen, currentUser, toggleMenu } = props
-        const { token } = useToken()
-        const [profilePic, setProfilePic] = useState(randomProfilePic())
+        const [profilePic] = useState(randomProfilePic())
 
         const handleLogout = () => {
             sessionStorage.removeItem('token');

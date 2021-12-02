@@ -1,54 +1,57 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import './post.css'
 import Comment from '../Comment/Comment'
 import commentIcon from '../../assets/comment.svg'
 import deleteIcon from '../../assets/trash.svg'
 import downloadIcon from '../../assets/download.svg'
 import Popup from '../Popup/Popup'
-import _comments from '../../data/comments'
-import { API } from '../../api-service'
-import randomProfilePic from '../../data/profile_pic'
+import { API } from '../../services/api-service'
+import randomProfilePic from '../../services/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 import useToken from '../../hooks/useToken'
+import placeholderImage from '../../assets/placeholder.png'
 import { useHistory } from "react-router-dom";
 
-function Post ({post, triggerRefresh }) {
+function Post ({post }) {
     const [deletePopup, setDeletePopup] = useState(false)
     const [comments, setComments] = useState(post.comments)
     const [gif, setGif] = useState()
     const [caff, setCaff] = useState()
     const [profilePic] = useState(randomProfilePic())
-    const [newComment, setNewComment] = useState()
+    const [newComment, setNewComment] = useState('')
     const { token } = useToken()
     const history = useHistory();
-
     
-    async function getGif(){
-        const res = await API.downloadGif(post.caff_id)
+    const getGif = useCallback( async (signal) => {
+        const res = await API.downloadGif(post.caff_id, signal)
         setGif(res) 
-        console.log(res)
-    }
+    }, [post.caff_id])
 
-    async function getCaff(){
-        const res = await API.downloadCaff(post.caff_id)
+    const getCaff = useCallback( async (signal) => {
+        const res = await API.downloadCaff(post.caff_id, signal)
         setCaff(res) 
-        console.log(res)
-    }
+    }, [post.caff_id] )
 
     useEffect(() => {
+        const controller = new AbortController();
         try {
-            getGif()
-            getCaff()
+            const signal = controller.signal;
+            getGif(signal)
+            getCaff(signal)
         } catch (e) {
             console.log(e.message)
         }
-    }, [])
+        return () => {
+            controller.abort();
+        }
+    }, [getGif, getCaff])
 
     const handleDeletePopup = async (resp) => {
         if(resp) {
             try {
-                const delResp = await API.deletePost(post)
-                history.push('/login')
+                await API.deletePost(post).then(() => {
+                    history.push('/login')
+                })
             } catch (e) {
                 alert(e.message)
             }
@@ -72,7 +75,6 @@ function Post ({post, triggerRefresh }) {
         }
     }
 
-    
         return ( <>
         {deletePopup && 
         
@@ -99,7 +101,7 @@ function Post ({post, triggerRefresh }) {
 
             </div>
 
-            <img src={post?.image || gif} className="post-img" alt={post?.title || 'Posted pic'}/>
+            <img src={gif || placeholderImage} className="post-img" alt={post?.title || 'Posted pic'}/>
             <div className="post-info">
                 
                 <h2>{post?.title || 'No title'}</h2>
@@ -114,14 +116,14 @@ function Post ({post, triggerRefresh }) {
                 <div className="comment-section">
                     <div className="comments">
                         {
-                            comments.map(comment => (<Comment key={comment.id} comment={comment}/>))
+                            comments.map(comment => (<Comment key={comment._id} comment={comment}/>))
                         }
                     </div>
                     
                     <div className="write w-100">
                         <div className="input-with-icon w-100">
                             <img src={commentIcon} alt="Comment icon" className="icon"/>
-                            <input type="text" className='w-100' placeholder="Write a comment here..." value={newComment} onChange={ (event) => setNewComment(event.target.value)} />
+                            <input type="text" className='w-100' onKeyDown={e => e.key === 'Enter' && handlePostComment()} placeholder="Write a comment here..." value={newComment} onChange={ (event) => setNewComment(event.target.value)} />
                         </div>
                         <button className='btn btn-small' onClick={handlePostComment}>Send</button>
                     </div>

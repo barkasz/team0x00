@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import './popup.css'
 
-class Popup_ChangePassword extends Component {
+class PopupCreateUser extends Component {
     constructor() {
         super()
         this.state = {
-            newpassword: '',
+            username : '',
+            password : '',
         }
     }
     render() {
@@ -15,12 +16,13 @@ class Popup_ChangePassword extends Component {
                 <div className="popup">
                     <h3>{title}</h3>
                     <p className="mb-3">{text}</p>
-                    <input type="password" required minLength="4" value={this.state.newpassword} placeholder="New password" onChange={e => this.setState({newpassword:e.target.value})}/>
+                        <input type="text" value={this.state.username} placeholder="Username" onChange={e => this.setState({username:e.target.value})} />
+                        <input type="password" value={this.state.password}  placeholder="Password" onChange={e => this.setState({password:e.target.value})}/>
                     <button className="btn btn-outline" onClick={() => {
                         handleClose(false)
                     }}>No</button>
                     <button className="btn btn-primary"  onClick={() => {
-                        handleClose(true, this.state.newpassword)
+                        handleClose(true, {"username":this.state.username, "password":this.state.password})
                     }}>Yes</button>
                 </div>
             </div>
@@ -28,4 +30,4 @@ class Popup_ChangePassword extends Component {
     }
 }
 
-export default Popup_ChangePassword;
+export default PopupCreateUser;

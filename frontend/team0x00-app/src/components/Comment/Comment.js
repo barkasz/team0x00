@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './comment.css'
-import randomProfilePic from '../../data/profile_pic'
+import randomProfilePic from '../../services/profile_pic'
 import defaultProfilePic from '../../assets/default-user.png'
 
 function Comment(props){
-    const [profilePic, setProfilePic] = useState(randomProfilePic())
+    const [profilePic] = useState(randomProfilePic())
     const { comment } = props
     return (
              <div className='comment mb-3'>

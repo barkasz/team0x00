@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { API } from "../../api-service";
+import React, { useState, useEffect, useCallback } from 'react';
+import { API } from "../../services/api-service";
 import Post from '../Post/Post'
 import { useHistory } from 'react-router-dom'
 
@@ -8,13 +8,7 @@ function Search({title}){
     const [fetchError, setFetchError] = useState(false)
     const history = useHistory();
 
-    const getTitle = () => {
-        let search = window.location.search;
-        let params = new URLSearchParams(search);
-        return params.get('title')
-    }
-
-    const fetchPosts = async () => {
+    const fetchPosts = useCallback( async () => {
         const res = await API.searchPosts(title)
             setPosts(res)
             if (res instanceof Array) {
@@ -22,8 +16,7 @@ function Search({title}){
             } else {
                 setFetchError(true)
             }
-            console.log(res)
-    }
+    }, [title])
 
     useEffect(() => {
         if (title === '') {
@@ -35,21 +28,16 @@ function Search({title}){
             setFetchError(true)
         }
         
-    }, [title])
+    }, [title, fetchPosts, history])
     
     return ( <>
-                            { fetchError && 
-
-                                <p>There are no results for your query.</p>
-
-
-                            }
+            { fetchError &&  <p>There are no results for your query.</p> }
                             
-                            { !fetchError && posts.map !== undefined &&posts?.map(post => (
-                                <Post key={post._id} post={post} triggerRefresh={()=>{}}/>
-                            ))
-                            }
-                </>
+            { !fetchError && posts.map !== undefined &&posts?.map(post => (
+                    <Post key={post._id} post={post} triggerRefresh={()=>{}}/>
+                ))
+            }
+            </>
     )
 }
 

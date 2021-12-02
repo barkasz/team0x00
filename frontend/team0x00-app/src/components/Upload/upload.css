@@ -8,6 +8,22 @@ div.upload {
     border-radius: 15px;
     width: -webkit-min-content;
     box-sizing: border-box;
+    position: relative;
+}
+
+div.upload.loading * {
+    opacity: 0.5;
+}
+
+div.upload.loading::after {
+    content: 'Uploading post...';
+    font-size: 22px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
 }
 
 @media screen and (max-width: 460px) {

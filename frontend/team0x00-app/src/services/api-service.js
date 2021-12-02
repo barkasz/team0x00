@@ -1,13 +1,5 @@
-import users from "./data/users";
-
-const API_URL = "http://localhost:8000/"
-const TOKEN = "asdfasdfasdf1234";
-
-const headers = {'Content-Type': 'application/json'}
-
 export class API {
     static async login(credentials) {
-        console.log(JSON.stringify(credentials));
         return fetch('/login', {
           method: 'POST',
           headers: {
@@ -22,17 +14,6 @@ export class API {
           })
     }
 
-    static async signup(credentials) {
-      return fetch(API_URL+'signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-      })
-        .then(data => data.json())
-    }
-
     static async logout() {
       return fetch('/logout', {
         method: 'POST',
@@ -44,27 +25,6 @@ export class API {
         .then(data => data.json())
     }
 
-    static async getComments(credentials) {
-        return fetch('http://localhost:8000/getcomments', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(credentials)
-        })
-          .then(data => data.json())
-    }
-
-    // static loginUser(body) {
-    //   return fetch(`http://127.0.0.1:8000/auth/`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify( body )
-    //   }).then( resp => resp.json())
-    // }
-
     static registerUser(credentials) {
       return fetch('/signup', {
         method: 'POST',
@@ -73,61 +33,6 @@ export class API {
         },
         body: JSON.stringify( credentials )
       }).then( resp => resp.json())
-    }
-
-    //Example call:
-    //API.updateProfile(profile_id, {name, sex}).then( resp => console.log(resp)).catch( error => console.log(error))
-    static updateProfile(profile_id, body) {
-        return fetch(`http://127.0.0.1:/8000/api/profile/${profile_id}/`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type' : 'application-json',
-                'Authorization' : `Token ${TOKEN}`
-            },
-            body : JSON.stringify( body )
-        }).then( resp => resp.json())
-    }
-  
-    static getAllCAFFs(token){
-      return fetch("http://127.0.0.1:8000/api/getallcaffs/", {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}` 
-        }
-      }).then( resp => resp.json())
-    }
-
-    static updateCAFF(caff_id, body, token) {
-      return fetch(`http://127.0.0.1:8000/api/caff/${caff_id}/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
-        },
-        body: JSON.stringify( body )
-      }).then( resp => resp.json())
-    }
-
-    static createCAFF(body, token) {
-      return fetch(`http://127.0.0.1:8000/api/caff/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
-        },
-        body: JSON.stringify( body )
-      }).then( resp => resp.json())
-    }
-
-    static deleteCAFF(caff_id, token) {
-      return fetch(`http://127.0.0.1:8000/api/caff/${caff_id}/`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
-        }
-      })
     }
 
     static deletePost(post) {
@@ -178,7 +83,6 @@ export class API {
     }
 
     static async changePassword(user, newpassword){
-      //alert("API call to change " + user.username + " password")
       return fetch(`/user/${user.id}/password`, {
         method: 'PUT',
         headers: {
@@ -193,26 +97,10 @@ export class API {
         })
     }
 
-    static async createUser(credentials){
-      alert("API call to create user ")
-      console.log(credentials)
-      //TODO: change fetch endpoint
-      // return fetch(`/<CREATE_USER_ENDPOINT>`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   credentials: 'same-origin',
-      //   body: JSON.stringify(credentials)
-      // })
-      //   .then(data => data.json())
-      //   .catch((error) => {
-      //     throw error;
-      //   })
-    }
 
-    static async getPosts(){
+    static async getPosts(signal){
       return fetch('/post/posts', {
+        signal: signal,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -274,27 +162,35 @@ export class API {
       })
   }
 
-  static async downloadGif(caff_id) {
-    console.log(caff_id)
+  static async downloadGif(caff_id, signal) {
       return fetch(`/download/gif/${caff_id}`, {
+        signal: signal,
         method: 'GET'
       })
       .then(res => res.blob())
       .then(blob => URL.createObjectURL(blob))
       .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('successfully aborted');
+        } else {
         throw error;
+        }
       })
   }
 
-  static async downloadCaff(caff_id) {
-    console.log(caff_id)
+  static async downloadCaff(caff_id, signal) {
       return fetch(`/download/caff/${caff_id}`, {
+        signal: signal,
         method: 'GET'
       })
       .then(res => res.blob())
       .then(blob => URL.createObjectURL(blob))
       .catch((error) => {
+        if (error.name === 'AbortError') {
+          console.log('successfully aborted');
+        } else {
         throw error;
+        }
       })
   }
 

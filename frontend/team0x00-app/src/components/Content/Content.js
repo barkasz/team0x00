@@ -4,10 +4,7 @@ import { Route, Link, useHistory } from 'react-router-dom'
 import searchIcon from '../../assets/search.svg'
 import menuIcon from '../../assets/menu.svg'
 import Upload from '../Upload/Upload'
-import _posts from '../../data/posts'
 import Users from '../Users/Users'
-import AddUser from '../AddUser/AddUser'
-import ChangePassword from '../ChangePassword/ChangePassword'
 import Explore from '../Explore/Explore'
 import Search from '../Search/Search'
 
@@ -54,20 +51,6 @@ function Content({ currentUser, ...props }){
                             <>
                                 <h1 className='mb-4'>Users</h1>
                                 <Users/>
-                            </>
-                        )}/>
-
-                        <Route exact path = "/add-user" render={() => (
-                            <>
-                                <h1 className='mb-4'>Create User</h1>
-                                <AddUser/>
-                            </>
-                        )}/>
-
-                        <Route exact path = "/change-password/:id" render={() => (
-                            <>
-                                <h1 className='mb-4'>Change Password</h1>
-                                <ChangePassword/>
                             </>
                         )}/>
                     </div>

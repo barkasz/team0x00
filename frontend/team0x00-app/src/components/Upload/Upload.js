@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { API } from '../../api-service';
+import { API } from '../../services/api-service';
 import { useHistory } from "react-router-dom";
 import './upload.css'
 
 function Upload({triggerRefresh}){
-
+    const [loading, setLoading] = useState(false)
     const [image, setImage] = useState()
     const [title, setTitle] = useState('')
     const [warning, setWarning] = useState()
@@ -18,7 +18,7 @@ function Upload({triggerRefresh}){
       };
     
     const sizeOf = function (bytes) {
-        if (bytes == 0) { return "0.00 B"; }
+        if (bytes === 0) { return "0.00 B"; }
         var e = Math.floor(Math.log(bytes) / Math.log(1024));
         return (bytes/Math.pow(1024, e)).toFixed(2)+' '+' KMGTP'.charAt(e)+'B';
     }
@@ -31,6 +31,12 @@ function Upload({triggerRefresh}){
 
     const upload = async e => {
         e.preventDefault();
+        setWarning(false)
+        if(!image) {
+            setWarning('Please select an image to upload!')
+            return
+        }
+        setLoading(true)
         const data = new FormData()
         data.append('file', image, "asdas.caff")
         try {
@@ -44,12 +50,13 @@ function Upload({triggerRefresh}){
             }
         } catch (e){
             setWarning("Server side error: " + e.message)
+            setLoading(false)
         }
     }
 
     return  (
             <form onSubmit={upload} encType="multipart/form-data">
-            <div className="upload">
+            <div className={`upload ${loading ? 'loading' : ''}`}>
                     { warning &&
                         <div className="warning">
                             <p>{warning}</p>

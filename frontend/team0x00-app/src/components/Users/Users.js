@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { API } from '../../api-service'
-import randomProfilePic from "../../data/profile_pic";
+import React, { useState, useEffect, useCallback } from 'react'
+import { API } from '../../services/api-service'
+import randomProfilePic from "../../services/profile_pic";
 import defaultProfilePic from "../../assets/default-user.png"
-import { Link } from "react-router-dom";
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/trash.svg'
 import adminIcon from '../../assets/admin.svg'
 import Popup from '../Popup/Popup';
-import Popup_ChangePassword from '../Popup/Popup_ChangePassword';
-import Popup_CreateUser from '../Popup/Popup_CreateUser';
+import PopupChangePassword from '../Popup/PopupChangePassword';
+import PopupCreateUser from '../Popup/PopupCreateUser';
 
 function Users(){
     const [deletePopup, setDeletePopup] = useState(false)
@@ -41,21 +40,20 @@ function Users(){
 
     const handleChangePasswordPopup = async (resp, newpw) =>{
         if(resp) {
-            const changepassword_response = await API.changePassword(userToEdit, newpw)
-            console.log(changepassword_response)
+            await API.changePassword(userToEdit, newpw)
         }
         setChangePasswordPopup(false)
     }
 
     const handleCreateUserPopup = async (resp, user_credentials) =>{
         if(resp) {
-            const create_user_response = await API.registerUser(user_credentials)
+            await API.registerUser(user_credentials)
             fetchUsers()
         }
         setCreateUserPopup(false)
     }
 
-    async function fetchUsers(){
+    const fetchUsers = useCallback( async () => {
         const res = await API.getAllUsers() 
         setUsers(res)
         if (res instanceof Array) {
@@ -64,7 +62,7 @@ function Users(){
             setFetchError(true)
         }
         console.log(res)
-    }
+    }, [setFetchError])
 
     useEffect(() => {
         try {
@@ -72,7 +70,7 @@ function Users(){
         } catch (e) {
             setFetchError(true)
         }
-    }, [])
+    }, [fetchUsers, setFetchError])
 
     return (
         <>
@@ -89,24 +87,23 @@ function Users(){
             /> 
         }
         {changePasswordPopup && 
-            <Popup_ChangePassword title={"Change password"} 
+            <PopupChangePassword title={"Change password"} 
                 text={"Are you sure you want to change password?"} 
                 handleClose={handleChangePasswordPopup}
             /> 
         }
         {createUserPopup && 
-            <Popup_CreateUser title={"Create user"} 
+            <PopupCreateUser title={"Create user"} 
                 text={"Enter new user info:"} 
                 handleClose={handleCreateUserPopup}
             /> 
         }
-
-        {/* <Link to='/add-user' className='btn btn-primary mb-3' style={{ width: 'fit-content'}}>Create User</Link> */}
         <div className='btn btn-primary mb-3' style={{ width: 'fit-content'}}  onClick={() => {setCreateUserPopup(true);}}>Create User</div>
-
+        
+        { fetchError && <p>Could not fetch users at the moment.</p>}
          {
            users?.map(user => (
-            <div className="author-bar mb-3">
+            <div key={user} className="author-bar mb-3">
                 <div className="profile profile-medium">
                     <img src={randomProfilePic()} onError={(e)=>{e.target.onerror = null; e.target.src=defaultProfilePic}} alt="Profile pic" />
                 </div>
