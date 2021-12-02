@@ -15,37 +15,43 @@ function Users(){
     const [users, setUsers] = useState([])
     const [fetchError, setFetchError] = useState(false) 
 
-    const handleDeleteUserPopup = (resp) =>{
+    const handleDeleteUserPopup = async (resp) =>{
         if(resp) {
-            API.deleteUser(userToEdit)
+            const delete_response = await API.deleteUser(userToEdit)
+            if (delete_response["status"] === 'USER_SUCCESSFULLY_DELETED'){
+                fetchUsers()
+            }
         }
         setDeletePopup(false)
     }
 
-    const handleAdminPopup = (resp) =>{
+    const handleAdminPopup = async (resp) =>{
         if(resp) {
-            API.setAsAdmin(userToEdit)
+            const setasadmin_response = await API.setAsAdmin(userToEdit)
+            if (setasadmin_response["status"] === 'PERMISSION_GRANTED'){
+                fetchUsers()
+            }
         }
         setAdminPopup(false)
     }
 
-    useEffect(() => {
-        async function fetchUsers(){
-            const res = await API.getAllUsers() 
-            setUsers(res)
-            if (res instanceof Array) {
-                setFetchError(false)
-            } else {
-                setFetchError(true)
-            }
-            console.log(res)
+    async function fetchUsers(){
+        const res = await API.getAllUsers() 
+        setUsers(res)
+        if (res instanceof Array) {
+            setFetchError(false)
+        } else {
+            setFetchError(true)
         }
+        console.log(res)
+    }
+
+    useEffect(() => {
         try {
             fetchUsers()
         } catch (e) {
             setFetchError(true)
         }
-        
     }, [])
 
     return (
@@ -86,7 +92,7 @@ function Users(){
                         </div>
                         </Link>
                         
-                        <div className="action-button" onClick={() => setDeletePopup(true)}>
+                        <div className="action-button" onClick={() => {setDeletePopup(true);  setUserToEdit(user); }}>
                             <img src={deleteIcon} alt="" className='icon'/>
                         </div>
                 </div>

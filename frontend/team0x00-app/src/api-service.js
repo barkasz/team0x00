@@ -151,8 +151,7 @@ export class API {
     }
 
     static async setAsAdmin(user){
-      // TODO
-      alert("API call to make" + user.username + " admin. userID:"  + user.id )
+      alert("API call to make" + user.username + " admin. userID:")
       return fetch(`/user/${user.id}/role/admin`, {
         method: 'PUT',
         headers: {
@@ -167,8 +166,16 @@ export class API {
 
     }
 
-    static deleteUser(user) {
+    static async deleteUser(user) {
       alert("API call to delete " + user.username +".")
+      return fetch(`/user/${user.id}`, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+      })
+        .then(data => data.json())
+        .catch((error) => {
+          throw error;
+        })
     }
 
     static async getPosts(){
