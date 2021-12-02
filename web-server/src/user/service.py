@@ -1,5 +1,6 @@
 from user import userdb
 from user import exceptions
+from user.roles import Role
 
 
 def get_users():
