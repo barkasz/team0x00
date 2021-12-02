@@ -31,15 +31,32 @@ def read_posts_ids():
                     mimetype='application/json')
 
 
+@post_bp.route("/post/search", methods=["GET"])
+def search_by_title():
+    if "title" not in request.args.keys():
+        return jsonify(responses['INFORMATION_MISSING']), 400
+
+    title = str(request.args.get("title"))
+
+    try:
+        posts = service.search_by_title(title)
+    except exceptions.PostsException:
+        return jsonify(responses['NO_MATCHING_RESULTS']), 400
+
+    return Response(response=JSONEncoder().encode(posts),
+                    status=200,
+                    mimetype='application/json')
+
+
 @post_bp.route("/post/posts", methods=["GET"])
 @auth_api.login_required
 def read_posts():
     try:
-        post_ids = service.read_posts_by_date()
+        posts = service.read_posts_by_date()
     except exceptions.NoMatchingResultsException:
         return jsonify(responses['NO_MATCHING_RESULTS']), 400
 
-    return Response(response=JSONEncoder().encode(post_ids),
+    return Response(response=JSONEncoder().encode(posts),
                     status=200,
                     mimetype='application/json')
 

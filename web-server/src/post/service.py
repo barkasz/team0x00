@@ -13,6 +13,10 @@ def read_posts_by_date():
     return postdb.read_posts_by_date()
 
 
+def search_by_title(title):
+    return postdb.search_posts_by_title(title)
+
+
 def create_post(raw_post):
     username = auth_api.get_username()
     raw_post = populate_post(raw_post, username)
