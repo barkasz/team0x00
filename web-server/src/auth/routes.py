@@ -62,7 +62,7 @@ def signup():
     try:
         result = service.signup(signup_data)
     except exceptions.UsernameAlreadyExistsException:
-        return jsonify(responses["ALREADY_LOGGED_IN"]), 400
+        return jsonify(responses["USERNAME_ALREADY_EXIST"]), 400
     except exceptions.AuthException:
         return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
