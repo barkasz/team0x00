@@ -7,10 +7,12 @@ import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/trash.svg'
 import adminIcon from '../../assets/admin.svg'
 import Popup from '../Popup/Popup';
+import Popup_ChangePassword from '../Popup/Popup_ChangePassword';
 
 function Users(){
     const [deletePopup, setDeletePopup] = useState(false)
     const [adminPopup, setAdminPopup] = useState(false)
+    const [changePasswordPopup, setChangePasswordPopup] = useState(false)
     const [userToEdit, setUserToEdit] = useState(null)
     const [users, setUsers] = useState([])
     const [fetchError, setFetchError] = useState(false) 
@@ -33,6 +35,14 @@ function Users(){
             }
         }
         setAdminPopup(false)
+    }
+
+    const handleChangePasswordPopup = async (resp, newpw) =>{
+        if(resp) {
+            const changepassword_response = await API.changePassword(userToEdit, newpw)
+            console.log(changepassword_response)
+        }
+        setChangePasswordPopup(false)
     }
 
     async function fetchUsers(){
@@ -68,6 +78,12 @@ function Users(){
                 handleClose={handleAdminPopup}
             /> 
         }
+        {changePasswordPopup && 
+            <Popup_ChangePassword title={"Change password"} 
+                text={"Are you sure you want to change password?"} 
+                handleClose={handleChangePasswordPopup}
+            /> 
+        }
 
         <Link to='/add-user' className='btn btn-primary mb-3' style={{ width: 'fit-content'}}>Create User</Link>
 
@@ -86,11 +102,10 @@ function Users(){
                                 <img src={adminIcon} alt="" className='icon'/>
                             </div>
                         }
-                        <Link to={`/change-password/${user?.username}`}>
-                        <div className="action-button">
+
+                        <div className="action-button"  onClick={() => { setChangePasswordPopup(true); setUserToEdit(user); }}>
                             <img src={editIcon} alt="" className='icon' />
                         </div>
-                        </Link>
                         
                         <div className="action-button" onClick={() => {setDeletePopup(true);  setUserToEdit(user); }}>
                             <img src={deleteIcon} alt="" className='icon'/>

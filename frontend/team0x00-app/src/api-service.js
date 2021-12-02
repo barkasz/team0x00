@@ -151,7 +151,7 @@ export class API {
     }
 
     static async setAsAdmin(user){
-      alert("API call to make" + user.username + " admin. userID:")
+      //alert("API call to make" + user.username + " admin.")
       return fetch(`/user/${user.id}/role/admin`, {
         method: 'PUT',
         headers: {
@@ -163,14 +163,30 @@ export class API {
         .catch((error) => {
           throw error;
         })
-
     }
 
     static async deleteUser(user) {
-      alert("API call to delete " + user.username +".")
+      //alert("API call to delete " + user.username +".")
       return fetch(`/user/${user.id}`, {
         method: 'DELETE',
         credentials: 'same-origin',
+      })
+        .then(data => data.json())
+        .catch((error) => {
+          throw error;
+        })
+    }
+
+    static async changePassword(user, newpassword){
+      console.log({"password":newpassword})
+      //alert("API call to change " + user.username + " password")
+      return fetch(`/user/${user.id}/password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({"password":newpassword})
       })
         .then(data => data.json())
         .catch((error) => {
