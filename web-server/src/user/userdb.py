@@ -30,7 +30,6 @@ def select_users():
 
     for user in users:
         user.pop("password")
-        user.pop("role")
 
     return users
 

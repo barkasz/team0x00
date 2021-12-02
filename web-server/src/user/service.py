@@ -4,8 +4,11 @@ from user.roles import Role
 
 
 def get_users():
-    return userdb.select_users()
+    users = userdb.select_users()
+    for user in users:
+        user["admin"] = True if Role(user.pop("role")) is Role.ADMIN else False
 
+    return users
 
 def delete_user(user_id):
     userdb.select_user_by_id(user_id=user_id)
