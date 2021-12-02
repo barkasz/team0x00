@@ -227,6 +227,7 @@ public:
 			
 		} catch (const std::exception& e) {
 			LOG_ERROR(log) << "Caff parsing failed!: " << e.what() << std::endl;
+            exit(1);
 		}
 		
 		return caff;

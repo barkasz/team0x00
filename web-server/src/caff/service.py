@@ -40,12 +40,16 @@ def upload(caff_image):
     program = "third_party/converter"
     args = filesysname_caff + " " + filesysname_gif
     cmd = program + " " + args
+    result = None
     try:
         result = subprocess.run([cmd], check=True, shell=True)
     except subprocess.CalledProcessError:
         print("Error while converting caff to gif...")
-        print("returncode: {}".format(result.returncode))
-        print(result.stderr)
+        if result:
+            print("converter error, exit code: {}".format(result.returncode))
+            print(result.stderr)
+        else:
+            print("running converter failed...")
         return None
 
     # save filenames to database
