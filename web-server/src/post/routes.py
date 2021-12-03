@@ -53,8 +53,8 @@ def search_by_title():
 def read_posts():
     try:
         posts = service.read_posts_by_date()
-    except exceptions.NoMatchingResultsException:
-        return jsonify(responses['NO_MATCHING_RESULTS']), 400
+    except exceptions.PostsException:
+        return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
     return Response(response=JSONEncoder().encode(posts),
                     status=200,

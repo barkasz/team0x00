@@ -56,7 +56,7 @@ def read_posts_by_date():
         raise exceptions.ReadPostException
 
     if not result:
-        raise exceptions.NoMatchingResultsException
+        result = {}
 
     return result
 
