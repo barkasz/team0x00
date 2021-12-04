@@ -105,6 +105,7 @@ public:
 
 
         // header_size
+        // mininm header_size is 38
         header_size = readData<int64_t>(ciff, readPos);
         LOG_DEBUG(log) << "header: " << header_size << endl;
         if (header_size > file_length) {

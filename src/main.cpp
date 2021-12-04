@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
     cpplog::StdErrLogger log;
     if (argc != 3) {
-        LOG_ERROR(log) << "Usage: ./parser <input filename> <output filename>" << std::endl;
+        LOG_ERROR(log) << "Usage: ./converter <input filename> <output filename>" << std::endl;
         return 1;
     }
     LOG_INFO(log) << "Parser started" << std::endl;
