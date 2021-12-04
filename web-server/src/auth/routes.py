@@ -9,7 +9,7 @@ import json
 
 from auth import service
 from auth import exceptions
-from auth.internal_api import login_required, authorize
+from auth.internal_api import get_username, login_required, authorize
 from responses import get_response_codes
 
 
@@ -25,6 +25,8 @@ def login():
     username = request.json["username"]
     password = request.json["password"]
 
+    app.logger.info(f"Login request with username: {username}")
+
     try:
         user = service.login(username=username,
                              password=password,
@@ -36,6 +38,8 @@ def login():
     except exceptions.AuthException:
         return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
+    app.logger.info(f"User successfully logged in with username: {username}")
+
     return Response(response=json.dumps(user),
                     status=200,
                     mimetype="application/json")
@@ -44,7 +48,11 @@ def login():
 @auth_bp.route("/logout", methods=["POST"])
 @login_required
 def logout():
+    username = get_username()
+    app.logger.info(f"User trying to log out with username: {username}")
+
     service.logout(session=session)
+    app.logger.info(f"User successfully logged out with username: {username}")
 
     return jsonify(responses["SUCCESFULLY_LOGGED_OUT"]), 200
 
@@ -53,6 +61,8 @@ def logout():
 def signup():
     if request.json is None:
         return jsonify(responses["INFORMATION_MISSING"]), 400
+
+    app.logger.info(f"New user trying to sign up with username: {username}")
 
     signup_data = {
         "username": str(request.json['username']),
@@ -65,6 +75,8 @@ def signup():
         return jsonify(responses["USERNAME_ALREADY_EXIST"]), 400
     except exceptions.AuthException:
         return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
+
+    app.logger.info(f"New user successfully signied up with username: {username}")
 
     return jsonify(responses["SIGNED_UP_SUCCESFULLY"]), 200
 
