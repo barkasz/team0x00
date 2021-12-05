@@ -10,11 +10,6 @@
             "status": "USERNAME_ALREADY_EXIST",
             "message": "This username is already taken"
         },
-        "USER_NOT_EXISTS":{
-            "statuscode": 7,
-            "status": "USER_NOT_EXISTS",
-            "message": "User not exists!"
-        },
         "ALREADY_LOGGED_IN": {
             "statuscode": 4,
             "status": "ALREADY_LOGGED_IN",
@@ -39,6 +34,28 @@
             "statuscode": 7,
             "status": "LOGIN_REQUIRED",
             "message": "Login required, you must log in!"
+        }
+    },
+    "user": {
+        "USER_DELETION_FAILED":{
+            "statuscode": 7,
+            "status": "USER_DELETION_FAILED",
+            "message": "User deletion failed!"
+        },
+        "PASSWORD_CHANGE_FAILED":{
+            "statuscode": 7,
+            "status": "PASSWORD_CHANGE_FAILED",
+            "message": "Password change request failed!"
+        },
+        "PASSWORD_SUCCESSFULLY_CHANGED":{
+            "statuscode": 7,
+            "status": "PASSWORD_SUCCESSFULLY_CHANGED",
+            "message": "Password change was successfull!"
+        },
+        "USER_SUCCESSFULLY_DELETED":{
+            "statuscode": 7,
+            "status": "USER_SUCCESSFULLY_DELETED",
+            "message": "User succesfully deleted!"
         },
         "PERMISSION_GRANT_FAILED":{
             "statuscode": 7,
@@ -128,6 +145,33 @@
             "message": "No matching results"
         }
     },
+    "caff": {
+        "FILE_ACCESS_ERROR": {
+            "statuscode": 9,
+            "status": "FILE_ACCESS_ERROR",
+            "message": "Error while accessing the file"
+        },
+        "FILE_MISSING_REQUEST": {
+            "statuscode": 10,
+            "status": "FILE_MISSING_REQUEST",
+            "message": "File is missing from the request"
+        },
+        "GIF_ERROR": {
+            "statuscode": 10,
+            "status": "GIF_ERROR",
+            "message": "Error while creating dif"
+        },
+        "FILE_MISSING": {
+            "statuscode": 11,
+            "status": "FILE_MISSING",
+            "message": "File is missing from the server"
+        },
+        "FILE_DELETE_ERROR": {
+            "statuscode": 12,
+            "status": "FILE_DELETE_ERROR",
+            "message": "Error while deleting the file"
+        }
+    },
     "common": {
         "INFORMATION_MISSING": {
             "statuscode": 7,
@@ -138,6 +182,16 @@
             "statuscode": 8,
             "status": "INTERNAL_SERVER_ERROR",
             "message": "Something went wrong during request execution!"
+        },
+        "INVALID_ENDPOINT": {
+            "statuscode": 8,
+            "status": "INVALID_ENDPOINT",
+            "message": "Invalid endpoint name!"
+        },
+        "USER_NOT_EXISTS":{
+            "statuscode": 7,
+            "status": "USER_NOT_EXISTS",
+            "message": "User not exists!"
         }
     }
 }

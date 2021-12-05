@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 from post import postdb
 from post import exceptions
 from auth import internal_api as auth_api
@@ -8,6 +7,14 @@ from auth import internal_api as auth_api
 
 def read_post_ids_by_date():
     return postdb.read_post_ids_by_date()
+
+
+def read_posts_by_date():
+    return postdb.read_posts_by_date()
+
+
+def search_by_title(title):
+    return postdb.search_posts_by_title(title)
 
 
 def create_post(raw_post):

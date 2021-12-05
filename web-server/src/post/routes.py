@@ -8,7 +8,7 @@ import json
 
 from responses import get_response_codes
 from auth import internal_api as auth_api
-from auth.roles import Role
+from user.roles import Role
 from post.json_encoder import JSONEncoder
 from post import service
 from post import exceptions
@@ -18,15 +18,45 @@ post_bp = Blueprint("post_bp", __name__)
 responses = get_response_codes("post")
 
 
-@post_bp.route("/post/all", methods=["GET"])
+@post_bp.route("/post/posts/id", methods=["GET"])
 @auth_api.login_required
-def read_posts():
+def read_posts_ids():
     try:
         post_ids = service.read_post_ids_by_date()
     except exceptions.NoMatchingResultsException:
         return jsonify(responses['NO_MATCHING_RESULTS']), 400
 
     return Response(response=JSONEncoder().encode(post_ids),
+                    status=200,
+                    mimetype='application/json')
+
+
+@post_bp.route("/post/search", methods=["GET"])
+def search_by_title():
+    if "title" not in request.args.keys():
+        return jsonify(responses['INFORMATION_MISSING']), 400
+
+    title = str(request.args.get("title"))
+
+    try:
+        posts = service.search_by_title(title)
+    except exceptions.PostsException:
+        return jsonify(responses['NO_MATCHING_RESULTS']), 400
+
+    return Response(response=JSONEncoder().encode(posts),
+                    status=200,
+                    mimetype='application/json')
+
+
+@post_bp.route("/post/posts", methods=["GET"])
+@auth_api.login_required
+def read_posts():
+    try:
+        posts = service.read_posts_by_date()
+    except exceptions.PostsException:
+        return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
+
+    return Response(response=JSONEncoder().encode(posts),
                     status=200,
                     mimetype='application/json')
 
@@ -142,7 +172,7 @@ def create_reply(post_id, comment_id):
 def delete_reply(post_id, comment_id, reply_id):
     try:
         service.delete_reply(post_id, comment_id, reply_id)
-    except DeleteReplyException:
+    except exceptions.DeleteReplyException:
         return jsonify(responses['REPLY_DELETION_FAILED']), 400
 
     return jsonify(responses['REPLY_SUCCESFULLY_DELETED']), 200

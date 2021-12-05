@@ -2,8 +2,8 @@ from app import app
 import sqlite3
 from contextlib import contextmanager
 from collections import namedtuple
+import bcrypt
 
-from auth.roles import Role
 from auth import exceptions
 
 
@@ -18,7 +18,7 @@ def insert_user(user):
                          "(username, password, role) VALUES (?, ?, ?)")
 
     username = user['username']
-    password = user['password']
+    password = hash_password(user['password'])
     role = user['role']
 
     try:
@@ -67,34 +67,27 @@ def select_user_by_id(user_id):
     return user
 
 
-def select_user(username, password):
-    select_user_query = ("SELECT * FROM users WHERE username=? and password=?")
+def select_user(username, password_to_be_checked):
+    select_user_query = ("SELECT * FROM users WHERE username=?")
 
     try:
         with connect_to_db() as connection:
-            connection.cursor.execute(select_user_query, (username, password))
+            connection.cursor.execute(select_user_query, (username,))
             user = connection.cursor.fetchone()
     except sqlite3.Error:
         raise exceptions.AuthException
 
     user = dict(user) if user else None
-    if user is not None:
-        user.pop("password")
-    else:
+
+    if user is None:
+        raise exceptions.InvalidCredentialsException
+
+    password = user.pop("password")
+
+    if not bcrypt.checkpw(password_to_be_checked.encode(), password):
         raise exceptions.InvalidCredentialsException
 
     return user
-
-
-def update_role(user_id, role):
-    update_query = ("UPDATE users SET role=? WHERE id=?")
-
-    try:
-        with connect_to_db() as connection:
-            connection.cursor.execute(update_query, (role, user_id))
-            connection.db.commit()
-    except sqlite3.Error:
-        raise exceptions.AuthException
 
 
 @contextmanager
@@ -107,4 +100,10 @@ def connect_to_db():
     finally:
         cursor.close()
         db.close()
+
+
+def hash_password(password: str):
+    password = password.encode()
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password, salt)
 

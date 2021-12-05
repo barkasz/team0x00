@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"akos\",\n    \"password\": \"akos\"\n}",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -93,7 +93,7 @@
 			"name": "post",
 			"item": [
 				{
-					"name": "create_post",
+					"name": "create post",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -120,7 +120,7 @@
 					"response": []
 				},
 				{
-					"name": "create_comment",
+					"name": "create comment",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -134,46 +134,46 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"raw": "localhost:5000/post/61a76890c075da025a937a03",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a659035c5901319277d8e3"
+								"61a76890c075da025a937a03"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "read_post",
+					"name": "read post",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
+							"raw": "localhost:5000/post/61a76890c075da025a937a03",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"61a659035c5901319277d8e3"
+								"61a76890c075da025a937a03"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "create_reply",
+					"name": "create reply",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"This is just a random reply\"\n}",
+							"raw": "{\n    \"content\": \"This is just a random reply\",\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -181,6 +181,45 @@
 							}
 						},
 						"url": {
+							"raw": "localhost:5000/post/61a6a39e67f4a30ab701921d/61a6a3ab67f4a30ab701921e",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a6a39e67f4a30ab701921d",
+								"61a6a3ab67f4a30ab701921e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/61a6a5da67f4a30ab7019221",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"61a6a5da67f4a30ab7019221"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
 							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965",
 							"host": [
 								"localhost"
@@ -196,46 +235,7 @@
 					"response": []
 				},
 				{
-					"name": "delete_post",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/post/61a659035c5901319277d8e3",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"post",
-								"61a659035c5901319277d8e3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete_comment",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/post/61a65477c3e88bbdf4f04964/61a6552fc3e88bbdf4f04965",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"post",
-								"61a65477c3e88bbdf4f04964",
-								"61a6552fc3e88bbdf4f04965"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete_reply",
+					"name": "delete reply",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -256,19 +256,245 @@
 					"response": []
 				},
 				{
-					"name": "read_post_ids_by_date",
+					"name": "read post ids by date",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/post/all",
+							"raw": "localhost:5000/post/posts/id",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"post",
-								"all"
+								"posts",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read posts by date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/post/search?title=T",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "T"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"pwd\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/user/4/password",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"4",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grant admin permission",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/user/1/role/admin",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"1",
+								"role",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "caff",
+			"item": [
+				{
+					"name": "upload",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/akos/GIT/team0x00/web-server/res/1.caff"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/upload",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/download/gif/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"download",
+								"gif",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/delete/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"delete",
+								"1"
 							]
 						}
 					},
