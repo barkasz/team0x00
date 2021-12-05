@@ -159,7 +159,7 @@
         "GIF_ERROR": {
             "statuscode": 10,
             "status": "GIF_ERROR",
-            "message": "Error while creating dif"
+            "message": "Error while creating gif"
         },
         "FILE_MISSING": {
             "statuscode": 11,
