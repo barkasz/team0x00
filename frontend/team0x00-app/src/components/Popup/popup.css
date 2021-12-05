@@ -1,0 +1,38 @@
+div.popup-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #00000015;
+    z-index: 99;
+}
+
+div.popup {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto auto;
+    background: white;
+    z-index: 99;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    height: fit-content;
+    width: fit-content;
+    padding: 20px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    width: 300px;
+    max-width: 90%;
+    box-sizing: border-box;
+}
+
+div.popup * {
+    max-width: 100%;
+}
+
+div.popup .btn {
+    display: inline-block;
+}

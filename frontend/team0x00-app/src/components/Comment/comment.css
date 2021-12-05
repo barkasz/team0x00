@@ -1,0 +1,15 @@
+div.comment * {
+    flex-shrink: 0;
+}
+
+div.comment img {
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align:top
+}
+
+div.comment p {
+    word-wrap: break-word;
+    width: 80%;
+    display: inline-block;
+}

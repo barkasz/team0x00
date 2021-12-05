@@ -1,0 +1,104 @@
+div.upload {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    background: #F5F5F5;
+    border-radius: 15px;
+    width: -webkit-min-content;
+    box-sizing: border-box;
+    position: relative;
+}
+
+div.upload.loading * {
+    opacity: 0.5;
+}
+
+div.upload.loading::after {
+    content: 'Uploading post...';
+    font-size: 22px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 460px) {
+    div.upload {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    div.selector {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    div.upload-form-elements {
+        max-width: 100%;
+    }
+}
+
+div.selector {
+    width: 360px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #F5F5F5;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+div.selector h3 {
+    padding: 30px
+}
+
+div.selector.bordered {
+    border: 2px dashed #d8d8d8;
+    min-height: 300px;
+}
+
+div.selector:hover {
+    cursor: pointer;
+}
+
+div.selector img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+div.upload-form-elements {
+    width: -webkit-min-content;
+}
+
+div.upload-form-elements input {
+    max-width: 100%;
+    background: white;
+}
+
+div.file {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    max-width: 200px;
+    word-break: break-all;
+    flex-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.file h3 {
+    margin: 0;
+    padding: 10px;
+}
