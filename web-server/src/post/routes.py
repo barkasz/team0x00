@@ -172,7 +172,7 @@ def create_reply(post_id, comment_id):
 def delete_reply(post_id, comment_id, reply_id):
     try:
         service.delete_reply(post_id, comment_id, reply_id)
-    except DeleteReplyException:
+    except exceptions.DeleteReplyException:
         return jsonify(responses['REPLY_DELETION_FAILED']), 400
 
     return jsonify(responses['REPLY_SUCCESFULLY_DELETED']), 200

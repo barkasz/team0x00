@@ -48,11 +48,10 @@ def login():
 @auth_bp.route("/logout", methods=["POST"])
 @login_required
 def logout():
-    username = get_username()
-    app.logger.info(f"User trying to log out with username: {username}")
+    app.logger.info(f"User trying to log out with username: {get_username()}")
 
     service.logout(session=session)
-    app.logger.info(f"User successfully logged out with username: {username}")
+    app.logger.info(f"User successfully logged out with username: {get_username()}")
 
     return jsonify(responses["SUCCESFULLY_LOGGED_OUT"]), 200
 
@@ -62,7 +61,7 @@ def signup():
     if request.json is None:
         return jsonify(responses["INFORMATION_MISSING"]), 400
 
-    app.logger.info(f"New user trying to sign up with username: {username}")
+    app.logger.info(f"New user trying to sign up with username: {get_username()}")
 
     signup_data = {
         "username": str(request.json['username']),
@@ -70,13 +69,13 @@ def signup():
     }
 
     try:
-        result = service.signup(signup_data)
+        service.signup(signup_data)
     except exceptions.UsernameAlreadyExistsException:
         return jsonify(responses["USERNAME_ALREADY_EXIST"]), 400
     except exceptions.AuthException:
         return jsonify(responses["INTERNAL_SERVER_ERROR"]), 400
 
-    app.logger.info(f"New user successfully signied up with username: {username}")
+    app.logger.info(f"New user successfully signied up with username: {get_username()}")
 
     return jsonify(responses["SIGNED_UP_SUCCESFULLY"]), 200
 

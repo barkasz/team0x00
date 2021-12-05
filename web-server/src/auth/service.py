@@ -4,10 +4,6 @@ from user.roles import Role
 
 
 def login(username, password, session):
-    # TODO: Temporarly removed
-    # if(session.get("logged_in")):
-    #    raise exceptions.AlreadyLoggedInException
-
     user = userdb.select_user(username, password)
 
     if not user:
