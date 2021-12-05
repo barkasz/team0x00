@@ -76,7 +76,7 @@ function Upload({triggerRefresh}){
                     <div className="upload-form-elements">
                         <h3 className='mt-0 mb-2'>Set image title</h3>
                         <input type="text" required minLength="3" placeholder="Title" onChange={e => setTitle(e.target.value)}/>
-                        <button type='submit' className='btn btn-primary mt-1'>Upload</button>
+                        <button type='submit' className='btn btn-primary mt-1' id="Upload">Upload</button>
                     </div>
             </div>
             </form>
