@@ -48,6 +48,15 @@ function Upload({triggerRefresh}){
                     history.push('/')
                 }
             }
+            else {
+                if (caffResp.message){
+                    setWarning(caffResp.message)
+                }
+                else {
+                    setWarning("Error in upload")
+                }
+                setLoading(false)
+            }
         } catch (e){
             setWarning("Server side error: " + e.message)
             setLoading(false)
